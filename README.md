@@ -1,5 +1,5 @@
 # [jumbocode.org](https://jumbocode.org/)
-New JumboCode website for 2021 and beyond!
+New JumboCode website for 2022 and beyond!
 
 ## Dev environment setup
 1. Install the latest Node version
