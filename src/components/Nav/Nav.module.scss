@@ -1,0 +1,40 @@
+@use 'styles/utils';
+
+.base {
+  display: flex;
+  justify-content: space-between;
+
+  background: utils.$color-deep-black;
+
+  padding: 0 2rem;
+  box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.15);
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+
+    svg {
+      width: 1.5rem;
+      height: auto;
+      margin-right: 0.25rem;
+    }
+
+    span > span {
+      color: utils.$color-green;
+    }
+  }
+
+  ul {
+    display: flex;
+    align-items: center;
+    gap: 3ch;
+    font-weight: 600;
+  }
+}

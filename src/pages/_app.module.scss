@@ -1,0 +1,14 @@
+$nav-height: 4rem;
+
+.base {
+  padding-top: $nav-height;
+}
+
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  width: 100%;
+  height: $nav-height;
+}

@@ -2,8 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import 'styles/global/base.scss';
 
+import Nav from 'components/Nav';
+
+import classNames from 'classnames/bind';
+import styles from './_app.module.scss';
+const cx = classNames.bind(styles);
+
 export default function AppContainer({ Component, pageProps }) {
-  return <Component {...pageProps} />;
+  return (
+    <div className={cx('base')}>
+      <Nav className={cx('nav')} />
+      <Component {...pageProps} />
+    </div>
+  );
 }
 
 AppContainer.propTypes = {
