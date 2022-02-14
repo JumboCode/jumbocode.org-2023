@@ -1,3 +1,10 @@
 @use './reset';
 @use './typography-imports';
 @use './typography';
+
+@use 'styles/utils';
+
+body {
+  background: utils.$color-deep-black;
+  color: white;
+}
