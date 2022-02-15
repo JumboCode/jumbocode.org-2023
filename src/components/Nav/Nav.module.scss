@@ -19,11 +19,13 @@
     align-items: center;
     justify-content: center;
     font-weight: 600;
+    font-size: 1.1rem;
 
     svg {
       width: 1.5rem;
       height: auto;
       margin-right: 0.25rem;
+      margin-left: -0.25rem;
     }
 
     span > span {
@@ -35,6 +37,7 @@
     display: flex;
     align-items: center;
     gap: 3ch;
-    font-weight: 600;
+    font-weight: 500;
+    font-size: 1rem;
   }
 }
