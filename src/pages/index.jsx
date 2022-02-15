@@ -3,13 +3,13 @@ import React from 'react';
 export default function Home() {
   return (
     <>
-      <h1>Hello, World!</h1>
-      <h2>Hello, World!</h2>
-      <h3>Hello, World!</h3>
-      <h4>Hello, World!</h4>
-      <h5>Hello, World!</h5>
-      <h6>Hello, World!</h6>
-      <p>Hello, World!</p>
+      <h1>Heading 1</h1>
+      <h2>Heading 2</h2>
+      <h3>Heading 3</h3>
+      <h4>Heading 4</h4>
+      <h5>Heading 5</h5>
+      <h6>Heading 6</h6>
+      <p>Paragraph</p>
       <p style={{ marginTop: '0.5em' }}>
         The sun was shining on the sea,
         <br />
