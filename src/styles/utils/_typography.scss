@@ -1,8 +1,49 @@
+@use 'sass:math';
 @use "./fonts";
 
-@mixin body {
-  @include fonts.body;
+$relative-base: 18px; // Assume 1rem is approximately equal to 18px
+@function rem($size) {
+  @return math.div($size, $relative-base) * 1rem;
+}
+
+@mixin h1 {
+  @include fonts.inter;
+  font-weight: 800;
+  font-size: rem(48px);
+}
+@mixin h2 {
+  @include fonts.inter;
+  font-weight: 700;
+  font-size: rem(40px);
+}
+@mixin h3 {
+  @include fonts.inter;
+  font-weight: 600;
+  font-size: rem(22px);
+}
+@mixin h4 {
+  @include fonts.inter;
   font-weight: 400;
-  font-size: 1rem;
-  line-height: 1.5;
+  font-size: rem(20px);
+}
+@mixin h5 {
+  @include fonts.inter;
+  font-weight: 600;
+  font-size: rem(18px);
+}
+@mixin h6 {
+  @include fonts.inter;
+  font-weight: 700;
+  font-size: rem(14px);
+}
+
+@mixin body {
+  @include fonts.inter;
+  font-weight: 400;
+  font-size: rem($relative-base); // body gets base font size
+}
+@mixin body-2 {
+  @include fonts.inter;
+  font-weight: 400;
+  font-size: rem(16px);
 }
