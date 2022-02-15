@@ -11,8 +11,10 @@ const cx = classNames.bind(styles);
 export default function AppContainer({ Component, pageProps }) {
   return (
     <div className={cx('base')}>
-      <Nav className={cx('nav')} />
-      <Component {...pageProps} />
+      <div className={cx('container')}>
+        <Nav className={cx('nav')} />
+        <Component {...pageProps} />
+      </div>
     </div>
   );
 }
