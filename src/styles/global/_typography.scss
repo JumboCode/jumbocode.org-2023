@@ -12,4 +12,32 @@
 
 body {
   @include utils.type-body;
+
+  * {
+    // Inter dynamic metrics (from https://rsms.me/inter/dynmetrics/)
+    // letter-spacing (em as a function of px): -0.0223 + 0.185 * e^{-0.1745 * x}
+    // letter-spacing (px as a function of px): -0.0223x + 0.185 * x * e^{-0.1745 * x}
+    // This is a piecewise linear approximation (see https://www.desmos.com/calculator/7zugljj3rd)
+
+    --inter-spacing: Max(
+      min(
+        0.1627em,
+        calc(0.133077px + 0.10596400 * (1em - 1px)),
+        calc(0.216395px + 0.06265400 * (1em - 2px)),
+        calc(0.261906px + 0.02992540 * (1em - 3px)),
+        calc(0.279009px + 0.00549976 * (1em - 4px)),
+        calc(0.275063px - 0.01244270 * (1em - 5px)),
+        calc(0.255798px - 0.02535190 * (1em - 6px)),
+        calc(0.225650px - 0.03437970 * (1em - 7px)),
+        calc(0.100930px - 0.04637040 * (1em - 10px))
+      ),
+      min(0px, max(
+        calc(-0.333147px - 0.0363502 * (1em - 20px)),
+        calc(-0.639436px - 0.0264734 * (1em - 30px)),
+        calc(-1.1135px - 0.0225322 * (1em - 50px))
+      ))
+    );
+
+    letter-spacing: var(--inter-spacing);
+  }
 }
