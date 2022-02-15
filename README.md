@@ -13,3 +13,8 @@ so that you can see lint errors and conform to the style of the project.
 ## Running the app in development
 Run `npm run dev` from the root of this project, and you should be up and running at
 [`localhost:3000`](http://localhost:3000)!
+
+## Deployment
+This is deployed to the board@jumbocode.org Vercel account. We deploy it by hand because we cannot
+connect a repository that's owned by an organization to a free account. Run `npx vercel .` to deploy
+the app, and sign in by email to the board@jumbocode.org account.
