@@ -4,3 +4,27 @@ $max-container-width: 1920px;
 @function capped-vw($vw) {
   @return min(#{$vw * 1vw}, #{$vw * $max-container-width * 0.01});
 }
+
+@mixin full-bleed {
+  margin-left: calc(var(--horizontal-padding) * -1);
+  margin-right: calc(var(--horizontal-padding) * -1);
+  padding-left: var(--horizontal-padding);
+  padding-right: var(--horizontal-padding);
+}
+
+$gap: 1rem;
+@mixin twelve-columns {
+  display: grid;
+  grid-template-columns: [content-left-edge] repeat(12, 1fr) [content-right-edge];
+  column-gap: $gap;
+  row-gap: $gap;
+}
+
+@mixin full-bleed-twelve-columns {
+  @include twelve-columns;
+  @include full-bleed;
+  grid-template-columns:
+    [page-left-edge] calc(var(--horizontal-padding) - #{$gap}) [content-left-edge]
+    repeat(12, 1fr)
+    [content-right-edge] calc(var(--horizontal-padding) - #{$gap}) [page-right-edge];
+}

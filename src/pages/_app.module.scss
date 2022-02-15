@@ -1,6 +1,7 @@
 @use 'styles/utils';
 
 $nav-height: 4rem;
+$nav-margin: 3rem;
 
 .base {
   display: flex;
@@ -11,17 +12,10 @@ $nav-height: 4rem;
   @include utils.media-smallest {
     --horizontal-padding: max(5vw, 1rem);
   }
-  padding: $nav-height + 3rem var(--horizontal-padding) 0;
 
-  // top-level sections should be full-width (i.e. in case they have background colors)
-  & > section,
-  & > footer {
-    position: relative;
-    margin-left: calc(-1 * var(--horizontal-padding));
-    margin-right: calc(-1 * var(--horizontal-padding));
-    padding-left: var(--horizontal-padding);
-    padding-right: var(--horizontal-padding);
-  }
+  --nav-height: #{$nav-height + $nav-margin};
+
+  padding: var(--nav-height) var(--horizontal-padding) 0;
 }
 
 .nav {
