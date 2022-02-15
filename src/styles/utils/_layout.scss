@@ -1,0 +1,6 @@
+$max-container-width: 1920px;
+
+// use a vw value that stops growing when the container stops growing
+@function capped-vw($vw) {
+  @return min(#{$vw * 1vw}, #{$vw * $max-container-width * 0.01});
+}

@@ -1,0 +1,49 @@
+$breakpoint-lg: 1280px;
+$breakpoint-md: 960px;
+$breakpoint-sm: 600px;
+
+/* One size */
+
+@mixin large {
+  @media screen and (min-width: #{$breakpoint-lg}) {
+    @content;
+  }
+}
+
+@mixin medium {
+  @media screen and (min-width: #{$breakpoint-md}) and (max-width: #{$breakpoint-lg - 1px}) {
+    @content;
+  }
+}
+
+@mixin small {
+  @media screen and (min-width: #{$breakpoint-sm}) and (max-width: #{$breakpoint-md - 1px}) {
+    @content;
+  }
+}
+
+@mixin smallest {
+  @media screen and (max-width: #{$breakpoint-sm - 1px}) {
+    @content;
+  }
+}
+
+/* Classes that span multiple sizes */
+
+@mixin desktop {
+  @media screen and (min-width: #{$breakpoint-md}) {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media screen and (max-width: #{$breakpoint-md - 1px}) {
+    @content;
+  }
+}
+
+@mixin not-smallest {
+  @media screen and (min-width: #{$breakpoint-sm}) {
+    @content;
+  }
+}
