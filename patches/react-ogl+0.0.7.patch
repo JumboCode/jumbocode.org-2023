@@ -1,0 +1,37 @@
+diff --git a/node_modules/react-ogl/constants.js b/node_modules/react-ogl/constants.js
+index d89c278..5cfe606 100644
+--- a/node_modules/react-ogl/constants.js
++++ b/node_modules/react-ogl/constants.js
+@@ -11,12 +11,12 @@ import * as OGL from 'ogl';
+     OGL.RenderTarget,
+     OGL.Texture,
+     // Extras
+-    OGL.Flowmap,
++    // OGL.Flowmap,
+     OGL.GPGPU,
+     OGL.NormalProgram,
+-    OGL.Polyline,
++    // OGL.Polyline,
+     OGL.Post,
+-    OGL.Shadow, 
++    // OGL.Shadow,
+ ];
+ /**
+  * React's internal props.
+diff --git a/node_modules/react-ogl/web/hooks.js b/node_modules/react-ogl/web/hooks.js
+index 0955671..a4c57a1 100644
+--- a/node_modules/react-ogl/web/hooks.js
++++ b/node_modules/react-ogl/web/hooks.js
+@@ -19,9 +19,9 @@ import { buildGraph } from '../shared/utils';
+         extensions?.(loader);
+         const result = await Promise.all(urls.map(async (url)=>{
+             // OGL's loaders don't have a consistent signature
+-            if (loader === OGL.TextureLoader) return loader.load(gl, {
+-                url
+-            });
++            // if (loader === OGL.TextureLoader) return loader.load(gl, {
++            //     url
++            // });
+             const data = await loader.load(gl, url);
+             // Cleanup GLTF and build a graph
+             if (data.scene) {

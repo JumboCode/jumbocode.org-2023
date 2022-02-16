@@ -1,0 +1,49 @@
+diff --git a/node_modules/ogl/src/index.mjs b/node_modules/ogl/src/index.mjs
+index d0831e0..f8dd38b 100644
+--- a/node_modules/ogl/src/index.mjs
++++ b/node_modules/ogl/src/index.mjs
+@@ -19,26 +19,26 @@ export { Vec3 } from './math/Vec3.js';
+ export { Vec4 } from './math/Vec4.js';
+ 
+ // Extras
+-export { Plane } from './extras/Plane.js';
++// export { Plane } from './extras/Plane.js';
+ export { Box } from './extras/Box.js';
+-export { Sphere } from './extras/Sphere.js';
+-export { Cylinder } from './extras/Cylinder.js';
+-export { Triangle } from './extras/Triangle.js';
+-export { Torus } from './extras/Torus.js';
+-export { Orbit } from './extras/Orbit.js';
++// export { Sphere } from './extras/Sphere.js';
++// export { Cylinder } from './extras/Cylinder.js';
++// export { Triangle } from './extras/Triangle.js';
++// export { Torus } from './extras/Torus.js';
++// export { Orbit } from './extras/Orbit.js';
+ export { Raycast } from './extras/Raycast.js';
+-export { Curve } from './extras/Curve.js';
++// export { Curve } from './extras/Curve.js';
+ export { Post } from './extras/Post.js';
+-export { Skin } from './extras/Skin.js';
+-export { Animation } from './extras/Animation.js';
+-export { Text } from './extras/Text.js';
++// export { Skin } from './extras/Skin.js';
++// export { Animation } from './extras/Animation.js';
++// export { Text } from './extras/Text.js';
+ export { NormalProgram } from './extras/NormalProgram.js';
+-export { Flowmap } from './extras/Flowmap.js';
++// export { Flowmap } from './extras/Flowmap.js';
+ export { GPGPU } from './extras/GPGPU.js';
+-export { Polyline } from './extras/Polyline.js';
+-export { Shadow } from './extras/Shadow.js';
+-export { KTXTexture } from './extras/KTXTexture.js';
+-export { TextureLoader } from './extras/TextureLoader.js';
+-export { GLTFLoader } from './extras/GLTFLoader.js';
+-export { GLTFSkin } from './extras/GLTFSkin.js';
+-export { BasisManager } from './extras/BasisManager.js';
++// export { Polyline } from './extras/Polyline.js';
++// export { Shadow } from './extras/Shadow.js';
++// export { KTXTexture } from './extras/KTXTexture.js';
++// export { TextureLoader } from './extras/TextureLoader.js';
++// export { GLTFLoader } from './extras/GLTFLoader.js';
++// export { GLTFSkin } from './extras/GLTFSkin.js';
++// export { BasisManager } from './extras/BasisManager.js';
