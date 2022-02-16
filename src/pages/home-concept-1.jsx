@@ -1,6 +1,10 @@
 import React, { useState, useRef } from 'react';
 import { useFrame, Canvas } from 'react-ogl/web';
 
+import classNames from 'classnames/bind';
+import styles from './home-concept-1.module.scss';
+const cx = classNames.bind(styles);
+
 function Box({ ...props }) {
   const mesh = useRef();
   const [hovered, setHover] = useState(false);
@@ -57,9 +61,11 @@ function Box({ ...props }) {
 
 export default function Homepage() {
   return (
-    <Canvas camera={{ position: [0, 0, 8] }}>
-      <Box position={[-1.2, 0, 0]} />
-      <Box position={[1.2, 0, 0]} />
-    </Canvas>
+    <div className={cx('canvas-container')}>
+      <Canvas camera={{ position: [0, 0, 8] }} renderer={{ alpha: true }}>
+        <Box position={[-1.2, 0, 0]} />
+        <Box position={[1.2, 0, 0]} />
+      </Canvas>
+    </div>
   );
 }
