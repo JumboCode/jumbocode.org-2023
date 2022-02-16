@@ -1,6 +1,7 @@
 const path = require('path');
+const withTM = require('next-transpile-modules')(['react-ogl', 'ogl']);
 
-module.exports = {
+module.exports = withTM({
   reactStrictMode: true,
   swcMinify: true,
   sassOptions: {
@@ -17,4 +18,4 @@ module.exports = {
       ],
     },
   }),
-};
+});
