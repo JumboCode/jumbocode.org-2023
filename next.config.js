@@ -1,5 +1,7 @@
 const path = require('path');
 
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+
 module.exports = {
   reactStrictMode: true,
   swcMinify: true,
@@ -7,7 +9,7 @@ module.exports = {
     includePaths: [path.join(__dirname, 'src')],
   },
 
-  webpack: (config) => ({
+  webpack: (config, { isServer }) => ({
     ...config,
     module: {
       ...config.module,
@@ -16,5 +18,15 @@ module.exports = {
         { test: /\.svg$/, use: ['@svgr/webpack'] },
       ],
     },
+    plugins: [
+      ...config.plugins,
+      ...(!isServer && process.env.ANALYZE === 'true') ? [
+        new BundleAnalyzerPlugin({
+          analyzerMode: 'static',
+          reportFilename: './analyze/client.html',
+          generateStatsFile: true,
+        }),
+      ] : [],
+    ],
   }),
 };
