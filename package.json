@@ -6,7 +6,8 @@
     "dev": "next",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint . --ext=js,jsx,cjs,mjs"
+    "lint": "eslint . --ext=js,jsx,cjs,mjs",
+    "postinstall": "patch-package"
   },
   "repository": {
     "type": "git",
@@ -34,6 +35,7 @@
     "eslint-plugin-react": "^7.28.0",
     "eslint-plugin-react-hooks": "^4.3.0",
     "next-transpile-modules": "^9.0.0",
+    "patch-package": "^6.4.7",
     "sass": "^1.49.7",
     "webpack-bundle-analyzer": "^4.5.0"
   }
