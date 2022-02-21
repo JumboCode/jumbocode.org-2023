@@ -6,7 +6,7 @@ import styles from './home-concept-1.module.scss';
 const cx = classNames.bind(styles);
 
 function PointCloud() {
-  const numPoints = 256 * 256;
+  const numPoints = 512 ** 2;
   // Set up initial positions of all points
   const positionData = useRef();
   if (!positionData.current) {
@@ -45,15 +45,18 @@ function PointCloud() {
 
           void main() {
             gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-            gl_PointSize = 3.0;
+            gl_PointSize = 5.0;
           }
         `}
         fragment={`
           precision highp float;
           void main() {
-              gl_FragColor = vec4(1., 0., 0., 1.);
+              gl_FragColor = vec4(1., 0., 0., 1.) * 0.1;
           }
         `}
+        transparent
+        depthTest={false}
+        depthWrite={false}
       />
     </mesh>
   );
@@ -63,7 +66,10 @@ function PointCloud() {
 export default function Homepage() {
   return (
     <div className={cx('canvas-container')}>
-      <Canvas camera={{ position: [0, 0, 8] }} renderer={{ alpha: true }}>
+      <Canvas
+        camera={{ position: [0, 0, 8] }}
+        renderer={{ alpha: true, autoClear: false, premultipliedAlpha: true }}
+      >
         <PointCloud />
       </Canvas>
     </div>
