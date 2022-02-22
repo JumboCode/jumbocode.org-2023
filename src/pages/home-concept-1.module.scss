@@ -1,5 +1,11 @@
 @use 'styles/utils';
 
+.base {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
 .canvas-container {
   @include utils.layout-full-bleed;
   margin-top: -3rem;
