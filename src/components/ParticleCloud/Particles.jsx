@@ -1,6 +1,9 @@
 import React, { useRef } from 'react';
 import { useOGL, useFrame } from 'react-ogl/web';
 
+import fragmentShader from './shaders/fragment.glsl';
+import vertexShader from './shaders/vertex.glsl';
+
 export default function Particles() {
   const numPoints = 512 ** 2;
   // Set up initial positions of all points
@@ -33,23 +36,9 @@ export default function Particles() {
     <mesh mode={gl.POINTS} ref={meshRef}>
       <geometry position={{ size: 3, data: positionData.current }} />
       <program
-        vertex={`
-          attribute vec3 position;
-
-          uniform mat4 modelViewMatrix;
-          uniform mat4 projectionMatrix;
-
-          void main() {
-            gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-            gl_PointSize = 8.0;
-          }
-        `}
-        fragment={`
-          precision highp float;
-          void main() {
-              gl_FragColor = vec4(1., 0., 0., 1.) * 0.1;
-          }
-        `}
+        vertex={vertexShader}
+        fragment={fragmentShader}
+        uniforms={{ pointSize: 10 }}
         transparent
         depthTest={false}
         depthWrite={false}

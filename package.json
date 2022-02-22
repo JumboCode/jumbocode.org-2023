@@ -34,8 +34,10 @@
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-react": "^7.28.0",
     "eslint-plugin-react-hooks": "^4.3.0",
+    "glslify-loader": "^2.0.0",
     "next-transpile-modules": "^9.0.0",
     "patch-package": "^6.4.7",
+    "raw-loader": "^4.0.2",
     "sass": "^1.49.7",
     "webpack-bundle-analyzer": "^4.5.0"
   }
