@@ -17,12 +17,12 @@
   "homepage": "https://jumbocode.org/",
   "dependencies": {
     "classnames": "^2.3.1",
-    "next": "^12.0.10",
-    "ogl": "^0.0.86",
+    "next": "^12.1.0",
+    "ogl": "^0.0.87",
     "prop-types": "^15.8.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-ogl": "^0.0.7"
+    "react-ogl": "^0.0.8"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.17.0",
@@ -38,7 +38,7 @@
     "next-transpile-modules": "^9.0.0",
     "patch-package": "^6.4.7",
     "raw-loader": "^4.0.2",
-    "sass": "^1.49.7",
+    "sass": "^1.49.8",
     "webpack-bundle-analyzer": "^4.5.0"
   }
 }
