@@ -1,14 +1,19 @@
-import React from "react";
+import React from 'react';
+import PropTypes from 'prop-types';
 
 import classNames from 'classnames/bind';
 import styles from './StatBlock.module.scss';
 const cx = classNames.bind(styles);
 
-export default function StatBlock(props) {
-    return (
-        <div className={classNames(cx('base'))}>
-            <p className={classNames(cx('number'))}>{props.number}</p>
-            <p>{props.description}</p>
-        </div>
-    )
+export default function StatBlock({ number, description }) {
+  return (
+    <div className={cx('base')}>
+      <p className={cx('number')}>{number}</p>
+      <p>{description}</p>
+    </div>
+  );
 }
+StatBlock.propTypes = {
+  number: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+};

@@ -1,13 +1,13 @@
 @use 'styles/utils';
 
 .base {
-    display: flex;
-    width: 20vw;
-     /* margin: 0 utils-capped-vw(5); This isn't right */
-    color: utils.$color-green;
-    text-align: left;
-    
-    .number {
-        font-size: 3em;
-    }
+  display: flex;
+  width: 20vw;
+  /* margin: 0 utils-capped-vw(5); This isn't right */
+  color: utils.$color-green;
+  text-align: left;
+
+  .number {
+    font-size: 3em;
+  }
 }

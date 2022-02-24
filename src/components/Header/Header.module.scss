@@ -1,21 +1,21 @@
 @use 'styles/utils';
 
 .base {
-    margin: auto;
+  margin: auto;
 }
 
 .stats {
-    display: flex;
-    justify-content: space-between;
-    width: 80vw;
-    margin: auto;
+  display: flex;
+  justify-content: space-between;
+  width: 80vw;
+  margin: auto;
 }
 
 .text {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    width: 60vw;
-    margin: auto;
-    text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 60vw;
+  margin: auto;
+  text-align: center;
 }
