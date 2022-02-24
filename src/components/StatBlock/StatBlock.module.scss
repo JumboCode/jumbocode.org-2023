@@ -2,12 +2,19 @@
 
 .base {
   display: flex;
-  width: 20vw;
+   width: 15vw; 
   /* margin: 0 utils-capped-vw(5); This isn't right */
   color: utils.$color-green;
   text-align: left;
+  padding-top: 5vh;
 
   .number {
     font-size: 3em;
+  }
+  
+  .description {
+      text-align: left;
+      padding-left: 1vw; 
+      margin: auto;
   }
 }
