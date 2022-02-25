@@ -2,18 +2,31 @@
 
 .base {
   display: flex;
-  justify-content: space-between;
-
+  justify-content: center;
   background: utils.$color-deep-purple;
-
+  align-items: center;
   width: 1440px;
   height: 472px;
-  left: calc(50% - 1440px / 2);
   bottom: 233px;
 
   .contact-col {
+    width: 383px;
     display: flex;
     flex-direction: column;
+  }
+  .groups {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .group {
+    width: 261px;
+    height: 184px;
+    display: flex;
+    flex-direction: column;
+    a {
+      color: utils.$color-green;
+    }
   }
 
   button {
