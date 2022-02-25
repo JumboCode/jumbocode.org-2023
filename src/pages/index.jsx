@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Meta from 'components/Meta';
+import ContactUs from 'components/ContactUs/ContactUs';
 
 export default function Home() {
   return (
@@ -247,6 +248,7 @@ export default function Home() {
         <br />
         They’d eaten every one.
       </p>
+      <ContactUs />
     </>
   );
 }

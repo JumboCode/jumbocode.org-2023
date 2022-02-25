@@ -1,0 +1,33 @@
+@use 'styles/utils';
+
+.base {
+  display: flex;
+  justify-content: space-between;
+
+  background: utils.$color-deep-purple;
+
+  width: 1440px;
+  height: 472px;
+  left: calc(50% - 1440px / 2);
+  bottom: 233px;
+
+  .contact-col {
+    display: flex;
+    flex-direction: column;
+  }
+
+  button {
+    background-color: utils.$color-green;
+    color: utils.$color-deep-black;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 9px 24px 10px;
+    width: 136px;
+    height: 42px;
+    left: 164px;
+    top: 305px;
+    border-radius: 4px;
+  }
+}
