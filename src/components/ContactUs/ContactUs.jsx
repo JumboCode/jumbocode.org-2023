@@ -1,4 +1,5 @@
 import React from 'react';
+import Arrow from '../../../public/arrow.svg';
 import classNames from 'classnames/bind';
 import styles from './ContactUs.module.scss';
 const cx = classNames.bind(styles);
@@ -16,16 +17,20 @@ export default function ContactUs() {
       </div>
       <div className={classNames(cx('groups'))}>
         <div className={classNames(cx('group'))}>
-          <img src="../../../public/Buildings.svg" alt="Buildings" />
           <h5>Organizations</h5>
           <p>Nice, enticing, and exciting description of working with us</p>
-          <a>Get in touch</a>
+          <a>
+            Get in touch
+            <Arrow />
+          </a>
         </div>
         <div className={classNames(cx('group'))}>
-          <img src="../../../public/Student.svg" alt="Student" />
           <h5>Students</h5>
           <p>Nice, enticing, and exciting description of working with us</p>
-          <a>Apply</a>
+          <a>
+            Apply
+            <Arrow />
+          </a>
         </div>
       </div>
     </div>

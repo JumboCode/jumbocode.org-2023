@@ -2,16 +2,18 @@
 
 .base {
   display: flex;
+  flex-wrap: no-wrap;
   justify-content: center;
   background: utils.$color-deep-purple;
   align-items: center;
-  width: 1440px;
   height: 472px;
-  bottom: 233px;
+  @include utils.layout-full-bleed;
+
   .contact-col {
-    width: 383px;
     display: flex;
+    gap: 28px;
     flex-direction: column;
+    align-content: space-between;
   }
   .groups {
     display: flex;
@@ -19,12 +21,13 @@
   }
 
   .group {
-    width: 261px;
-    height: 184px;
     display: flex;
+    gap: 8px;
+    padding: 77px;
     flex-direction: column;
     a {
       color: utils.$color-green;
+      display: flex;
     }
   }
 
@@ -41,5 +44,8 @@
     left: 164px;
     top: 305px;
     border-radius: 4px;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 150%;
   }
 }
