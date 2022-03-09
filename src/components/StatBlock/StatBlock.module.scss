@@ -2,19 +2,21 @@
 
 .base {
   display: flex;
-   width: 15vw; 
-  /* margin: 0 utils-capped-vw(5); This isn't right */
   
   text-align: left;
   padding-top: 5vh;
+  
+  // background-color: red;
 
   .number {
     font-size: 3em;
   }
   
   .description {
-      text-align: left;
-      padding-left: 1vw; 
-      margin: auto;
+    text-align: left;
+    padding-left: 10px; 
+    margin: auto;
+    // width: 9rem; 
+    white-space: pre-wrap;
   }
 }
