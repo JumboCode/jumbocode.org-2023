@@ -1,0 +1,28 @@
+@use 'styles/utils';
+
+.base {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background: utils.$color-deep-black;
+  @include utils.layout-full-bleed;
+
+  .heading {
+    width: 25rem;
+    text-align: center;
+  }
+  .list {
+    top: 18rem;
+    padding-left: 5rem;
+    padding-right: 5rem;
+    color: utils.$color-neutral;
+    ol {
+      h5 {
+        color: utils.$color-white;
+        padding-top: 1rem;
+        padding-bottom: 0.25rem;
+      }
+      list-style: decimal;
+    }
+  }
+}
