@@ -7,6 +7,7 @@ export default function Apply() {
     return (
         <div>
             <h2>Our Roles</h2>
+            <hr />
             <RoleLink role="Developer"/>
         </div>
     )
