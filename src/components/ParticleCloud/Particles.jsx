@@ -11,11 +11,16 @@ export default function Particles() {
   if (!positionData.current) {
     positionData.current = new Float32Array(numPoints * 3);
     for (let i = 0; i < numPoints; i += 1) {
+      const phi = Math.random() * 2 * Math.PI;
+      const costheta = Math.random() * 2 - 1;
+      const u = Math.random();
+      const theta = Math.acos(costheta);
+      const r = 5 * Math.cbrt(u);
       positionData.current.set(
         [
-          (Math.random() - 0.5) * 5.0,
-          (Math.random() - 0.5) * 5.0,
-          (Math.random() - 0.5) * 5.0,
+          r * Math.sin(theta) * Math.cos(phi),
+          r * Math.sin(theta) * Math.sin(phi),
+          r * Math.cos(theta),
         ],
         i * 3,
       );
