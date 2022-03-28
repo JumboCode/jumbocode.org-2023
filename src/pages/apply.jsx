@@ -1,14 +1,12 @@
 import React from "react";
 
-import RoleLink from "../components/RoleLink/RoleLink";
+import OurRoles from "../components/OurRoles/OurRoles";
 
 export default function Apply() {
     
     return (
         <div>
-            <h2>Our Roles</h2>
-            <hr />
-            <RoleLink role="Developer"/>
+            <OurRoles />
         </div>
     )
 }

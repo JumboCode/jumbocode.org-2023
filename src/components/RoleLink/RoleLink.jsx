@@ -4,15 +4,19 @@ import classNames from "classnames/bind";
 import styles from "./RoleLink.module.scss";
 const cx = classNames.bind(styles);
 
-import { BsArrowRight } from 'react-icons/bs'
+import Link from "next/link";
+import { BsArrowRight } from 'react-icons/bs';
 
 export default function RoleLink(children) {
     
+    const path = "/apply/" + children.role.toLowerCase(); 
+    
     return (
-        <div className={classNames(cx("container"))}>
-            <p>{children.role}</p>
-            <BsArrowRight />
-            
-        </div>
+        <Link href={path}>
+            <div className={classNames(cx("container"))}>
+                <h4>{children.role}</h4>
+                <BsArrowRight className={classNames(cx("arrow"))} />
+                </div>
+        </Link>
     )
 }

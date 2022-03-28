@@ -1,0 +1,13 @@
+@use 'styles/utils';
+
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 50vw;
+    margin: auto
+}
+
+.divider {
+    width: 50vw;
+    color: utils.$color-neutral-600; /* neutral 600 - not working yet*/
+}

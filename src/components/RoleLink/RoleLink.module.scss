@@ -1,5 +1,18 @@
+@use 'styles/utils';
+
 .container {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
+    padding: 0.5em 0.75em;
 }
+
+.container:hover {
+    background-color: utils.$color-dark-green-500; /* dark green 500 */
+    cursor: pointer;
+}
+
+.arrow {
+    color: utils.$color-green-500; /* green 500 */
+} 
