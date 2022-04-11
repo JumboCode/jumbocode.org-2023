@@ -40,6 +40,9 @@ ClientLogo.propTypes = {
     startingX: PropTypes.number,
     y: PropTypes.number,
   }).isRequired,
-  keyframes: PropTypes.arrayOf(PropTypes.string).isRequired,
+  keyframes: PropTypes.arrayOf(PropTypes.string),
   animation: PropTypes.string.isRequired,
+};
+ClientLogo.defaultProps = {
+  keyframes: null,
 };
