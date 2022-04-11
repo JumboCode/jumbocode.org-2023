@@ -4,26 +4,31 @@
   display: flex;
   align-items: center;
   flex-direction: column;
-  background: utils.$color-deep-black;
-  @include utils.layout-full-bleed;
 
   .heading {
     width: 25rem;
     text-align: center;
+    margin-bottom: 0.5em;
   }
 
   .list {
-    top: 18rem;
-    padding-left: 5rem;
-    padding-right: 5rem;
-    color: utils.$color-neutral;
+    list-style-type: decimal;
 
-    ol {
-      list-style: decimal;
-      h5 {
-        color: utils.$color-white;
-        padding-top: 1rem;
-        padding-bottom: 0.25rem;
+    h3 {
+      @include utils.type-h5;
+      color: utils.$color-white;
+    }
+
+    & > :not(:last-child) {
+      margin-bottom: 0.5em;
+    }
+
+    li {
+      & > :not(:first-child) {
+        color: utils.$color-neutral;
+      }
+      & > :not(:last-child) {
+        margin-bottom: 0.25em;
       }
     }
   }
