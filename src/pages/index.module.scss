@@ -1,0 +1,14 @@
+@use 'styles/utils';
+
+.base {
+  display: contents;
+
+  section {
+    &:first-child {
+      @include utils.layout-full-bleed(true);
+    }
+    &:not(:first-child) {
+      @include utils.layout-full-bleed;
+    }
+  }
+}
