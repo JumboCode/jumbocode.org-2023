@@ -1,0 +1,36 @@
+@use 'styles/utils';
+
+.base {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem 4rem;
+  justify-content: center;
+  background-image: linear-gradient(to right, #32C89E, #5E3BEB);
+  background-attachment: fixed;
+  background-clip: text;
+  background-color: #32C89E;
+  color: transparent;
+  margin-top: 3rem;
+
+  @include utils.media-smallest {
+    flex-direction: column;
+  }
+}
+
+
+.text {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 60vw;
+  margin: auto;
+  text-align: center;
+  @include utils.type-h3;
+}
