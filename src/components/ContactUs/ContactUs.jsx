@@ -8,27 +8,27 @@ export default function ContactUs() {
   return (
     <div className={classNames(cx('base'))}>
       <div className={classNames(cx('contact-col'))}>
-        <h2>Lets work together</h2>
-        <h4>
+        <h2>Let’s work together</h2>
+        <p>
           Nice, enticing, and exciting description that will making people want
           to work with us
-        </h4>
+        </p>
         <button type="button">Contact Us</button>
       </div>
       <div className={classNames(cx('groups'))}>
         <div className={classNames(cx('group'))}>
-          <h5>Organizations</h5>
+          <h3>Organizations</h3>
           <p>Nice, enticing, and exciting description of working with us</p>
           <a>
-            Get in touch
+            Get in touch&nbsp;
             <Arrow />
           </a>
         </div>
         <div className={classNames(cx('group'))}>
-          <h5>Students</h5>
+          <h3>Students</h3>
           <p>Nice, enticing, and exciting description of working with us</p>
           <a>
-            Apply
+            Apply&nbsp;
             <Arrow />
           </a>
         </div>

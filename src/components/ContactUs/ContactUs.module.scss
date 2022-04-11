@@ -25,6 +25,11 @@
     gap: 8px;
     padding: 77px;
     flex-direction: column;
+
+    h3 {
+      @include utils.type-h5;
+    }
+
     a {
       color: utils.$color-green;
       display: flex;
