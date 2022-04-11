@@ -8,6 +8,7 @@ import {
 } from 'assets';
 
 // TODO: make these link to actual pages for these clients
+// TODO: add more client logos
 export default [
   {
     name: 'Bergen Family Center',
