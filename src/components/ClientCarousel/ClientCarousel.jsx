@@ -18,7 +18,7 @@ export default function ClientCarousel() {
     const carouselWidth = totalWidth + farLeft;
 
     const dynamicKeyframes = clients.map((client, index) => {
-      const safeStartingX = client.startingX % carouselWidth;
+      const safeStartingX = (client.startingX % carouselWidth) - farLeft;
       const adjustedX = safeStartingX + farLeft;
       const timeAtMax = ((carouselWidth - adjustedX) / carouselWidth) * 100;
 
