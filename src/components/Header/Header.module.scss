@@ -32,4 +32,5 @@
   width: 60vw;
   margin: auto;
   text-align: center;
+  @include utils.type-h3;
 }
