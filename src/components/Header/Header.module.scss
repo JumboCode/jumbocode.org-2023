@@ -9,7 +9,9 @@
 
 .stats {
   display: flex;
-  gap: 4rem;
+  flex-wrap: wrap;
+  gap: 2rem 4rem;
+  justify-content: center;
   background-image: linear-gradient(to right, #32C89E, #5E3BEB);
   background-attachment: fixed;
   background-clip: text;
@@ -17,9 +19,8 @@
   color: transparent;
   margin-top: 3rem;
 
-  @include utils.media-mobile {
+  @include utils.media-smallest {
     flex-direction: column;
-    gap: 2rem;
   }
 }
 
