@@ -5,4 +5,10 @@ $logo-width: 300px;
   width: $logo-width;
   margin: 10px;
   position: absolute;
+  filter: grayscale(100%) sepia(120%) hue-rotate(120deg);
+  transition: 0.2s;
+}
+
+.clientLogo:hover {
+  filter: grayscale(0);
 }
