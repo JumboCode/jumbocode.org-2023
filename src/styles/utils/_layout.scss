@@ -5,11 +5,16 @@ $max-container-width: 1920px;
   @return min(#{$vw * 1vw}, #{$vw * $max-container-width * 0.01});
 }
 
-@mixin full-bleed {
+@mixin full-bleed($cover-nav-margin: false) {
   margin-left: calc(var(--horizontal-padding) * -1);
   margin-right: calc(var(--horizontal-padding) * -1);
   padding-left: var(--horizontal-padding);
   padding-right: var(--horizontal-padding);
+
+  @if $cover-nav-margin {
+    margin-top: calc(var(--nav-margin, 0) * -1);
+    padding-top: var(--nav-margin, 0);
+  }
 }
 
 $gap: 1rem;
