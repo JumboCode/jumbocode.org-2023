@@ -1,9 +1,9 @@
 import React from 'react';
 import classNames from 'classnames/bind';
-import styles from './Learn.module.scss';
+import styles from './apply.module.scss';
 const cx = classNames.bind(styles);
 
-export default function Learn() {
+export default function ApplyPage() {
   return (
     <div className={classNames(cx('base'))}>
       <div className={classNames(cx('heading'))}>
