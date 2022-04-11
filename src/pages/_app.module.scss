@@ -15,9 +15,10 @@ $nav-margin: 3rem;
     --horizontal-padding: max(5vw, 1rem);
   }
 
-  --nav-height: #{$nav-height + $nav-margin};
+  --nav-margin: #{$nav-margin};
+  --nav-height: #{$nav-height};
 
-  padding: var(--nav-height) var(--horizontal-padding) 0;
+  padding: calc(var(--nav-height) + var(--nav-margin)) var(--horizontal-padding) 0;
 }
 
 .nav {

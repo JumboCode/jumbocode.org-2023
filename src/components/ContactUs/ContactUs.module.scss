@@ -1,0 +1,82 @@
+@use 'styles/utils';
+
+.base {
+  @include utils.layout-twelve-columns;
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+  row-gap: 3rem;
+
+  background: utils.$color-deep-purple;
+  @include utils.layout-full-bleed;
+
+  .contact-col {
+    grid-column: content-left-edge / span 6;
+    padding-right: max(0px, calc(100% - 35ch));
+
+    h2 {
+      margin-bottom: 0.5em;
+      margin-top: -0.1em;
+    }
+    p {
+      margin-bottom: 0.75em;
+    }
+
+    .button {
+      margin-top: 2rem;
+    }
+  }
+
+  .group {
+    display: flex;
+    flex-direction: column;
+    grid-column: span 3;
+
+    h3 {
+      @include utils.type-h5;
+      margin-bottom: 0.5em;
+    }
+
+    a {
+      color: utils.$color-green;
+      display: flex;
+      margin-top: 1rem;
+      font-weight: 600;
+
+      svg * {
+        stroke: utils.$color-green;
+      }
+    }
+  }
+
+  .button {
+    background-color: utils.$color-green;
+    color: utils.$color-deep-black;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-weight: 600;
+  }
+
+
+  @include utils.media-small {
+    .contact-col {
+      grid-row: span 2;
+      padding-right: 2rem;
+    }
+    .group {
+      grid-column: span 6 / content-right-edge;
+    }
+  }
+
+  @include utils.media-smallest {
+    .contact-col {
+      padding-right: 0;
+    }
+    .contact-col, .group {
+      grid-column: content-left-edge / content-right-edge;
+    }
+  }
+}
