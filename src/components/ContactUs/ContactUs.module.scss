@@ -7,7 +7,6 @@
   row-gap: 3rem;
 
   background: utils.$color-deep-purple;
-  align-items: center;
   @include utils.layout-full-bleed;
 
   .contact-col {
@@ -16,6 +15,7 @@
 
     h2 {
       margin-bottom: 0.5em;
+      margin-top: -0.1em;
     }
     p {
       margin-bottom: 0.75em;
@@ -62,7 +62,6 @@
 
 
   @include utils.media-small {
-    align-items: start;
     .contact-col {
       grid-row: span 2;
       padding-right: 2rem;
