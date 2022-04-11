@@ -7,7 +7,6 @@ export default function AboutPage() {
   return (
     <div>
       <Header />
-      <h1>About</h1>
       <ContactUs />
     </div>
   );

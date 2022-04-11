@@ -9,16 +9,18 @@
 
 .stats {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  // width: 50rem;
-  column-gap: 4rem;
-  
-  background-image: linear-gradient(90deg, #32C89E, #5E3BEB);
+  gap: 4rem;
+  background-image: linear-gradient(to right, #32C89E, #5E3BEB);
   background-attachment: fixed;
   background-clip: text;
   background-color: #32C89E;
   color: transparent;
+  margin-top: 3rem;
+
+  @include utils.media-mobile {
+    flex-direction: column;
+    gap: 2rem;
+  }
 }
 
 

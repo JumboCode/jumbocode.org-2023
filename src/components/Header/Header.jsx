@@ -14,9 +14,9 @@ export default function Header() {
         for nonprofit organizations whose missions we believe in.
       </h3>
       <div className={classNames(cx('stats'))}>
-        <StatBlock number="100" char="%"  description={"Free product\ndevelopment"} />
-        <StatBlock number="40" char="+" description={"Websites/Apps\nlaunched"} />
-        <StatBlock number="97" char="" description={"Student\nvolunteers"} />
+        <StatBlock number={100} char="%" description={<>Free product<br />development</>} />
+        <StatBlock number={40} char="+" description={<>Websites/Apps<br />launched</>} />
+        <StatBlock number={97} char="" description={<>Student<br />volunteers</>} />
       </div>
     </div>
   );

@@ -2,21 +2,18 @@
 
 .base {
   display: flex;
-  
   text-align: left;
-  padding-top: 5vh;
-  
-  // background-color: red;
+  justify-content: center;
 
   .number {
     font-size: 3em;
+    @include utils.type-h1;
   }
-  
+
   .description {
     text-align: left;
-    padding-left: 10px; 
-    margin: auto;
-    // width: 9rem; 
+    padding-left: 10px;
+    margin: auto 0;
     white-space: pre-wrap;
   }
 }
