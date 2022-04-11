@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import 'styles/global/base.scss';
 
 import Nav from 'components/Nav';
+import ClientCarousel from 'components/ClientCarousel';
 
 import classNames from 'classnames/bind';
 import styles from './_app.module.scss';
@@ -13,6 +14,7 @@ export default function AppContainer({ Component, pageProps }) {
     <div className={cx('base')}>
       <div className={cx('container')}>
         <Nav className={cx('nav')} />
+        <ClientCarousel />
         <Component {...pageProps} />
       </div>
     </div>
