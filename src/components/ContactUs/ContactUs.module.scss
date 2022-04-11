@@ -1,56 +1,83 @@
 @use 'styles/utils';
 
 .base {
-  display: flex;
-  flex-wrap: no-wrap;
-  justify-content: center;
+  @include utils.layout-twelve-columns;
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+  row-gap: 3rem;
+
   background: utils.$color-deep-purple;
   align-items: center;
-  height: 472px;
   @include utils.layout-full-bleed;
 
   .contact-col {
-    display: flex;
-    gap: 28px;
-    flex-direction: column;
-    align-content: space-between;
-  }
-  .groups {
-    display: flex;
-    flex-direction: row;
+    grid-column: content-left-edge / span 6;
+    padding-right: max(0px, calc(100% - 35ch));
+
+    h2 {
+      margin-bottom: 0.5em;
+    }
+    p {
+      margin-bottom: 0.75em;
+    }
+
+    .button {
+      margin-top: 2rem;
+    }
   }
 
   .group {
     display: flex;
-    gap: 8px;
-    padding: 77px;
     flex-direction: column;
+    grid-column: span 3;
 
     h3 {
       @include utils.type-h5;
+      margin-bottom: 0.5em;
     }
 
     a {
       color: utils.$color-green;
       display: flex;
+      margin-top: 1rem;
+      font-weight: 600;
+
+      svg * {
+        stroke: utils.$color-green;
+      }
     }
   }
 
-  button {
+  .button {
     background-color: utils.$color-green;
     color: utils.$color-deep-black;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    padding: 9px 24px 10px;
-    width: 136px;
-    height: 42px;
-    left: 164px;
-    top: 305px;
+    padding: 0.5rem 1rem;
     border-radius: 4px;
     font-weight: 600;
-    font-size: 16px;
-    line-height: 150%;
+  }
+
+
+  @include utils.media-small {
+    align-items: start;
+    .contact-col {
+      grid-row: span 2;
+      padding-right: 2rem;
+    }
+    .group {
+      grid-column: span 6 / content-right-edge;
+    }
+  }
+
+  @include utils.media-smallest {
+    .contact-col {
+      padding-right: 0;
+    }
+    .contact-col, .group {
+      grid-column: content-left-edge / content-right-edge;
+    }
   }
 }
