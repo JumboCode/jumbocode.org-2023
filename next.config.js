@@ -2,11 +2,15 @@ const path = require('path');
 
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
+/** @type {import('next').NextConfig} */
 module.exports = {
   reactStrictMode: true,
   swcMinify: true,
   sassOptions: {
-    includePaths: [path.join(__dirname, 'src')],
+    includePaths: [
+      path.join(__dirname, 'src/'),
+      path.join(__dirname, 'node_modules/'),
+    ],
   },
 
   webpack: (config, { isServer }) => ({
@@ -28,5 +32,13 @@ module.exports = {
         }),
       ] : [],
     ],
+    node: {
+      ...config.node,
+      __dirname: true,
+    },
   }),
+
+  experimental: {
+    appDir: true,
+  },
 };

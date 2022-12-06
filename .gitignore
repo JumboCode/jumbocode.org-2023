@@ -1,5 +1,3 @@
-.DS_Store
-
 # Logs
 logs
 *.log
@@ -105,4 +103,8 @@ dist
 # TernJS port file
 .tern-port
 
-.vercel
+# Misc
+.DS_Store
+
+# typescript
+next-env.d.ts
