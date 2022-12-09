@@ -1,3 +1,4 @@
+import Nav from 'components/Nav';
 import 'styles/global/base.scss';
 
 export default function RootLayout({
@@ -23,7 +24,10 @@ export default function RootLayout({
         <meta property="og:locale" content="en_US" />
       </head>
 
-      <body>{children}</body>
+      <body>
+        <Nav />
+        {children}
+      </body>
     </html>
   );
 }

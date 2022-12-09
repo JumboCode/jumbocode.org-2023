@@ -1,11 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-
 import Link from 'next/link';
 import NavLink from 'components/NavLink';
 
 import Logo from 'assets/jc-logo.svg';
 
+import unboundClassNames from 'classnames';
 import classNames from 'classnames/bind';
 import styles from './Nav.module.scss';
 const cx = classNames.bind(styles);
@@ -25,24 +24,28 @@ const links = [
   },
 ];
 
-export default function Nav({ className, ...props }) {
+export default function Nav({
+  className = null,
+  ...props
+}: {
+  className?: string | null;
+  [key: string]: any;
+}) {
   return (
-    <nav className={classNames(cx('base'), className)} {...props}>
-      <Link href="/">
-        <a className={cx('logo')} aria-label="home">
-          <Logo />
-          <span>
-            Jumbo
-            <span>Code</span>
-          </span>
-        </a>
+    <nav className={unboundClassNames(cx('base'), className)} {...props}>
+      <Link href="/" className={cx('logo')} aria-label="home">
+        <Logo />
+        <span>
+          Jumbo
+          <span>Code</span>
+        </span>
       </Link>
 
       <ul className={cx('links')}>
         {links.map(({ path, name }) => (
           <li key={name}>
-            <NavLink href={path}>
-              {({ isActive }) => <a className={cx('link', { active: isActive })}>{name}</a>}
+            <NavLink href={path} className={cx('link')} activeClassName={cx('active')}>
+              {name}
             </NavLink>
           </li>
         ))}
@@ -50,10 +53,3 @@ export default function Nav({ className, ...props }) {
     </nav>
   );
 }
-
-Nav.propTypes = {
-  className: PropTypes.string,
-};
-Nav.defaultProps = {
-  className: null,
-};

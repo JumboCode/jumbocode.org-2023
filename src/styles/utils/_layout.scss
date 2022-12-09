@@ -1,35 +1,20 @@
-$max-container-width: 1920px;
-
-// use a vw value that stops growing when the container stops growing
+// use a vw value that stops growing when the container stops growing (at --max-content-width)
 @function capped-vw($vw) {
-  @return min(#{$vw * 1vw}, #{$vw * $max-container-width * 0.01});
+  @return min(#{$vw} * 1vw, #{$vw} * var(--max-content-width) / 100);
 }
 
-@mixin full-bleed($cover-nav-margin: false) {
-  margin-left: calc(var(--horizontal-padding) * -1);
-  margin-right: calc(var(--horizontal-padding) * -1);
+// Add padding to a full-width (100vw) container to keep its contents within comfortable bounds
+@mixin container {
+  --horizontal-padding-for-max-width: calc((100vw - var(--max-content-width)) / 2);
+  --horizontal-normal-padding: calc(#{capped-vw(1)} + 1rem);
+  --horizontal-padding: max(var(--horizontal-normal-padding), var(--horizontal-padding-for-max-width));
   padding-left: var(--horizontal-padding);
   padding-right: var(--horizontal-padding);
-
-  @if $cover-nav-margin {
-    margin-top: calc(var(--nav-margin, 0) * -1);
-    padding-top: var(--nav-margin, 0);
-  }
 }
 
-$gap: 1rem;
-@mixin twelve-columns {
-  display: grid;
-  grid-template-columns: [content-left-edge] repeat(12, 1fr) [content-right-edge];
-  column-gap: $gap;
-  row-gap: $gap;
-}
-
-@mixin full-bleed-twelve-columns {
-  @include twelve-columns;
-  @include full-bleed;
-  grid-template-columns:
-    [page-left-edge] calc(var(--horizontal-padding) - #{$gap}) [content-left-edge]
-    repeat(12, 1fr)
-    [content-right-edge] calc(var(--horizontal-padding) - #{$gap}) [page-right-edge];
+@mixin full-bleed {
+  margin-left: calc(-1 * var(--horizontal-padding));
+  margin-right: calc(-1 * var(--horizontal-padding));
+  padding-left: var(--horizontal-padding);
+  padding-right: var(--horizontal-padding);
 }

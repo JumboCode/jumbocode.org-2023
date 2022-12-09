@@ -12,4 +12,6 @@ body {
 
 :root {
   --green: #{utils.$color-green};
+
+  --max-content-width: 60rem;
 }
