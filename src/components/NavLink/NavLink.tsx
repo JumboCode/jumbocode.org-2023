@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 
 import Link from 'next/link';
@@ -41,6 +43,8 @@ export default function NavLink({
     && targetPath.every((p: string, i: number) => currentPath[i] === p)
     && (!exact || targetPath.length === currentPath.length);
   isActive ??= false;
+
+  console.log(currentPath, targetPath, isActive);
 
   return (
     <Link
