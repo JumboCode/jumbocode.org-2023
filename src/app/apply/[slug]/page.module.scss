@@ -1,0 +1,102 @@
+@use 'styles/utils';
+@use 'sass:math';
+@use 'sass:color';
+
+.base {
+  display: flex;
+  margin: 0 auto;
+  padding: 6rem 0;
+
+  .back {
+    color: utils.$color-green;
+    text-decoration: none;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    padding-left: 0.15rem;
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+
+    &::before {
+      $size: 0.6em;
+      margin-left: $size * (math.sqrt(2) - 1) / 2;
+      content: '';
+      display: inline-block;
+      margin-right: 0.5em;
+      width: $size;
+      height: $size;
+      transform: rotate(45deg);
+      border-left: 0.125em solid utils.$color-green;
+      border-bottom: 0.125em solid utils.$color-green;
+    }
+  }
+
+  .heading-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  hr {
+    content: '';
+    display: block;
+    margin-top: 1.25rem;
+    margin-bottom: 2.5rem;
+    height: 0.15rem;
+    background: color.scale(utils.$color-neutral, $alpha: -75%);
+    border: 0;
+    border-radius: 100vmax;
+    margin-left: -0.25rem;
+    margin-right: -0.25rem;
+  }
+
+  .content {
+    @include utils.layout-container;
+    max-width: calc(70ch + var(--horizontal-padding) * 2);
+    flex: 0 auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .description {
+    margin-bottom: 1rem;
+    & > :first-child {
+      margin-top: 0;
+    }
+  }
+
+  .button {
+    background: utils.$color-green;
+    color: utils.$color-black;
+    padding: 0.5em 1em calc(0.5em + 1px);
+    font-weight: 600;
+    border-radius: 0.25rem;
+    display: block;
+    align-self: center;
+  }
+
+  h2 {
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+    @include utils.type-h3;
+  }
+
+  h3 {
+    @include utils.type-h4;
+    margin-top: 1rem;
+    margin-bottom: 0.75rem;
+  }
+
+  h4 {
+    @include utils.type-h5;
+  }
+
+  p {
+    line-height: 1.4;
+    color: color.scale(utils.$color-white, $alpha: -10%);
+  }
+
+  p + p {
+    margin-top: 1em;
+  }
+}
