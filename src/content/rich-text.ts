@@ -20,14 +20,17 @@ export const richTextOptions = {
 
 
 // Flatten rich text content from certain fields
-export function flattenRichText<T extends object>(
+// eslint-disable-next-line function-paren-newline, space-before-function-paren
+export function flattenRichText<T extends object, Q extends (keyof T)[]>(
   fields: T,
-  whichFields: (keyof T)[],
-) { // TODO: stronger return type here
-  return Object.fromEntries(Object.entries(fields)
-    .map(([k, v]) => [
-      k,
-      (whichFields.includes(k as keyof T)
-        && isDocument(v)) ? documentToHtmlString(v, richTextOptions) : v,
-    ]));
+  whichFields: Q,
+) {
+  return Object.fromEntries(
+    Object.entries(fields)
+      .map(([k, v]) => [
+        k,
+        (whichFields.includes(k as keyof T)
+          && isDocument(v)) ? documentToHtmlString(v, richTextOptions) : v,
+      ]),
+  ) as T & { [K in typeof whichFields[number]]: string };
 }
