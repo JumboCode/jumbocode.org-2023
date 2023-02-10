@@ -7,6 +7,7 @@ import parse from 'html-react-parser';
 
 import classNames from 'classnames/bind';
 import styles from './page.module.scss';
+import { notFound } from 'next/navigation';
 const cx = classNames.bind(styles);
 
 
@@ -17,9 +18,8 @@ export default async function Homepage() {
     content_type: 'homepage',
     include: 10,
   });
-  if (!entries.items.length) throw new Error('No homepage content found.');
 
-  const homepage = entries.items[0];
+  const homepage = entries.items[0] ?? notFound();
   const { fields: rawFields } = homepage;
   const fields = flattenRichText(rawFields, ['subheading']) as IHomepageFields & { subheading: string };
 

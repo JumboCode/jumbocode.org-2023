@@ -44,8 +44,6 @@ export default function NavLink({
     && (!exact || targetPath.length === currentPath.length);
   isActive ??= false;
 
-  console.log(currentPath, targetPath, isActive);
-
   return (
     <Link
       href={href}
