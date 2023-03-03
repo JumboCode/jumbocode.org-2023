@@ -1,7 +1,7 @@
 import React from 'react';
 
 import client from 'content';
-import { IHomepageFields } from '../../@types/generated/contentful';
+import { IHomepageFields } from 'generated/types/contentful';
 import { flattenRichText } from 'content/rich-text';
 import parse from 'html-react-parser';
 

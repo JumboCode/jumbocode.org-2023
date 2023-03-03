@@ -1,11 +1,11 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 
 import client from 'content';
 import parse from 'html-react-parser';
 import { flattenRichText } from 'content/rich-text';
-import type { IRoleFields } from '../../../../@types/generated/contentful';
+import type { IRoleFields } from 'generated/types/contentful';
 
 import classNames from 'classnames/bind';
 import styles from './page.module.scss';
