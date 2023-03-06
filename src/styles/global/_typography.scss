@@ -8,6 +8,13 @@
   text-rendering: optimizeLegibility;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
+
+  -webkit-text-size-adjust: none;
+
+  font-synthesis: none;
+
+  text-decoration-thickness: from-font;
+  text-underline-position: from-font;
 }
 
 * {
