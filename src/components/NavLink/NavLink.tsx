@@ -31,7 +31,7 @@ export default function NavLink({
     const isCrossDomainUrl = url.hostname !== 'x.x';
     return isCrossDomainUrl
       ? null
-      : p.split('?')[0].split('/').filter((s: string) => s);
+      : (p.split('?')[0] ?? '').split('/').filter((s: string) => s);
   };
   const currentPath = segment(pathname ?? '');
   const targetPath = segment(as ?? href);
