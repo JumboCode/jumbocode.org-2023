@@ -1,4 +1,10 @@
 {
   "typescript.tsdk": "node_modules/typescript/lib",
-  "typescript.enablePromptUseWorkspaceTsdk": true
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "editor.tabSize": 2,
+  "editor.rulers": [100],
+  "files.trimTrailingWhitespace": true,
+  "editor.trimAutoWhitespace": true,
+  "prettier.enable": false,
+  "editor.formatOnSave": false,
 }
