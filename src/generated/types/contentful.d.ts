@@ -9,11 +9,17 @@ export interface IApplyPageFields {
   /** Heading */
   heading: string;
 
+  /** Pictures */
+  pictures?: Asset[] | undefined;
+
   /** Subheading */
   subheading: Document;
 
   /** Roles */
   roles: IRole[];
+
+  /** Learn More */
+  learnMore?: Document | undefined;
 }
 
 /** Copy that appears on the “apply” page */

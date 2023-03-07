@@ -14,7 +14,7 @@ $relative-base: 18px; // Assume 1rem is approximately equal to 18px
 @mixin h2 {
   @include fonts.inter;
   font-weight: 700;
-  font-size: rem(40px);
+  font-size: rem(36px);
 }
 @mixin h3 {
   @include fonts.inter;
