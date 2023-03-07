@@ -5,6 +5,7 @@ import Image from 'next/image';
 
 export default function ContentfulImage({
   asset: { fields },
+  fill,
   ...props
 }: {
   asset: Asset
@@ -16,8 +17,7 @@ export default function ContentfulImage({
     <Image
       src={fields.file.url}
       alt={fields.description || fields.title}
-      width={width}
-      height={height}
+      {...fill ? { fill: true } : { width, height }}
 
       loader={({ src: loaderSrc, width: loaderWidth, quality = 75 }) => {
         const query: URLSearchParams = new URLSearchParams({
