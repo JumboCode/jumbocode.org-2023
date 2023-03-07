@@ -8,6 +8,7 @@ import parse from 'html-react-parser';
 import { notFound } from 'next/navigation';
 import { flattenRichText } from 'content/rich-text';
 import ContentfulImage from 'components/ContentfulImage';
+import EmailSignup from 'components/EmailSignup';
 
 import classNames from 'classnames/bind';
 import styles from './page.module.scss';
@@ -52,6 +53,8 @@ export default async function RolesListPage() {
           {parse(fields.learnMore)}
         </div>
       )}
+
+      <EmailSignup />
     </div>
   );
 }
