@@ -3,10 +3,13 @@
 
 .base {
   @include utils.layout-container;
-  --max-content-width: 55ch;
+  --max-content-width: 70ch;
+
+  display: flex;
+  flex-direction: column;
 
   h2.roles-header {
-    margin-top: 2rem;
+    margin-top: 3rem;
     margin-bottom: 0.75em;
     padding-bottom: 0.35em;
     border-bottom: 2px solid color.scale(utils.$color-neutral, $alpha: -60%);
@@ -62,13 +65,13 @@
   }
 }
 
-
-
 .learn-more {
-  margin-top: 6rem;
+  align-self: center;
+  max-width: 55ch;
+  margin-top: 2rem;
 
   h2 {
-    padding-top: 2rem;
+    padding-top: 3rem;
     margin-bottom: 1.5em;
   }
 
@@ -79,6 +82,20 @@
   }
 
   p + h3 {
+    margin-top: 1.5em;
+  }
+}
+
+.faq {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+
+  h2 {
+    padding-top: 3rem;
+    margin-bottom: 1.5em;
+  }
+
+  li {
     margin-top: 1.5em;
   }
 }

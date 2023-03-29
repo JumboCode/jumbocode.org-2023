@@ -14,7 +14,6 @@ import classNames from 'classnames/bind';
 import styles from './page.module.scss';
 const cx = classNames.bind(styles);
 
-
 export default async function RolesListPage() {
   const entries = await client.getEntries<IApplyPageFields>({
     limit: 1,
@@ -25,7 +24,15 @@ export default async function RolesListPage() {
 
   const homepage = entries.items[0] ?? notFound();
   const { fields: rawFields } = homepage;
-  const fields = flattenRichText(rawFields, ['subheading', 'learnMore']) as IApplyPageFields & { subheading: string, learnMore: string | undefined };
+  const fields = flattenRichText(rawFields, [
+    'subheading',
+    'learnMore',
+    'faq',
+  ]) as IApplyPageFields & {
+    subheading: string;
+    learnMore: string | undefined;
+    faq: string | undefined;
+  };
 
   return (
     <div className={cx('base')}>
@@ -34,11 +41,13 @@ export default async function RolesListPage() {
         {parse(fields.subheading)}
       </div>
       <div className={cx('carousel')}>
-        {!fields.pictures ? null : fields.pictures.map((picture) => (
-          <div className={cx('image')} key={picture.sys.id}>
-            <ContentfulImage fill asset={picture} />
-          </div>
-        ))}
+        {!fields.pictures
+          ? null
+          : fields.pictures.map((picture) => (
+              <div className={cx('image')} key={picture.sys.id}>
+                <ContentfulImage fill asset={picture} />
+              </div>
+            ))}
       </div>
 
       <h2 className={cx('roles-header')}>Our Roles</h2>
@@ -49,8 +58,13 @@ export default async function RolesListPage() {
       ))}
 
       {fields.learnMore && (
-        <div className={cx('learn-more')}>
-          {parse(fields.learnMore)}
+        <div className={cx('learn-more')}>{parse(fields.learnMore)}</div>
+      )}
+
+      {fields.faq && (
+        <div className={cx('faq')}>
+          <h2>FAQ</h2>
+          {parse(fields.faq)}
         </div>
       )}
 

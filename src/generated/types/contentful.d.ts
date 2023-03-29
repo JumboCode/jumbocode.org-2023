@@ -18,6 +18,9 @@ export interface IApplyPageFields {
 
   /** Learn More */
   learnMore?: Document | undefined;
+
+  /** FAQ */
+  faq?: Document | undefined;
 }
 
 /** Copy that appears on the “apply” page */
