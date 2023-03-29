@@ -1,15 +1,34 @@
-import PartnerSignup from 'components/PartnerSignup';
 import React from 'react';
+import PartnerSignup from 'components/PartnerSignup';
+import { notFound } from 'next/navigation';
+
+import client from 'content';
+import { ICommunityPartnerContactFields } from 'generated/types/contentful';
+import { flattenRichText } from 'content/rich-text';
+import parse from 'html-react-parser';
 
 import classNames from 'classnames/bind';
 import styles from './page.module.scss';
 const cx = classNames.bind(styles);
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const entries = await client.getEntries<ICommunityPartnerContactFields>({
+    limit: 1,
+    order: 'sys.createdAt',
+    content_type: 'communityPartnerContact',
+    include: 10,
+  });
+
+  const contactPage = entries.items[0] ?? notFound();
+  const { fields: rawFields } = contactPage;
+  const fields = flattenRichText(rawFields, [
+    'description',
+  ]) as ICommunityPartnerContactFields & { description: string };
+
   return (
     <div className={cx('base')}>
-      <h1>Contact page</h1>
-      <p>This is a stub for the contact page</p>
+      <h1>{fields.heading}</h1>
+      {parse(fields.description)}
       <PartnerSignup />
     </div>
   );

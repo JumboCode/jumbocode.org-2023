@@ -25,27 +25,26 @@ export default function PartnerSignup({
   const [comment, setComment] = useState('');
 
   return (
-    <form
-      className={classNames(cx('base'), className)}
-      onSubmit={(e) => {
-        e.preventDefault();
-        if (onSubmit) onSubmit(email);
-        fetch('/partner-signup', {
-          method: 'post',
-          body: JSON.stringify({
-            organizationName,
-            name,
-            email,
-            phoneNumber,
-            website,
-            comment,
-          }),
-          headers: { 'Content-Type': 'application/json' },
-        }).then(() => setSubmitted(true));
-      }}
-    >
+    <div className={classNames(cx('base'), className)}>
       {!submitted ? (
-        <>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            if (onSubmit) onSubmit(email);
+            fetch('/partner-signup', {
+              method: 'post',
+              body: JSON.stringify({
+                organizationName,
+                name,
+                email,
+                phoneNumber,
+                website,
+                comment,
+              }),
+              headers: { 'Content-Type': 'application/json' },
+            }).then(() => setSubmitted(true));
+          }}
+        >
           <label>
             Organization Name
             <input
@@ -58,7 +57,7 @@ export default function PartnerSignup({
             />
           </label>
           <label>
-            Name
+            Primary Contact Name
             <input
               type="text"
               name="name"
@@ -116,10 +115,10 @@ export default function PartnerSignup({
             />
           </label>
           <input type="submit" value="Connect with us" />
-        </>
+        </form>
       ) : (
         <div className={cx('confirmation')}>You’re all set!</div>
       )}
-    </form>
+    </div>
   );
 }
