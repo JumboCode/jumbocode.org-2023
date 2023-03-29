@@ -31,33 +31,33 @@ export async function POST(req: Request) {
     })
     .parse(body);
 
-  const res = await fetch(`https://api.airtable.com/v0/${baseId}/${tableId}`, {
-    body: JSON.stringify({
-      records: [
-        {
-          fields: {
-            'Organization Name': organizationName,
-            'Primary Contact Name': name,
-            'Primary Contact Email': email,
-            'Primary Contact Phone Number': phoneNumber,
-            Website: website,
-            Notes: comment
-              ? `Initial comment:
+  const data = JSON.stringify({
+    records: [
+      {
+        fields: {
+          'Organization Name': organizationName,
+          'Primary Contact Name': name,
+          'Primary Contact Email': email,
+          'Primary Phone Number': phoneNumber,
+          Website: website,
+          Notes: comment
+            ? `Initial comment:
 ${comment}
 ---`
-              : '',
-          },
+            : '',
         },
-      ],
-    }),
+      },
+    ],
+  });
+
+  const res = await fetch(`https://api.airtable.com/v0/${baseId}/${tableId}`, {
+    body: data,
     headers: {
       Authorization: `Bearer ${apiKey}`,
       'Content-Type': 'application/json',
     },
     method: 'POST',
   });
-
-  console.log(res);
 
   return new Response(JSON.stringify({ ok: true }), {
     status: 200,
