@@ -1,0 +1,84 @@
+@use 'styles/utils';
+@use 'sass:color';
+
+.base {
+  @include utils.layout-container;
+  --max-content-width: 55ch;
+
+  h2.roles-header {
+    margin-top: 2rem;
+    margin-bottom: 0.75em;
+    padding-bottom: 0.35em;
+    border-bottom: 2px solid color.scale(utils.$color-neutral, $alpha: -60%);
+  }
+
+  h3 {
+    @include utils.type-h4;
+    margin-top: 1rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .heading {
+    text-align: center;
+    max-width: 55ch;
+    margin: 4rem auto 3.5rem;
+
+    :first-child {
+      margin-bottom: 1rem;
+    }
+  }
+
+  .role-item {
+    display: flex;
+  }
+
+  .carousel {
+    @include utils.layout-full-bleed;
+    padding-left: 50vw;
+    padding-right: 50vw;
+
+    & > * {
+      max-width: 50vw;
+      max-height: 50vh;
+      aspect-ratio: 3 / 2;
+    }
+
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    overflow-x: scroll;
+
+    scroll-snap-type: x mandatory;
+
+    .image {
+      scroll-snap-align: center;
+      flex: 0 0 50vw;
+      position: relative;
+
+      img {
+        object-fit: cover;
+      }
+    }
+  }
+}
+
+
+
+.learn-more {
+  margin-top: 6rem;
+
+  h2 {
+    padding-top: 2rem;
+    margin-bottom: 1.5em;
+  }
+
+  h3 {
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: 700;
+  }
+
+  p + h3 {
+    margin-top: 1.5em;
+  }
+}
