@@ -70,6 +70,33 @@ export interface ICommunityPartnerContact
   };
 }
 
+export interface IHeroSectionFields {
+  /** Attention Grab */
+  catchphrase: string;
+
+  /** Statistics */
+  statistics: IStatistic[];
+}
+
+/** Hero section for the homepage */
+
+export interface IHeroSection extends Entry<IHeroSectionFields> {
+  sys: {
+    id: string;
+    type: string;
+    createdAt: string;
+    updatedAt: string;
+    locale: string;
+    contentType: {
+      sys: {
+        id: 'heroSection';
+        linkType: 'ContentType';
+        type: 'Link';
+      };
+    };
+  };
+}
+
 export interface IHomepageFields {
   /** Heading */
   heading: string;
@@ -128,13 +155,48 @@ export interface IRole extends Entry<IRoleFields> {
   };
 }
 
+export interface IStatisticFields {
+  /** Statistic */
+  statistic: string;
+
+  /** Description */
+  description: string;
+}
+
+/** Eye-catching statistics for the hero section */
+
+export interface IStatistic extends Entry<IStatisticFields> {
+  sys: {
+    id: string;
+    type: string;
+    createdAt: string;
+    updatedAt: string;
+    locale: string;
+    contentType: {
+      sys: {
+        id: 'statistic';
+        linkType: 'ContentType';
+        type: 'Link';
+      };
+    };
+  };
+}
+
 export type CONTENT_TYPE =
   | 'applyPage'
   | 'communityPartnerContact'
+  | 'heroSection'
   | 'homepage'
-  | 'role';
+  | 'role'
+  | 'statistic';
 
-export type IEntry = IApplyPage | ICommunityPartnerContact | IHomepage | IRole;
+export type IEntry =
+  | IApplyPage
+  | ICommunityPartnerContact
+  | IHeroSection
+  | IHomepage
+  | IRole
+  | IStatistic;
 
 export type LOCALE_CODE = 'en-US';
 

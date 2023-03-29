@@ -1,0 +1,51 @@
+@use 'styles/utils';
+@use 'sass:color';
+
+.base {
+  @include utils.layout-container;
+  max-width: calc(40ch + var(--horizontal-padding) * 2);
+  // --max-content-width: 55ch;
+  margin: 0 auto;
+  padding: 6rem 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+  h3 {
+    margin-bottom: 3rem;
+  }
+}
+
+.statistics {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  width: 100%;
+
+  background-image: linear-gradient(155deg, rgba(20,235,185,1) 18%, rgba(94,59,255,1) 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+
+  .statistic {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    span {
+      font-weight: 800;
+      font-size: 2.5rem;
+    }
+
+    // TODO: this needs take up as little space as possible, given the text it contains
+    .description {
+      display: inline-block;
+      margin-left: 1rem;
+      text-align: left;
+      max-width: 12ch;
+      width: auto;
+    }
+  }
+}

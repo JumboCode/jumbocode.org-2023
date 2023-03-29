@@ -8,6 +8,7 @@ import parse from 'html-react-parser';
 
 import classNames from 'classnames/bind';
 import styles from './page.module.scss';
+import HeroSection from 'components/Homepage/HeroSection';
 const cx = classNames.bind(styles);
 
 export default async function Homepage() {
@@ -26,8 +27,7 @@ export default async function Homepage() {
 
   return (
     <div className={cx('base')}>
-      <h1>{fields.heading}</h1>
-      {parse(fields.subheading)}
+      <HeroSection />
     </div>
   );
 }
