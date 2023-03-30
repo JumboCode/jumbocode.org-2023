@@ -31,14 +31,14 @@
         @include utils.type-body-2;
       }
 
-      > * > a {
+      > a {
         @include utils.type-body-2;
         text-decoration: none;
         color: utils.$color-green;
+        width: fit-content;
 
-        & + span {
+        & > span {
           &::after {
-            color: utils.$color-green;
             content: "\2192";
             margin-left: 0.25rem;
           }
@@ -58,14 +58,12 @@
 
         .button {
           background: utils.$color-green;
-          text-decoration: none;
           color: utils.$color-black;
           padding: 0.5em 1em calc(0.5em + 1px);
           font-weight: 600;
           border-radius: 0.25rem;
           display: inline-block;
           box-sizing: border-box;
-          width: fit-content;
         }
 
         @include utils.media-mobile {

@@ -21,19 +21,19 @@ export default function CallToAction({ fields }: ICallToActionSection) {
           <Building />
           <h5>Organizations</h5>
           <p>{fields.organizationDescription}</p>
-          <div>
-            <Link href="/contact">Get in touch</Link>
+          <Link href="/contact">
+            Get in touch
             <span />
-          </div>
+          </Link>
         </div>
         <div>
           <Student />
           <h5>Students</h5>
           <p>{fields.studentDescription}</p>
-          <div>
-            <Link href="/apply">Apply</Link>
+          <Link href="/apply">
+            Apply
             <span />
-          </div>
+          </Link>
         </div>
       </div>
     </div>
