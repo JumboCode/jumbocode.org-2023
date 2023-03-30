@@ -8,8 +8,8 @@ import {
   IStatsSection,
 } from 'generated/types/contentful';
 
-import StatsSection from 'components/Homepage/StatsSection';
-import CaseStudySection from 'components/Homepage/CaseStudySection';
+import StatsSection from 'components/Sections/StatsSection';
+import CaseStudySection from 'components/Sections/CaseStudySection';
 
 import classNames from 'classnames/bind';
 import styles from './page.module.scss';
