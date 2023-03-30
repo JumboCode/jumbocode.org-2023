@@ -15,7 +15,7 @@ const links = [
     name: 'About',
   },
   {
-    path: '/work',
+    path: '/roles',
     name: 'Work',
   },
   {
@@ -44,7 +44,11 @@ export default function Nav({
       <ul className={cx('links')}>
         {links.map(({ path, name }) => (
           <li key={name}>
-            <NavLink href={path} className={cx('link')} activeClassName={cx('active')}>
+            <NavLink
+              href={path}
+              className={cx('link')}
+              activeClassName={cx('active')}
+            >
               {name}
             </NavLink>
           </li>

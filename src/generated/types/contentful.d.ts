@@ -42,6 +42,40 @@ export interface IApplyPage extends Entry<IApplyPageFields> {
   };
 }
 
+export interface ICallToActionSectionFields {
+  /** Heading */
+  heading: string;
+
+  /** Main Text */
+  mainText: string;
+
+  /** Organization Description */
+  organizationDescription: string;
+
+  /** Student Description */
+  studentDescription: string;
+}
+
+/** The call-to-action section in the "about" page design */
+
+export interface ICallToActionSection
+  extends Entry<ICallToActionSectionFields> {
+  sys: {
+    id: string;
+    type: string;
+    createdAt: string;
+    updatedAt: string;
+    locale: string;
+    contentType: {
+      sys: {
+        id: 'callToActionSection';
+        linkType: 'ContentType';
+        type: 'Link';
+      };
+    };
+  };
+}
+
 export interface ICaseStudyFields {
   /** Project Name */
   projectName: string;
@@ -179,7 +213,7 @@ export interface IHomepageFields {
   heading: string;
 
   /** Content */
-  content: (ICaseStudySection | IStatsSection)[];
+  content: (ICaseStudySection | IStatsSection | ICallToActionSection)[];
 }
 
 export interface IHomepage extends Entry<IHomepageFields> {
@@ -313,6 +347,7 @@ export interface ITeamMember extends Entry<ITeamMemberFields> {
 
 export type CONTENT_TYPE =
   | 'applyPage'
+  | 'callToActionSection'
   | 'caseStudy'
   | 'caseStudySection'
   | 'clubMember'
@@ -325,6 +360,7 @@ export type CONTENT_TYPE =
 
 export type IEntry =
   | IApplyPage
+  | ICallToActionSection
   | ICaseStudy
   | ICaseStudySection
   | IClubMember

@@ -11,11 +11,10 @@ import classNames from 'classnames/bind';
 import styles from './page.module.scss';
 const cx = classNames.bind(styles);
 
-
 interface IRolePageParams {
   params: {
     slug: string;
-  }
+  };
 }
 
 export default async function Role({ params }: IRolePageParams) {
@@ -28,12 +27,20 @@ export default async function Role({ params }: IRolePageParams) {
   const role = rolesFound.items[0] ?? notFound();
   const fields = flattenRichText(role.fields, ['description']);
 
-  function ApplyButton() { return <a href={role.fields.applicationLink} className={cx('button')}>Apply</a>; } // TODO: usecallback
+  function ApplyButton() {
+    return (
+      <a href={role.fields.applicationLink} className={cx('button')}>
+        Apply
+      </a>
+    );
+  } // TODO: usecallback
 
   return (
     <div className={cx('base')}>
       <div className={cx('content')}>
-        <Link href="/apply" className={cx('back')}>View all roles</Link>
+        <Link href="/roles" className={cx('back')}>
+          View all roles
+        </Link>
         <div className={cx('heading-box')}>
           <h1>{parse(role.fields.name)}</h1>
           <ApplyButton />
@@ -50,7 +57,6 @@ export default async function Role({ params }: IRolePageParams) {
     </div>
   );
 }
-
 
 export async function generateStaticParams() {
   const roles = await client.getEntries<IRoleFields>({

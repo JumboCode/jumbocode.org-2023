@@ -6,10 +6,12 @@ import {
   IHomepageFields,
   ICaseStudySection,
   IStatsSection,
+  ICallToActionSection,
 } from 'generated/types/contentful';
 
 import StatsSection from 'components/Sections/StatsSection';
 import CaseStudySection from 'components/Sections/CaseStudySection';
+import CallToAction from 'components/Sections/CallToAction';
 
 import classNames from 'classnames/bind';
 import styles from './page.module.scss';
@@ -40,6 +42,11 @@ export default async function Homepage() {
         if (section.sys.contentType.sys.id === 'caseStudySection') {
           return (
             <CaseStudySection key={i} {...(section as ICaseStudySection)} />
+          );
+        }
+        if (section.sys.contentType.sys.id === 'callToActionSection') {
+          return (
+            <CallToAction key={i} {...(section as ICallToActionSection)} />
           );
         }
         return null;

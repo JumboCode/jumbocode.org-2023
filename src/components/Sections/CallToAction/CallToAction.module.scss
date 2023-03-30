@@ -1,0 +1,115 @@
+@use 'styles/utils';
+@use 'sass:color';
+
+.base {
+  @include utils.layout-full-bleed;
+  margin-top: 2rem;
+  padding-top: 3rem;
+  padding-bottom: 4rem;
+  background-color: utils.$color-neutral-700;
+
+  .content {
+    @include utils.layout-container;
+    --max-content-width: 85ch;
+
+    display: flex;
+    flex-direction: row;
+    gap: 4rem;
+
+    @include utils.media-mobile {
+      flex-direction: column;
+    }
+
+    & > * {
+      flex-basis: 25%;
+
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+
+      > p {
+        @include utils.type-body-2;
+      }
+
+      > * > a {
+        @include utils.type-body-2;
+        text-decoration: none;
+        color: utils.$color-green;
+
+        & + span {
+          &::after {
+            color: utils.$color-green;
+            content: "\2192";
+            margin-left: 0.25rem;
+          }
+        }
+      }
+
+      &:first-child {
+        flex-basis: 40%;
+        flex-grow: 1;
+
+        gap: 1rem;
+
+        > p {
+          @include utils.type-h4;
+          width: 90%;
+        }
+
+        .button {
+          background: utils.$color-green;
+          text-decoration: none;
+          color: utils.$color-black;
+          padding: 0.5em 1em calc(0.5em + 1px);
+          font-weight: 600;
+          border-radius: 0.25rem;
+          display: inline-block;
+          box-sizing: border-box;
+          width: fit-content;
+        }
+
+        @include utils.media-mobile {
+          align-items: center;
+        }
+      }
+    }
+  }
+
+  label {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    margin-top: 2rem;
+    margin-bottom: 0.25rem;
+    font-weight: bold;
+
+    input {
+      font: inherit;
+      font-weight: 400;
+      background-color: utils.$color-white;
+      color: utils.$color-black;
+
+      padding: 0.5em 0 0.5em 0.75em;
+      margin-block: 0.25rem 1rem;
+      border-radius: 2px;
+
+      &::placeholder {
+        color: color.scale(utils.$color-black, $alpha: -60%);
+      }
+
+      &[type="submit"] {
+        background-color: utils.$color-green;
+        border: 0;
+        &:not(:focus-visible) { outline: 0; }
+        border-radius: 4px;
+        font-size: inherit;
+        font-weight: 700;
+        padding: 0.75em 1.25em;
+        align-self: center;
+      }
+    }
+  }
+
+
+}
