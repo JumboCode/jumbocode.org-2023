@@ -4,11 +4,19 @@
 .base {
   display: flex;
   flex-direction: column;
-  margin: 0 auto;
-  padding: 6rem 0;
+  padding-top: 0;
+  padding-bottom: 6rem;
 
   .header-image {
     @include utils.layout-full-bleed;
+    height: 40vh;
+    height: 40svh;
+    overflow: hidden;
+    position: relative;
+
+    img {
+      object-fit: cover;
+    }
 
     @include utils.media-mobile {
       display: none;
@@ -17,9 +25,53 @@
 
   .content {
     @include utils.layout-container;
-    max-width: calc(70ch + var(--horizontal-padding) * 2);
+    --max-content-width: 70ch;
+
     flex: 0 auto;
     display: flex;
     flex-direction: column;
+    gap: 6rem;
+
+    padding-top: 6rem;
+
+    h1 + p {
+      max-width: 60%;
+      margin-top: -5rem;
+      // margin-bottom: 6rem;
+    }
+
+    .main-image {
+      width: 100%;
+      aspect-ratio: 3/2;
+      overflow: hidden;
+      position: relative;
+      margin-bottom: -3rem;
+
+      @include utils.media-mobile {
+        display: none;
+      }
+    }
+
+    .nonprofit-bio {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      width: 100%;
+      gap: 2rem;
+
+      .nonprofit-image {
+        position: relative;
+        flex: 1 1 30%;
+
+        img {
+          width: 100%;
+          height: auto;
+        }
+      }
+
+      p {
+        flex: 1 1 70%;
+      }
+    }
   }
 }

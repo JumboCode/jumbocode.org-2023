@@ -27,15 +27,21 @@ export default async function CaseStudy({ params }: ICaseStudyPageParams) {
   return (
     <div className={cx('base')}>
       <div className={cx('header-image')}>
-        <ContentfulImage asset={fields.headerImage} />
+        <ContentfulImage fill asset={fields.headerImage} />
       </div>
       <div className={cx('content')}>
         <h1>{fields.projectName}</h1>
         <p>{fields.previewDescription}</p>
-        <ContentfulImage asset={fields.mainImage} />
+        <div className={cx('main-image')}>
+          <ContentfulImage fill asset={fields.mainImage} />
+        </div>
         <p>{fields.mainDescription}</p>
-        <ContentfulImage asset={fields.nonprofitLogo} />
-        <p>{fields.nonprofitDescription}</p>
+        <div className={cx('nonprofit-bio')}>
+          <div className={cx('nonprofit-image')}>
+            <ContentfulImage asset={fields.nonprofitLogo} />
+          </div>
+          <p>{fields.nonprofitDescription}</p>
+        </div>
       </div>
     </div>
   );
