@@ -1,0 +1,25 @@
+@use 'styles/utils';
+@use 'sass:color';
+
+.base {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  padding: 6rem 0;
+
+  .header-image {
+    @include utils.layout-full-bleed;
+
+    @include utils.media-mobile {
+      display: none;
+    }
+  }
+
+  .content {
+    @include utils.layout-container;
+    max-width: calc(70ch + var(--horizontal-padding) * 2);
+    flex: 0 auto;
+    display: flex;
+    flex-direction: column;
+  }
+}

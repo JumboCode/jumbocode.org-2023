@@ -8,7 +8,7 @@ import {
   IStatsSection,
 } from 'generated/types/contentful';
 
-import HeroSection from 'components/Homepage/HeroSection';
+import StatsSection from 'components/Homepage/StatsSection';
 import CaseStudySection from 'components/Homepage/CaseStudySection';
 
 import classNames from 'classnames/bind';
@@ -35,7 +35,7 @@ export default async function Homepage() {
           return null;
         }
         if (section.sys.contentType.sys.id === 'statsSection') {
-          return <HeroSection key={i} {...(section as IStatsSection)} />;
+          return <StatsSection key={i} {...(section as IStatsSection)} />;
         }
         if (section.sys.contentType.sys.id === 'caseStudySection') {
           return (

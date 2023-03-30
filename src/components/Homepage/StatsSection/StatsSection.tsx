@@ -1,11 +1,11 @@
 import classNames from 'classnames/bind';
-import { IHeroSection } from 'generated/types/contentful';
-import styles from './HeroSection.module.scss';
+import { IStatsSection } from 'generated/types/contentful';
+import styles from './StatsSection.module.scss';
 const cx = classNames.bind(styles);
 
-export default function HeroSection({
+export default function StatsSection({
   fields: { catchphrase, statistics },
-}: IHeroSection) {
+}: IStatsSection) {
   return (
     <div className={cx('base')}>
       <h3>{catchphrase}</h3>
