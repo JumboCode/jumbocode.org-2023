@@ -73,5 +73,46 @@
         flex: 1 1 70%;
       }
     }
+
+    .team-members {
+      .list {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 3rem 0;
+
+        @include utils.media-mobile {
+          grid-template-columns: 1fr 1fr;
+        }
+
+        margin-top: 3rem;
+        margin-left: 0.5rem;
+
+        .member {
+          display: flex;
+          flex-direction: row;
+          gap: 1rem;
+          align-items: center;
+
+          .image {
+            width: 4rem;
+            height: 4rem;
+            border-radius: 100%;
+            overflow: hidden;
+
+            position: relative;
+
+            img {
+              object-fit: cover;
+            }
+          }
+
+          p + p {
+            font-size: 0.8em;
+            font-weight: 800;
+            color: utils.$color-neutral;
+          }
+        }
+      }
+    }
   }
 }

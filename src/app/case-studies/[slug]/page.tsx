@@ -42,6 +42,26 @@ export default async function CaseStudy({ params }: ICaseStudyPageParams) {
           </div>
           <p>{fields.nonprofitDescription}</p>
         </div>
+        {fields.teamMembers && (
+          <div className={cx('team-members')}>
+            <h2>Created by</h2>
+            <div className={cx('list')}>
+              {fields.teamMembers.map(({ fields: { clubMember, role } }) => (
+                <div key={clubMember.fields.name} className={cx('member')}>
+                  <div className={cx('image')}>
+                    {clubMember.fields.picture && (
+                      <ContentfulImage fill asset={clubMember.fields.picture} />
+                    )}
+                  </div>
+                  <div className={cx('info')}>
+                    <p>{clubMember.fields.name}</p>
+                    <p>{role}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

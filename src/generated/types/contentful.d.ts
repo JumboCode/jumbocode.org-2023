@@ -53,7 +53,7 @@ export interface ICaseStudyFields {
   thumbnail?: Asset | undefined;
 
   /** Preview description */
-  previewDescription?: string | undefined;
+  previewDescription: string;
 
   /** Platform */
   platform: string;
@@ -72,6 +72,9 @@ export interface ICaseStudyFields {
 
   /** Nonprofit Description */
   nonprofitDescription: string;
+
+  /** Team Members */
+  teamMembers?: ITeamMember[] | undefined;
 }
 
 export interface ICaseStudy extends Entry<ICaseStudyFields> {
@@ -108,6 +111,34 @@ export interface ICaseStudySection extends Entry<ICaseStudySectionFields> {
     contentType: {
       sys: {
         id: 'caseStudySection';
+        linkType: 'ContentType';
+        type: 'Link';
+      };
+    };
+  };
+}
+
+export interface IClubMemberFields {
+  /** Picture */
+  picture?: Asset | undefined;
+
+  /** Name */
+  name: string;
+
+  /** Bio */
+  bio?: string | undefined;
+}
+
+export interface IClubMember extends Entry<IClubMemberFields> {
+  sys: {
+    id: string;
+    type: string;
+    createdAt: string;
+    updatedAt: string;
+    locale: string;
+    contentType: {
+      sys: {
+        id: 'clubMember';
         linkType: 'ContentType';
         type: 'Link';
       };
@@ -255,25 +286,54 @@ export interface IStatsSection extends Entry<IStatsSectionFields> {
   };
 }
 
+export interface ITeamMemberFields {
+  /** Club Member */
+  clubMember: IClubMember;
+
+  /** Role */
+  role?: string | undefined;
+}
+
+export interface ITeamMember extends Entry<ITeamMemberFields> {
+  sys: {
+    id: string;
+    type: string;
+    createdAt: string;
+    updatedAt: string;
+    locale: string;
+    contentType: {
+      sys: {
+        id: 'teamMember';
+        linkType: 'ContentType';
+        type: 'Link';
+      };
+    };
+  };
+}
+
 export type CONTENT_TYPE =
   | 'applyPage'
   | 'caseStudy'
   | 'caseStudySection'
+  | 'clubMember'
   | 'communityPartnerContact'
   | 'homepage'
   | 'role'
   | 'statistic'
-  | 'statsSection';
+  | 'statsSection'
+  | 'teamMember';
 
 export type IEntry =
   | IApplyPage
   | ICaseStudy
   | ICaseStudySection
+  | IClubMember
   | ICommunityPartnerContact
   | IHomepage
   | IRole
   | IStatistic
-  | IStatsSection;
+  | IStatsSection
+  | ITeamMember;
 
 export type LOCALE_CODE = 'en-US';
 
