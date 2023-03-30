@@ -1,0 +1,46 @@
+@use 'styles/utils';
+@use 'sass:color';
+
+.base {
+  @include utils.layout-container;
+  max-width: calc(40ch + var(--horizontal-padding) * 2);
+  margin: 0 auto;
+  padding: 6rem 0;
+
+  .preview-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem 3rem;
+
+    @include utils.media-mobile {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .preview {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+
+    h4 {
+      margin-top: 0.5rem;
+    }
+
+    p {
+      color: utils.$color-neutral;
+      font-size: 0.8em;
+    }
+
+    .image {
+      max-width: 30vw;
+      max-height: 30vh;
+      aspect-ratio: 3 / 2;
+      flex: 0 0 30vw;
+      position: relative;
+
+      img {
+        object-fit: cover;
+      }
+    }
+  }
+}
