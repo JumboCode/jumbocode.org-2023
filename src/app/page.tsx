@@ -3,7 +3,6 @@ import { notFound } from 'next/navigation';
 
 import client from 'content';
 import { IHomepageFields } from 'generated/types/contentful';
-import { flattenRichText } from 'content/rich-text';
 import parse from 'html-react-parser';
 
 import classNames from 'classnames/bind';
@@ -20,14 +19,11 @@ export default async function Homepage() {
 
   const homepage = entries.items[0] ?? notFound();
   const { fields: rawFields } = homepage;
-  const fields = flattenRichText(rawFields, [
-    'subheading',
-  ]) as IHomepageFields & { subheading: string };
+  const fields = rawFields;
 
   return (
     <div className={cx('base')}>
-      <h1>{fields.heading}</h1>
-      {parse(fields.subheading)}
+      <h1>{parse(fields.heading)}</h1>
     </div>
   );
 }

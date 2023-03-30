@@ -142,39 +142,12 @@ export interface ICommunityPartnerContact
   };
 }
 
-export interface IHeroSectionFields {
-  /** Attention Grab */
-  catchphrase: string;
-
-  /** Statistics */
-  statistics: IStatistic[];
-}
-
-/** Hero section for the homepage */
-
-export interface IHeroSection extends Entry<IHeroSectionFields> {
-  sys: {
-    id: string;
-    type: string;
-    createdAt: string;
-    updatedAt: string;
-    locale: string;
-    contentType: {
-      sys: {
-        id: 'heroSection';
-        linkType: 'ContentType';
-        type: 'Link';
-      };
-    };
-  };
-}
-
 export interface IHomepageFields {
   /** Heading */
   heading: string;
 
   /** Content */
-  content: (ICaseStudySection | IHeroSection)[];
+  content: (ICaseStudySection | IStatsSection)[];
 }
 
 export interface IHomepage extends Entry<IHomepageFields> {
@@ -254,25 +227,52 @@ export interface IStatistic extends Entry<IStatisticFields> {
   };
 }
 
+export interface IStatsSectionFields {
+  /** Attention Grab */
+  catchphrase: string;
+
+  /** Statistics */
+  statistics: IStatistic[];
+}
+
+/** Stats section for the about page */
+
+export interface IStatsSection extends Entry<IStatsSectionFields> {
+  sys: {
+    id: string;
+    type: string;
+    createdAt: string;
+    updatedAt: string;
+    locale: string;
+    contentType: {
+      sys: {
+        id: 'statsSection';
+        linkType: 'ContentType';
+        type: 'Link';
+      };
+    };
+  };
+}
+
 export type CONTENT_TYPE =
   | 'applyPage'
   | 'caseStudy'
   | 'caseStudySection'
   | 'communityPartnerContact'
-  | 'heroSection'
   | 'homepage'
   | 'role'
-  | 'statistic';
+  | 'statistic'
+  | 'statsSection';
 
 export type IEntry =
   | IApplyPage
   | ICaseStudy
   | ICaseStudySection
   | ICommunityPartnerContact
-  | IHeroSection
   | IHomepage
   | IRole
-  | IStatistic;
+  | IStatistic
+  | IStatsSection;
 
 export type LOCALE_CODE = 'en-US';
 
