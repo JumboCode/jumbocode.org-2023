@@ -3,10 +3,9 @@
 
 .base {
   @include utils.layout-container;
-  max-width: calc(40ch + var(--horizontal-padding) * 2);
-  // --max-content-width: 55ch;
-  margin: 0 auto;
-  padding: 6rem 0;
+  padding-top: 6rem;
+  padding-bottom: 6rem;
+  --max-content-width: 60ch;
 
   display: flex;
   flex-direction: column;
@@ -21,30 +20,35 @@
 .statistics {
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
-  width: 100%;
+  justify-content: center;
+  gap: 1rem 2rem;
+  margin-left: calc(-1 * var(--horizontal-padding));
+  margin-right: -5rem;
+  flex-wrap: wrap;
 
   background-image: linear-gradient(155deg, rgba(20,235,185,1) 18%, rgba(94,59,255,1) 100%);
   background-clip: text;
   -webkit-background-clip: text;
-  color: transparent;
+  -webkit-text-fill-color: transparent;
 
   .statistic {
+    flex: 0 0 auto;
     display: flex;
     flex-direction: row;
     align-items: center;
+    gap: 1rem;
 
-    span {
+    & > :first-child {
       font-weight: 800;
       font-size: 2.5rem;
+      flex: 0 0 auto;
     }
 
-    // TODO: this needs take up as little space as possible, given the text it contains
     .description {
-      display: inline-block;
-      margin-left: 1rem;
       text-align: left;
       width: auto;
+      white-space: pre;
+      flex: 0 0 auto;
     }
   }
 }
