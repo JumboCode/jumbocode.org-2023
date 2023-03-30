@@ -98,7 +98,7 @@ export default function PartnerSignup({
               value={website}
               onChange={(e) => setWebsite(e.target.value)}
               onBlur={() => {
-                if (!website.startsWith('http')) {
+                if (website && !website.startsWith('http')) {
                   setWebsite(`https://${website}`);
                 }
               }}

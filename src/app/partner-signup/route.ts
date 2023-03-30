@@ -26,8 +26,8 @@ export async function POST(req: Request) {
       phoneNumber: z
         .string()
         .regex(/^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/),
-      website: z.string().url(),
-      comment: z.string(),
+      website: z.string().url().optional(),
+      comment: z.string().optional(),
     })
     .parse(body);
 
@@ -40,11 +40,7 @@ export async function POST(req: Request) {
           'Primary Contact Email': email,
           'Primary Phone Number': phoneNumber,
           Website: website,
-          Notes: comment
-            ? `Initial comment:
-${comment}
----`
-            : '',
+          Notes: comment ? `Initial comment:\n${comment}\n---` : '',
         },
       },
     ],
