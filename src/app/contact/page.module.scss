@@ -4,8 +4,7 @@
 .base {
   @include utils.layout-container;
   --max-content-width: 55ch;
-  margin: 0 auto;
-  padding: 6rem 0;
+  padding-top: 6rem;
 
   h2.roles-header {
     margin-top: 2rem;

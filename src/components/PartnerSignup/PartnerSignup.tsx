@@ -102,7 +102,6 @@ export default function PartnerSignup({
                   setWebsite(`https://${website}`);
                 }
               }}
-              required
             />
           </label>
           <label>

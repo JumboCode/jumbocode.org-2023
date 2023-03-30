@@ -10,7 +10,8 @@
   .preview-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 1.5rem 3rem;
+    gap: 1rem 3rem;
+    padding: 0 1rem;
 
     @include utils.media-mobile {
       grid-template-columns: 1fr;
@@ -20,9 +21,9 @@
   .preview {
     display: flex;
     flex-direction: column;
-    gap: 0.25rem;
+    gap: 0.5rem;
 
-    margin: 1.5rem;
+    margin: 1.5rem 0;
 
     h4 {
       margin-top: 0.5rem;
@@ -34,10 +35,8 @@
     }
 
     .image {
-      max-width: 30vw;
-      max-height: 30vh;
+      width: 100%;
       aspect-ratio: 3 / 2;
-      flex: 0 0 30vw;
       position: relative;
 
       img {
