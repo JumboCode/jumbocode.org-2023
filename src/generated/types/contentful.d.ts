@@ -212,8 +212,8 @@ export interface IHomepageFields {
   /** Heading */
   heading: string;
 
-  /** Content */
-  content: (ICaseStudySection | IStatsSection | ICallToActionSection)[];
+  /** Sections */
+  sections: ISections;
 }
 
 export interface IHomepage extends Entry<IHomepageFields> {
@@ -259,6 +259,32 @@ export interface IRole extends Entry<IRoleFields> {
     contentType: {
       sys: {
         id: 'role';
+        linkType: 'ContentType';
+        type: 'Link';
+      };
+    };
+  };
+}
+
+export interface ISectionsFields {
+  /** Sections */
+  sections?:
+    | (ICallToActionSection | ICaseStudySection | IStatsSection)[]
+    | undefined;
+}
+
+/** Content sections for modular pages (initially homepage and about) */
+
+export interface ISections extends Entry<ISectionsFields> {
+  sys: {
+    id: string;
+    type: string;
+    createdAt: string;
+    updatedAt: string;
+    locale: string;
+    contentType: {
+      sys: {
+        id: 'sections';
         linkType: 'ContentType';
         type: 'Link';
       };
@@ -354,6 +380,7 @@ export type CONTENT_TYPE =
   | 'communityPartnerContact'
   | 'homepage'
   | 'role'
+  | 'sections'
   | 'statistic'
   | 'statsSection'
   | 'teamMember';
@@ -367,6 +394,7 @@ export type IEntry =
   | ICommunityPartnerContact
   | IHomepage
   | IRole
+  | ISections
   | IStatistic
   | IStatsSection
   | ITeamMember;

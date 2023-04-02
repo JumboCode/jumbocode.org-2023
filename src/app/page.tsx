@@ -2,19 +2,11 @@ import React from 'react';
 import { notFound } from 'next/navigation';
 
 import client from 'content';
-import {
-  IHomepageFields,
-  ICaseStudySection,
-  IStatsSection,
-  ICallToActionSection,
-} from 'generated/types/contentful';
-
-import StatsSection from 'components/Sections/StatsSection';
-import CaseStudySection from 'components/Sections/CaseStudySection';
-import CallToAction from 'components/Sections/CallToAction';
+import { IHomepageFields } from 'generated/types/contentful';
 
 import classNames from 'classnames/bind';
 import styles from './page.module.scss';
+import Sections from 'components/Sections/Sections';
 const cx = classNames.bind(styles);
 
 export default async function Homepage() {
@@ -27,30 +19,12 @@ export default async function Homepage() {
 
   const homepage = entries.items[0] ?? notFound();
   const {
-    fields: { content },
+    fields: { sections },
   } = homepage;
 
   return (
     <div className={cx('base')}>
-      {content.map((section, i) => {
-        if (!section.sys.contentType) {
-          return null;
-        }
-        if (section.sys.contentType.sys.id === 'statsSection') {
-          return <StatsSection key={i} {...(section as IStatsSection)} />;
-        }
-        if (section.sys.contentType.sys.id === 'caseStudySection') {
-          return (
-            <CaseStudySection key={i} {...(section as ICaseStudySection)} />
-          );
-        }
-        if (section.sys.contentType.sys.id === 'callToActionSection') {
-          return (
-            <CallToAction key={i} {...(section as ICallToActionSection)} />
-          );
-        }
-        return null;
-      })}
+      <Sections sections={sections} />
     </div>
   );
 }
