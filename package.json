@@ -20,6 +20,7 @@
     "@contentful/rich-text-html-renderer": "^16.0.2",
     "@contentful/rich-text-types": "^16.0.2",
     "@mailchimp/mailchimp_marketing": "^3.0.80",
+    "@slack/bolt": "^3.12.2",
     "classnames": "^2.3.2",
     "contentful": "^9.3.3",
     "dom-serializer": "^2.0.0",
