@@ -17,7 +17,6 @@ const overrides = {
   "react/no-array-index-key": "off",                                             // Allow using index as key in array
   "no-multiple-empty-lines": ["error", { "max": 2, "maxBOF": 0, "maxEOF": 0 }],  // Allow up to 2 empty lines in a row
   "no-empty": ["error", { "allowEmptyCatch": true }],                            // Allow empty blocks when it's for a catch statement
-  "react/forbid-prop-types": "off",                                              // Allow vague prop-types like “object”
   "prefer-const": ["error", { "destructuring": "all" }],                         // For destructured declarations where only some variables get reassigned, don’t require const for the others
   "jsx-a11y/label-has-associated-control": ["error", { "assert": "either" }],    // Allow associating form labels by nesting
   "react/jsx-one-expression-per-line": "off",                                    // Allow multiple JSX expressions on a line
