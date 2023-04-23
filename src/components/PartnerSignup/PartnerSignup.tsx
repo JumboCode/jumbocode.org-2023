@@ -33,12 +33,18 @@ export default function PartnerSignup({
             if (onSubmit) onSubmit(email);
             fetch('/partner-signup', {
               method: 'post',
-              body: JSON.stringify({
+              body: JSON.stringify(website.length > 0 ? {
                 organizationName,
                 name,
                 email,
                 phoneNumber,
                 website,
+                comment,
+              } : {
+                organizationName,
+                name,
+                email,
+                phoneNumber,
                 comment,
               }),
               headers: { 'Content-Type': 'application/json' },

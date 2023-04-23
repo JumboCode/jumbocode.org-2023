@@ -15,6 +15,16 @@ if (!tableId) {
   throw new Error('Airtable table ID not defined');
 }
 
+const viewId = process.env.AIRTABLE_VIEW_ID;
+if (!viewId) {
+  throw new Error('Airtable view ID not defined');
+}
+
+const webhookUrl = process.env.SLACK_WEBHOOK_URL;
+if (!webhookUrl) {
+  throw new Error('Slack webhook url undefined');
+}
+
 export async function POST(req: Request) {
   const body = await req.json();
 
@@ -54,6 +64,37 @@ export async function POST(req: Request) {
     },
     method: 'POST',
   });
+  const airtableBody = await res.json();
+  const airtableId = airtableBody.records[0].id;
+
+  const slackMessage = `${name} from ${organizationName} just contacted us for the first time`;
+  const slackBody = {
+    method: 'POST',
+    body: JSON.stringify({ text: slackMessage,
+      blocks: [
+        {
+          type: 'header',
+          text: {
+            type: 'plain_text',
+            text: slackMessage,
+          },
+        },
+        {
+          type: 'section',
+          fields: [
+            {
+              type: 'mrkdwn',
+              text: `Please follow-up with them by <mailto:${email}|emailing them> or <tel:${phoneNumber}|calling them>.`,
+            },
+            {
+              type: 'mrkdwn',
+              text: `<https://airtable.com/${baseId}/${tableId}/|Airtable table>\n*<https://airtable.com/${baseId}/${viewId}?DS73O=${airtableId}|Airtable interface>*`,
+            },
+          ],
+        },
+      ] }),
+  };
+  await fetch(webhookUrl as string, slackBody);
 
   return new Response(JSON.stringify({ ok: true }), {
     status: 200,

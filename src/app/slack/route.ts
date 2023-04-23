@@ -1,7 +1,5 @@
 import { z } from 'zod';
 
-const webhookUrl = process.env.SLACK_WEBHOOK_URL;
-
 const apiKey = process.env.AIRTABLE_PAT;
 if (!apiKey) {
   throw new Error('Airtable API key not defined');
@@ -17,20 +15,24 @@ if (!tableId) {
   throw new Error('Airtable table ID not defined');
 }
 
-const viewId = process.env.AIRTABLE_VIEW_ID;
-if (!viewId) {
-  throw new Error('Airtable view ID not defined');
-}
-
 const triggerSecret = process.env.SLACK_ROUTE_SECRET;
 if (!triggerSecret) {
   throw new Error('Slack trigger secret not defined');
 }
 
+const viewId = process.env.AIRTABLE_VIEW_ID;
+if (!viewId) {
+  throw new Error('Airtable view ID not defined');
+}
+
+const webhookUrl = process.env.SLACK_WEBHOOK_URL;
+if (!webhookUrl) {
+  throw new Error('Slack webhook url undefined');
+}
+
 const ContactStatus = z.enum(['Within a week', 'More than a week ago', 'More than a month ago', 'More than 6 months ago', 'Locked in', 'Handed off']);
 
 export async function POST(req: Request) {
-  if (webhookUrl === undefined) throw new Error('webhook url undefined');
   const { body: reqBody } = await req.json();
   if (process.env.NODE_ENV !== 'production' && reqBody.secret !== triggerSecret) {
     return new Response(null, { status: 401, statusText: 'not authenticated' });
