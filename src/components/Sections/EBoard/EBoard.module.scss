@@ -9,12 +9,11 @@
 
   .preview-container {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     gap: 1rem 3rem;
-    padding: 0 1rem;
 
     @include utils.media-mobile {
-      grid-template-columns: 1fr;
+      grid-template-columns: 1fr 1fr;
     }
   }
 
@@ -24,6 +23,8 @@
     gap: 0.5rem;
 
     margin: 1.5rem 0;
+
+    justify-content: center;
 
     h4 {
       margin-top: 0.5rem;
@@ -41,6 +42,16 @@
 
       img {
         object-fit: cover;
+      }
+    }
+
+    .name {
+      display: flex;
+      flex-direction: row;
+      gap: 0.25rem;
+
+      .role {
+        font-weight: bold;
       }
     }
   }

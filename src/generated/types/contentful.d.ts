@@ -3,6 +3,28 @@
 import { Asset, Entry } from 'contentful';
 import { Document } from '@contentful/rich-text-types';
 
+export interface IAboutPageFields {
+  /** sections */
+  sections: ISections;
+}
+
+export interface IAboutPage extends Entry<IAboutPageFields> {
+  sys: {
+    id: string;
+    type: string;
+    createdAt: string;
+    updatedAt: string;
+    locale: string;
+    contentType: {
+      sys: {
+        id: 'aboutPage';
+        linkType: 'ContentType';
+        type: 'Link';
+      };
+    };
+  };
+}
+
 export interface IApplyPageFields {
   /** Heading */
   heading: string;
@@ -154,7 +176,7 @@ export interface ICaseStudySection extends Entry<ICaseStudySectionFields> {
 
 export interface IClubMemberFields {
   /** Picture */
-  picture?: Asset | undefined;
+  picture: Asset;
 
   /** Name */
   name: string;
@@ -201,6 +223,53 @@ export interface ICommunityPartnerContact
     contentType: {
       sys: {
         id: 'communityPartnerContact';
+        linkType: 'ContentType';
+        type: 'Link';
+      };
+    };
+  };
+}
+
+export interface IEBoardMemberFields {
+  /** clubMember */
+  clubMember: IClubMember;
+
+  /** Role */
+  role: string;
+}
+
+export interface IEBoardMember extends Entry<IEBoardMemberFields> {
+  sys: {
+    id: string;
+    type: string;
+    createdAt: string;
+    updatedAt: string;
+    locale: string;
+    contentType: {
+      sys: {
+        id: 'eBoardMember';
+        linkType: 'ContentType';
+        type: 'Link';
+      };
+    };
+  };
+}
+
+export interface IEBoardSectionFields {
+  /** boardMembers */
+  boardMembers: IEBoardMember[];
+}
+
+export interface IEBoardSection extends Entry<IEBoardSectionFields> {
+  sys: {
+    id: string;
+    type: string;
+    createdAt: string;
+    updatedAt: string;
+    locale: string;
+    contentType: {
+      sys: {
+        id: 'eBoardSection';
         linkType: 'ContentType';
         type: 'Link';
       };
@@ -269,7 +338,12 @@ export interface IRole extends Entry<IRoleFields> {
 export interface ISectionsFields {
   /** Sections */
   sections?:
-    | (ICallToActionSection | ICaseStudySection | IStatsSection)[]
+    | (
+        | ICallToActionSection
+        | ICaseStudySection
+        | IStatsSection
+        | IEBoardSection
+      )[]
     | undefined;
 }
 
@@ -372,12 +446,15 @@ export interface ITeamMember extends Entry<ITeamMemberFields> {
 }
 
 export type CONTENT_TYPE =
+  | 'aboutPage'
   | 'applyPage'
   | 'callToActionSection'
   | 'caseStudy'
   | 'caseStudySection'
   | 'clubMember'
   | 'communityPartnerContact'
+  | 'eBoardMember'
+  | 'eBoardSection'
   | 'homepage'
   | 'role'
   | 'sections'
@@ -386,12 +463,15 @@ export type CONTENT_TYPE =
   | 'teamMember';
 
 export type IEntry =
+  | IAboutPage
   | IApplyPage
   | ICallToActionSection
   | ICaseStudy
   | ICaseStudySection
   | IClubMember
   | ICommunityPartnerContact
+  | IEBoardMember
+  | IEBoardSection
   | IHomepage
   | IRole
   | ISections

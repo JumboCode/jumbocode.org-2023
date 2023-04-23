@@ -3,10 +3,10 @@ import { notFound } from 'next/navigation';
 
 import client from 'content';
 import { IHomepageFields } from 'generated/types/contentful';
+import Sections from 'components/Sections/Sections';
 
 import classNames from 'classnames/bind';
 import styles from './page.module.scss';
-import Sections from 'components/Sections/Sections';
 const cx = classNames.bind(styles);
 
 export default async function Homepage() {
