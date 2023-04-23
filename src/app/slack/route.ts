@@ -52,6 +52,8 @@ export async function POST(req: Request) {
       fields: z.object({
         'Organization Name': z.string(),
         'Primary Contact Name': z.string(),
+        'Primary Contact Email': z.string().email(),
+        'Primary Phone Number': z.string(),
         'Last Contacted': z.string(),
         'Contact history': z.string(),
         'Contact Status': ContactStatus,
@@ -64,6 +66,8 @@ export async function POST(req: Request) {
       id,
       organizationName: fields['Organization Name'],
       primaryContactName: fields['Primary Contact Name'],
+      primaryEmail: fields['Primary Contact Name'],
+      primaryPhone: fields['Primary Phone Number'],
       lastContacted: new Date(fields['Last Contacted']),
       contactHistory: fields['Contact history'].split(/\s+/).filter((date) => date.length > 0).map((date) => new Date(date)),
       contactStatus: fields['Contact Status'],
@@ -76,10 +80,41 @@ export async function POST(req: Request) {
 
   records.forEach((record) => {
     const shouldNotify = !record.suppressNotifications && !['More than a week ago', 'Locked in', 'Handed off'].includes(record.contactStatus);
-    if (shouldNotify) {
+
+    // If they haven't been contacted yet, notification suppression is overridden
+    if (record.contactHistory.length === 1) {
+      const mainMessage = `${record.primaryContactName} from ${record.organizationName} has not had initial contact made with them yet`;
+
+      fetch(webhookUrl as string, {
+        method: 'POST',
+        body: JSON.stringify({ text: mainMessage,
+          blocks: [
+            {
+              type: 'header',
+              text: {
+                type: 'plain_text',
+                text: mainMessage,
+              },
+            },
+            {
+              type: 'section',
+              fields: [
+                {
+                  type: 'mrkdwn',
+                  text: `Please follow-up with them immediately by <mailto:${record.primaryEmail}|emailing them> or <tel:${record.primaryPhone}|calling them>.`,
+                },
+                {
+                  type: 'mrkdwn',
+                  text: `<https://airtable.com/${baseId}/${tableId}/|Airtable table>\n*<https://airtable.com/${baseId}/${viewId}?DS73O=${record.id}|Airtable interface>*`,
+                },
+              ],
+            },
+          ] }),
+      });
+    } else if (shouldNotify) {
       const mainMessage = `${record.primaryContactName} from ${record.organizationName} was last contacted ${record.contactStatus.toLowerCase()}`;
 
-      fetch(webhookUrl, {
+      fetch(webhookUrl as string, {
         method: 'POST',
         body: JSON.stringify({ text: mainMessage,
           blocks: [
