@@ -15,12 +15,12 @@ Run `npm run dev` from the root of this project, and you should be up and runnin
 [`localhost:3000`](http://localhost:3000)!
 
 ## Deployment
-This is deployed to the board@jumbocode.org Vercel account.
+This project is deployed automatically to the board@jumbocode.org Vercel account on push.
 
-You can log into this account on the dashboard by selecting “continue with email” on
-[vercel.com/login](https://vercel.com/login), then following the email from board@jumbocode.org.
+You can log into this Vercel account by selecting “continue with email” on
+[vercel.com/login](https://vercel.com/login), then clicking the email sent to board@jumbocode.org.
 
-To deploy:
+To deploy manually (you shouldn‘t need to do this):
 1. Run `npx vercel login` and log in with the board@jumbocode.org email.
 2. Verify that `npx vercel whoami` returns “jumbocode”
 3. Run `npx vercel . --prod` in the root of this project.
