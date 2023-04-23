@@ -14,9 +14,10 @@ export default function CaseStudySection({
       <h3>Get to know our E-Board</h3>
       <div className={cx('preview-container')}>
         {boardMembers.map((
-          { fields: { clubMember: { fields: { bio, name, picture } }, role } },
+          { fields: { clubMember: { fields: { name, picture } }, role } },
         ) => (
           // TODO: make images square and if bio exists make it appear on hover
+          // `bio` is a field of clubMember
           <div className={cx('preview')}>
             <div className={cx('image')}>
               <ContentfulImage fill asset={picture} />
