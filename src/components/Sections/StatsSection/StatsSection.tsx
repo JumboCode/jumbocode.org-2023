@@ -1,3 +1,4 @@
+import React from 'react';
 import classNames from 'classnames/bind';
 import { IStatsSection } from 'generated/types/contentful';
 import styles from './StatsSection.module.scss';

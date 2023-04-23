@@ -1,3 +1,4 @@
+import React from 'react';
 import Link from 'next/link';
 
 import classNames from 'classnames/bind';
@@ -9,9 +10,9 @@ export default function Footer() {
     <div className={cx('base')}>
       <div>
         <p>JumboCode</p>
-        <a href="">Facebook</a>
-        <a href="">Instagram</a>
-        <a href="">LinkedIn</a>
+        <a href="https://www.facebook.com/JumboCode/">Facebook</a>
+        <a href="https://www.instagram.com/JumboCode/">Instagram</a>
+        <a href="https://www.linkedin.com/company/tuftsjumbocode">LinkedIn</a>
       </div>
       <div>
         <p>General</p>

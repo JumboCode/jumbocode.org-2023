@@ -1,4 +1,4 @@
-/* eslint-disable react/jsx-no-useless-fragment */
+import React from 'react';
 import {
   ICallToActionSection,
   ICaseStudySection,
@@ -15,30 +15,22 @@ export interface ISectionsProps {
 
 export default function Sections({ sections: { fields } }: ISectionsProps) {
   const { sections } = fields;
-  return (
+  return sections ? (
     <>
-      {sections ? (
-        sections.map((section, i) => {
-          switch (section.sys.contentType.sys.id) {
-            case 'callToActionSection':
-              return (
-                <CallToAction key={i} {...(section as ICallToActionSection)} />
-              );
-            case 'caseStudySection':
-              return (
-                <CaseStudySection key={i} {...(section as ICaseStudySection)} />
-              );
-
-            case 'statsSection':
-              return <StatsSection key={i} {...(section as IStatsSection)} />;
-
-            default:
-              return null;
-          }
-        })
-      ) : (
-        <div />
-      )}
+      {sections.map((section, i) => {
+        switch (section.sys.contentType.sys.id) {
+          case 'callToActionSection':
+            return <CallToAction key={i} {...(section as ICallToActionSection)} />;
+          case 'caseStudySection':
+            return <CaseStudySection key={i} {...(section as ICaseStudySection)} />;
+          case 'statsSection':
+            return <StatsSection key={i} {...(section as IStatsSection)} />;
+          default:
+            return null;
+        }
+      })}
     </>
+  ) : (
+    <div />
   );
 }

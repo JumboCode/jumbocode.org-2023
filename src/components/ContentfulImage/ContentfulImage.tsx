@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react';
 import { Asset } from 'contentful';
 import Image from 'next/image';
 
