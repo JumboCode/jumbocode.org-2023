@@ -7,7 +7,6 @@ import { IHomepageFields } from 'generated/types/contentful';
 import classNames from 'classnames/bind';
 import styles from './page.module.scss';
 import Sections from 'components/Sections/Sections';
-import SlackButton from 'components/SlackButton';
 const cx = classNames.bind(styles);
 
 export default async function Homepage() {
