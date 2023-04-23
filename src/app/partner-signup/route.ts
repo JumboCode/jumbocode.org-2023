@@ -96,6 +96,13 @@ export async function POST(req: Request) {
   };
   await fetch(webhookUrl as string, slackBody);
 
+  if (!res.ok) {
+    return new Response(JSON.stringify({ ok: false }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
   return new Response(JSON.stringify({ ok: true }), {
     status: 200,
     headers: { 'Content-Type': 'application/json' },

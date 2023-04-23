@@ -1,15 +1,14 @@
-const path = require('path');
-
-const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
+import { fileURLToPath } from 'url';
 
 /** @type {import('next').NextConfig} */
-module.exports = {
+export default {
   reactStrictMode: true,
   swcMinify: true,
   sassOptions: {
     includePaths: [
-      path.join(__dirname, 'src/'),
-      path.join(__dirname, 'node_modules/'),
+      fileURLToPath(new URL('src/', import.meta.url)),
+      fileURLToPath(new URL('node_modules/', import.meta.url)),
     ],
   },
 

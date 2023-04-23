@@ -1,5 +1,4 @@
-/* eslint-disable implicit-arrow-linebreak */
-/* eslint-disable no-confusing-arrow */
+import React from 'react';
 import { ICaseStudySection } from 'generated/types/contentful';
 
 import classNames from 'classnames/bind';
@@ -18,8 +17,8 @@ export default function CaseStudySection({
         {caseStudies.map(
           (
             { fields: { thumbnail, projectName, slug, previewDescription } },
-            i
-          ) =>
+            i,
+          ) => (
             thumbnail ? (
               <div className={cx('preview')} key={i}>
                 <div className={cx('image')}>
@@ -31,6 +30,7 @@ export default function CaseStudySection({
                 <p>{previewDescription}</p>
               </div>
             ) : null
+          ),
         )}
       </div>
     </div>

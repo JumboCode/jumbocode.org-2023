@@ -44,10 +44,10 @@ export default async function RolesListPage() {
         {!fields.pictures
           ? null
           : fields.pictures.map((picture) => (
-              <div className={cx('image')} key={picture.sys.id}>
-                <ContentfulImage fill asset={picture} />
-              </div>
-            ))}
+            <div className={cx('image')} key={picture.sys.id}>
+              <ContentfulImage fill asset={picture} />
+            </div>
+          ))}
       </div>
 
       <h2 className={cx('roles-header')}>Our Roles</h2>

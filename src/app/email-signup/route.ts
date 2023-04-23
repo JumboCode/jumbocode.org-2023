@@ -10,6 +10,8 @@ client.setConfig({
   server: 'us11',
 });
 
+type AssertExtends<T, U extends T> = true; // eslint-disable-line @typescript-eslint/no-unused-vars
+
 export async function POST(req: Request) {
   const body = await req.json();
 
@@ -24,6 +26,17 @@ export async function POST(req: Request) {
     email_address: email,
     status: 'subscribed',
   });
+  type SuccessResponse = Exclude<typeof res, ErrorResponse>;
+
+
+  if (!('id' in res)) {
+    return new Response(JSON.stringify({ ok: false }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+  // this fails if our error handling above was incorrect
+  type _ = AssertExtends<SuccessResponse, typeof res>; // eslint-disable-line @typescript-eslint/no-unused-vars, max-len
 
   return new Response(JSON.stringify({ ok: true }), {
     status: 200,

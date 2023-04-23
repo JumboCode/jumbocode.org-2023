@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
+import React from 'react';
 import { ICallToActionSection } from 'generated/types/contentful';
 
 import classNames from 'classnames/bind';
@@ -6,39 +6,6 @@ import styles from './CallToAction.module.scss';
 import Link from 'next/link';
 const cx = classNames.bind(styles);
 
-export default function CallToAction({ fields }: ICallToActionSection) {
-  return (
-    <div className={cx('base')}>
-      <div className={cx('content')}>
-        <div>
-          <h2>{fields.heading}</h2>
-          <p>{fields.mainText}</p>
-          <Link href="/contact" className={cx('button')}>
-            Contact us
-          </Link>
-        </div>
-        <div>
-          <Building />
-          <h5>Organizations</h5>
-          <p>{fields.organizationDescription}</p>
-          <Link href="/contact">
-            Get in touch
-            <span />
-          </Link>
-        </div>
-        <div>
-          <Student />
-          <h5>Students</h5>
-          <p>{fields.studentDescription}</p>
-          <Link href="/apply">
-            Apply
-            <span />
-          </Link>
-        </div>
-      </div>
-    </div>
-  );
-}
 
 function Building() {
   return (
@@ -147,5 +114,39 @@ function Student() {
         strokeLinejoin="round"
       />
     </svg>
+  );
+}
+
+export default function CallToAction({ fields }: ICallToActionSection) {
+  return (
+    <div className={cx('base')}>
+      <div className={cx('content')}>
+        <div>
+          <h2>{fields.heading}</h2>
+          <p>{fields.mainText}</p>
+          <Link href="/contact" className={cx('button')}>
+            Contact us
+          </Link>
+        </div>
+        <div>
+          <Building />
+          <h5>Organizations</h5>
+          <p>{fields.organizationDescription}</p>
+          <Link href="/contact">
+            Get in touch
+            <span />
+          </Link>
+        </div>
+        <div>
+          <Student />
+          <h5>Students</h5>
+          <p>{fields.studentDescription}</p>
+          <Link href="/apply">
+            Apply
+            <span />
+          </Link>
+        </div>
+      </div>
+    </div>
   );
 }
