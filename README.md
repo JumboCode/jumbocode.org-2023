@@ -15,6 +15,12 @@ Run `npm run dev` from the root of this project, and you should be up and runnin
 [`localhost:3000`](http://localhost:3000)!
 
 ## Deployment
-This is deployed to the board@jumbocode.org Vercel account. We deploy it by hand because we cannot
-connect a repository that's owned by an organization to a free account. Run `npx vercel .` to deploy
-the app, and sign in by email to the board@jumbocode.org account.
+This is deployed to the board@jumbocode.org Vercel account.
+
+You can log into this account on the dashboard by selecting “continue with email” on
+[vercel.com/login](https://vercel.com/login), then following the email from board@jumbocode.org.
+
+To deploy:
+1. Run `npx vercel login` and log in with the board@jumbocode.org email.
+2. Verify that `npx vercel whoami` returns “jumbocode”
+3. Run `npx vercel . --prod` in the root of this project.
