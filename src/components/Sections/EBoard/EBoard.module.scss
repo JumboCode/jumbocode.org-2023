@@ -1,0 +1,58 @@
+@use 'styles/utils';
+@use 'sass:color';
+
+.base {
+  @include utils.layout-container;
+  max-width: calc(40ch + var(--horizontal-padding) * 2);
+  margin: 0 auto;
+  padding: 6rem 0;
+
+  .preview-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem 3rem;
+
+    @include utils.media-mobile {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .preview {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    margin: 1.5rem 0;
+
+    justify-content: center;
+
+    h4 {
+      margin-top: 0.5rem;
+    }
+
+    p {
+      color: utils.$color-neutral;
+      font-size: 0.8em;
+    }
+
+    .image {
+      width: 100%;
+      aspect-ratio: 3 / 2;
+      position: relative;
+
+      img {
+        object-fit: cover;
+      }
+    }
+
+    .name {
+      display: flex;
+      flex-direction: row;
+      gap: 0.25rem;
+
+      .role {
+        font-weight: bold;
+      }
+    }
+  }
+}

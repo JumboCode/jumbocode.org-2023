@@ -19,6 +19,22 @@
     }
   }
 
+  .links {
+    background-image: linear-gradient(155deg, rgba(20,235,185,1) 18%, rgba(94,59,255,1) 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: unset;
+
+    .link:hover {
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 0.5rem rgba(255, 255, 255, 0.5);
+    }
+
+    .link:focus {
+      @extend .link, :hover;
+    }
+  }
+
   .logo {
     display: flex;
     align-items: center;
