@@ -1,0 +1,13 @@
+diff --git a/node_modules/contentful-typescript-codegen/dist/contentful-typescript-codegen.js b/node_modules/contentful-typescript-codegen/dist/contentful-typescript-codegen.js
+index aeb08f1..571334c 100755
+--- a/node_modules/contentful-typescript-codegen/dist/contentful-typescript-codegen.js
++++ b/node_modules/contentful-typescript-codegen/dist/contentful-typescript-codegen.js
+@@ -444,7 +444,7 @@ function determineEnvironmentPath() {
+     if (fs.existsSync(pathWithoutExtension + ".ts")) {
+         return pathWithoutExtension + ".ts";
+     }
+-    return pathWithoutExtension + ".js";
++    return pathWithoutExtension + ".cjs";
+ }
+ function getEnvironmentGetter() {
+     var getEnvironmentPath = determineEnvironmentPath();
