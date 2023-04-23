@@ -26,7 +26,6 @@ export default async function Homepage() {
   return (
     <div className={cx('base')}>
       <Sections sections={sections} />
-      <SlackButton />
     </div>
   );
 }
