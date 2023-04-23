@@ -21,7 +21,7 @@
     "@contentful/rich-text-html-renderer": "^16.0.3",
     "@mailchimp/mailchimp_marketing": "^3.0.80",
     "classnames": "^2.3.2",
-    "contentful": "^10.1.0",
+    "contentful": "^9.3.5",
     "dom-serializer": "^2.0.0",
     "html-dom-parser": "^3.1.7",
     "html-react-parser": "^3.0.16",
