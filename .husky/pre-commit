@@ -1,0 +1,5 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+node -e "const fs = require('fs'); fs.writeFileSync('package-lock.json', JSON.stringify(JSON.parse(fs.readFileSync('package-lock.json', 'utf8'))));"
+git add package-lock.json
