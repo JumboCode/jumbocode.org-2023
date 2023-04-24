@@ -22,6 +22,7 @@ export default function ValuesSection({
             <div className={cx('preview')} key={i}>
               <div className={cx('image')}>
                 {/* TODO: these images are rendering weird :( */}
+                {/* They are in contentful as SVGs */}
                 <ContentfulImage fill asset={image} />
               </div>
               <h4>{heading}</h4>
