@@ -373,6 +373,7 @@ export interface ISectionsFields {
         | ICaseStudySection
         | IStatsSection
         | IEBoardSection
+        | IValuesSection
       )[]
     | undefined;
 }
@@ -475,6 +476,58 @@ export interface ITeamMember extends Entry<ITeamMemberFields> {
   };
 }
 
+export interface IValueFields {
+  /** image */
+  image: Asset;
+
+  /** heading */
+  heading: string;
+
+  /** body */
+  body: string;
+}
+
+/** Columnated content for "our values" section */
+
+export interface IValue extends Entry<IValueFields> {
+  sys: {
+    id: string;
+    type: string;
+    createdAt: string;
+    updatedAt: string;
+    locale: string;
+    contentType: {
+      sys: {
+        id: 'value';
+        linkType: 'ContentType';
+        type: 'Link';
+      };
+    };
+  };
+}
+
+export interface IValuesSectionFields {
+  /** values */
+  values: IValue[];
+}
+
+export interface IValuesSection extends Entry<IValuesSectionFields> {
+  sys: {
+    id: string;
+    type: string;
+    createdAt: string;
+    updatedAt: string;
+    locale: string;
+    contentType: {
+      sys: {
+        id: 'valuesSection';
+        linkType: 'ContentType';
+        type: 'Link';
+      };
+    };
+  };
+}
+
 export type CONTENT_TYPE =
   | 'aboutPage'
   | 'applyPage'
@@ -491,7 +544,9 @@ export type CONTENT_TYPE =
   | 'sections'
   | 'statistic'
   | 'statsSection'
-  | 'teamMember';
+  | 'teamMember'
+  | 'value'
+  | 'valuesSection';
 
 export type IEntry =
   | IAboutPage
@@ -509,7 +564,9 @@ export type IEntry =
   | ISections
   | IStatistic
   | IStatsSection
-  | ITeamMember;
+  | ITeamMember
+  | IValue
+  | IValuesSection;
 
 export type LOCALE_CODE = 'en-US';
 
