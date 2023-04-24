@@ -102,6 +102,9 @@ export interface ICaseStudyFields {
   /** Project Name */
   projectName: string;
 
+  /** Project Year */
+  projectYear: string;
+
   /** slug */
   slug: string;
 
@@ -302,6 +305,33 @@ export interface IHomepage extends Entry<IHomepageFields> {
   };
 }
 
+export interface IPastProjectsPageFields {
+  /** Heading */
+  heading: string;
+
+  /** Subheading */
+  subheading: string;
+}
+
+/** Heading and subheading text for the page which lists the past projects */
+
+export interface IPastProjectsPage extends Entry<IPastProjectsPageFields> {
+  sys: {
+    id: string;
+    type: string;
+    createdAt: string;
+    updatedAt: string;
+    locale: string;
+    contentType: {
+      sys: {
+        id: 'pastProjectsPage';
+        linkType: 'ContentType';
+        type: 'Link';
+      };
+    };
+  };
+}
+
 export interface IRoleFields {
   /** Name */
   name: string;
@@ -456,6 +486,7 @@ export type CONTENT_TYPE =
   | 'eBoardMember'
   | 'eBoardSection'
   | 'homepage'
+  | 'pastProjectsPage'
   | 'role'
   | 'sections'
   | 'statistic'
@@ -473,6 +504,7 @@ export type IEntry =
   | IEBoardMember
   | IEBoardSection
   | IHomepage
+  | IPastProjectsPage
   | IRole
   | ISections
   | IStatistic

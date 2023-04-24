@@ -3,10 +3,10 @@ import { notFound } from 'next/navigation';
 
 import client from 'content';
 import type { ICaseStudyFields } from 'generated/types/contentful';
+import ContentfulImage from 'components/ContentfulImage';
 
 import classNames from 'classnames/bind';
 import styles from './page.module.scss';
-import ContentfulImage from 'components/ContentfulImage';
 const cx = classNames.bind(styles);
 
 interface ICaseStudyPageParams {
