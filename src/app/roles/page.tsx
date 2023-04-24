@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-/* eslint-disable jsx-a11y/anchor-has-content */
 import React from 'react';
 import Link from 'next/link';
 
@@ -64,15 +62,10 @@ export default async function RolesListPage() {
       )}
 
       {fields.faq && (
-        <>
-          {/* TODO: is this the right way to do this? */}
-          <a id="faq" />
-          <div className={cx('faq')}>
-
-            <h2>FAQ</h2>
-            {parse(fields.faq)}
-          </div>
-        </>
+        <div className={cx('faq')}>
+          <h2 id="faq">FAQ</h2>
+          {parse(fields.faq)}
+        </div>
       )}
 
       <EmailSignup />

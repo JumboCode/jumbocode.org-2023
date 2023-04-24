@@ -42,13 +42,13 @@ const rules = {
   "@typescript-eslint/no-useless-constructor": "error",
   "no-empty-function": "off",
   "@typescript-eslint/no-empty-function": "error",
-
   "func-call-spacing": "off",
   "@typescript-eslint/func-call-spacing": ["error", "never"],
   "no-spaced-func": "off",
-
   "no-use-before-define": "off",
   "@typescript-eslint/no-use-before-define": ["error", { "ignoreTypeReferences": false }],
+  "space-before-function-paren": "off",
+  "@typescript-eslint/space-before-function-paren": ["error", "never"],
   "no-restricted-syntax": [
     "error",
     {

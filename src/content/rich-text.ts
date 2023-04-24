@@ -20,7 +20,7 @@ export const richTextOptions = {
 
 
 // Flatten rich text content from certain fields
-// eslint-disable-next-line function-paren-newline, space-before-function-paren
+// eslint-disable-next-line function-paren-newline
 export function flattenRichText<T extends object, Q extends (keyof T)[]>(
   fields: T,
   whichFields: Q,
