@@ -18,7 +18,7 @@ export default function CaseStudySection({
         ) => (
           // TODO: make images square and if bio exists make it appear on hover
           // `bio` is a field of clubMember
-          <div className={cx('preview')}>
+          <div className={cx('preview')} key={`${id}-${i}`}>
             <div className={cx('image')}>
               <ContentfulImage fill asset={picture} />
             </div>
