@@ -6,8 +6,7 @@
   margin-top: 2rem;
   padding-top: 3rem;
   padding-bottom: 4rem;
-  // background-color: color.scale(utils.$color-neutral, $alpha: -80%);
-  background-color: utils.$color-neutral-700;
+  background-color: rgb(var(--neutral-rgb) / 0.2);
   text-align: center;
 
   display: flex;
@@ -16,7 +15,7 @@
 
   p {
     margin-top: 0.75rem;
-    color: utils.$color-neutral-400;
+    color: rgb(var(--white-rgb) / 0.75);
   }
 
   label {
@@ -31,19 +30,20 @@
     input {
       font: inherit;
       font-weight: 400;
-      background-color: utils.$color-white;
-      color: utils.$color-black;
+      background-color: var(--color-white);
+      color: var(--color-black);
 
       padding: 0.5em 0 0.5em 0.75em;
       margin-block: 0.25rem 1rem;
       border-radius: 2px;
 
       &::placeholder {
-        color: color.scale(utils.$color-black, $alpha: -60%);
+        color: rgb(var(--black-rgb) / 0.4);
       }
 
       &[type="submit"] {
-        background-color: utils.$color-green;
+        background-color: var(--color-green);
+        color: var(--background);
         border: 0;
         &:not(:focus-visible) { outline: 0; }
         border-radius: 4px;

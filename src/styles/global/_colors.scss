@@ -1,0 +1,21 @@
+:root {
+  color-scheme: dark;
+
+  // Neutral palette
+  --deep-black-rgb: 10 10 12; --color-deep-black: rgb(var(--deep-black-rgb));
+  --black-rgb: 33 33 36; --color-black: rgb(var(--black-rgb));
+  --neutral-rgb: 132 126 143; --color-neutral: rgb(var(--neutral-rgb));
+  --white-rgb: 255 255 255; --color-white: rgb(var(--white-rgb));
+  --off-white-rgb: 249 248 252; --color-off-white: rgb(var(--off-white-rgb));
+
+  // Color palette
+  --color-green: rgb(20 235 185);
+  @supports (color: color(display-p3 1 1 1 / 1)) {
+    --color-green: color(display-p3 0.118 0.966 0.702);
+  }
+
+  // Semantic color palette
+  --background: var(--color-deep-black);
+  --foreground: var(--color-white);
+  --accent: var(--color-green);
+}

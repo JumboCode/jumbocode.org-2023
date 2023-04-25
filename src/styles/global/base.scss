@@ -4,14 +4,13 @@
 @use './typography-imports';
 @use './typography';
 @use './layout';
+@use './colors';
 
 body {
-  background: utils.$color-deep-black;
-  color: white;
+  background: var(--background);
+  color: var(--foreground);
 }
 
 :root {
-  --green: #{utils.$color-green};
-
   --max-content-width: 60rem;
 }

@@ -6,7 +6,7 @@
   margin-top: 2rem;
   padding-top: 3rem;
   padding-bottom: 4rem;
-  background-color: utils.$color-neutral-700;
+  background-color: rgb(var(--neutral-rgb) / 0.2);
 
   .content {
     @include utils.layout-container;
@@ -27,14 +27,14 @@
       flex-direction: column;
       gap: 0.5rem;
 
-      > p {
+      & > p {
         @include utils.type-body-2;
       }
 
-      > a {
+      & > a {
         @include utils.type-body-2;
         text-decoration: none;
-        color: utils.$color-green;
+        color: var(--color-green);
         width: fit-content;
 
         & > span {
@@ -51,14 +51,14 @@
 
         gap: 1rem;
 
-        > p {
+        & > p {
           @include utils.type-h4;
           width: 90%;
         }
 
         .button {
-          background: utils.$color-green;
-          color: utils.$color-black;
+          background: var(--color-green);
+          color: var(--color-black);
           padding: 0.5em 1em calc(0.5em + 1px);
           font-weight: 600;
           border-radius: 0.25rem;
@@ -85,19 +85,20 @@
     input {
       font: inherit;
       font-weight: 400;
-      background-color: utils.$color-white;
-      color: utils.$color-black;
+      background-color: var(--color-white);
+      color: var(--color-black);
 
       padding: 0.5em 0 0.5em 0.75em;
       margin-block: 0.25rem 1rem;
       border-radius: 2px;
 
       &::placeholder {
-        color: color.scale(utils.$color-black, $alpha: -60%);
+        color: rgb(var(--black-rgb) / 0.4);
       }
 
       &[type="submit"] {
-        background-color: utils.$color-green;
+        background-color: var(--color-green);
+        color: var(--background);
         border: 0;
         &:not(:focus-visible) { outline: 0; }
         border-radius: 4px;
@@ -108,6 +109,4 @@
       }
     }
   }
-
-
 }

@@ -51,26 +51,26 @@
     <mask id="d" fill="#fff">
       <use xlink:href="#a"/>
     </mask>
-    <use fill="var(--green)" filter="url(#b)" xlink:href="#a"/>
+    <use fill="var(--color-green)" filter="url(#b)" xlink:href="#a"/>
     <g filter="url(#c)" mask="url(#d)">
-      <use fill="var(--green)" xlink:href="#e"/>
+      <use fill="var(--color-green)" xlink:href="#e"/>
       <use fill="url(#f)" xlink:href="#e"/>
       <use fill="url(#g)" xlink:href="#e"/>
     </g>
     <g filter="url(#h)" mask="url(#d)">
-      <use fill="var(--green)" xlink:href="#i"/>
+      <use fill="var(--color-green)" xlink:href="#i"/>
       <use fill="url(#j)" xlink:href="#i"/>
       <use fill="url(#k)" xlink:href="#i"/>
     </g>
     <g mask="url(#d)">
       <use fill="#000" filter="url(#l)" xlink:href="#m"/>
-      <use fill="var(--green)" xlink:href="#m"/>
+      <use fill="var(--color-green)" xlink:href="#m"/>
     </g>
     <g mask="url(#d)">
-      <use fill="var(--green)" xlink:href="#n"/>
+      <use fill="var(--color-green)" xlink:href="#n"/>
       <use fill="url(#o)" xlink:href="#n"/>
     </g>
-    <path d="M328.5 660C457 660 556 582 593 511c22.95-44.03 15-60 0-71s-71-13-106 22c-62.48 62.48-116.08 74-160 74-124 0-203-104-203-207 0-148 131-214 211-214 66 0 121.51 47.3 148 75 65 68 117 39 127 32 31.82-22.28 5.9-52.15-.27-62.64C553 63 447.76 0 328.5 0 147.07 0 0 147.75 0 330s147.07 330 328.5 330Z" fill="var(--green)" mask="url(#d)"/>
-    <circle fill="var(--green)" cx="687.5" cy="353" r="41.5"/>
+    <path d="M328.5 660C457 660 556 582 593 511c22.95-44.03 15-60 0-71s-71-13-106 22c-62.48 62.48-116.08 74-160 74-124 0-203-104-203-207 0-148 131-214 211-214 66 0 121.51 47.3 148 75 65 68 117 39 127 32 31.82-22.28 5.9-52.15-.27-62.64C553 63 447.76 0 328.5 0 147.07 0 0 147.75 0 330s147.07 330 328.5 330Z" fill="var(--color-green)" mask="url(#d)"/>
+    <circle fill="var(--color-green)" cx="687.5" cy="353" r="41.5"/>
   </g>
 </svg>

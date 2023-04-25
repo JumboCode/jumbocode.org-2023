@@ -6,7 +6,7 @@
   margin-top: 2rem;
   padding-top: 3rem;
   padding-bottom: 4rem;
-  background-color: color.scale(utils.$color-neutral, $alpha: -80%);
+  background-color: rgb(var(--neutral-rgb) / 0.2);
   text-align: center;
 
   display: flex;
@@ -37,13 +37,13 @@
     input, textarea {
       font: inherit;
       padding: 0.25em 0 0.25em 0.75em;
-      background-color: utils.$color-white;
-      color: utils.$color-black;
+      background-color: var(--color-white);
+      color: var(--background);
       width: 25ch;
       margin-bottom: 1rem;
 
       &::placeholder {
-        color: color.scale(utils.$color-black, $alpha: -60%);
+        color: rgb(var(--black-rgb) / 0.4);
       }
     }
 
@@ -73,7 +73,7 @@
   }
 
   input[type="submit"] {
-    background-color: utils.$color-green;
+    background-color: var(--color-green);
     border: 0;
     &:not(:focus-visible) { outline: 0; }
     border-radius: 4px;

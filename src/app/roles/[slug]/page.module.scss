@@ -8,7 +8,7 @@
   padding: 6rem 0;
 
   .back {
-    color: utils.$color-green;
+    color: var(--color-green);
     text-decoration: none;
     font-weight: 600;
     display: flex;
@@ -26,8 +26,8 @@
       width: $size;
       height: $size;
       transform: rotate(45deg);
-      border-left: 0.125em solid utils.$color-green;
-      border-bottom: 0.125em solid utils.$color-green;
+      border-left: 0.125em solid var(--color-green);
+      border-bottom: 0.125em solid var(--color-green);
     }
   }
 
@@ -43,7 +43,7 @@
     margin-top: 1.25rem;
     margin-bottom: 2.5rem;
     height: 0.15rem;
-    background: color.scale(utils.$color-neutral, $alpha: -75%);
+    background: rgb(var(--neutral-rgb) / 0.25);
     border: 0;
     border-radius: 100vmax;
     margin-left: -0.25rem;
@@ -66,8 +66,8 @@
   }
 
   .button {
-    background: utils.$color-green;
-    color: utils.$color-black;
+    background: var(--color-green);
+    color: var(--background);
     padding: 0.5em 1em calc(0.5em + 1px);
     font-weight: 600;
     border-radius: 0.25rem;
@@ -93,7 +93,7 @@
 
   p {
     line-height: 1.4;
-    color: color.scale(utils.$color-white, $alpha: -10%);
+    color: rgb(var(--white-rgb) / 0.9);
   }
 
   p + p {
