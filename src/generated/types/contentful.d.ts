@@ -259,6 +259,9 @@ export interface IEBoardMember extends Entry<IEBoardMemberFields> {
 }
 
 export interface IEBoardSectionFields {
+  /** Heading */
+  heading: string;
+
   /** boardMembers */
   boardMembers: IEBoardMember[];
 }

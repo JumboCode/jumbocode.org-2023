@@ -7,14 +7,15 @@ import ContentfulImage from 'components/ContentfulImage';
 const cx = classNames.bind(styles);
 
 export default function CaseStudySection({
-  fields: { boardMembers },
+  fields: { boardMembers, heading },
 }: IEBoardSection) {
   return (
     <div className={cx('base')}>
-      <h3>Get to know our E-Board</h3>
+      <h3>{heading}</h3>
       <div className={cx('preview-container')}>
         {boardMembers.map((
-          { fields: { clubMember: { fields: { name, picture } }, role } },
+          { sys: { id }, fields: { clubMember: { fields: { name, picture, bio } }, role } },
+          i,
         ) => (
           // TODO: make images square and if bio exists make it appear on hover
           // `bio` is a field of clubMember
