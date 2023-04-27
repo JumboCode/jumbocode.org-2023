@@ -10,3 +10,11 @@ body {
   background: var(--background);
   color: var(--foreground);
 }
+
+::selection {
+  background-color: color(display-p3 #{colors.$green-p3-coordinates} / 0.999);
+  color: #000;
+}
+svg text ::selection { fill: #000; }
+
+:root { -webkit-tap-highlight-color: color(display-p3 #{colors.$green-p3-coordinates} / 0.2); }

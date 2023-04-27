@@ -1,3 +1,5 @@
+$green-p3-coordinates: 0.118 0.966 0.702;
+
 :root {
   color-scheme: dark;
 
@@ -11,7 +13,7 @@
   // Color palette
   --color-green: rgb(20 235 185);
   @supports (color: color(display-p3 1 1 1 / 1)) {
-    --color-green: color(display-p3 0.118 0.966 0.702);
+    --color-green: color(display-p3 #{$green-p3-coordinates});
   }
 
   // Semantic color palette
