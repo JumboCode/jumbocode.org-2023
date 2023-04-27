@@ -14,7 +14,7 @@ export default function CaseStudySection({
       <h3>{heading}</h3>
       <div className={cx('preview-container')}>
         {boardMembers.map((
-          { sys: { id }, fields: { clubMember: { fields: { name, picture, bio } }, role } },
+          { sys: { id }, fields: { clubMember: { fields: { name, picture/* , bio */ } }, role } },
           i,
         ) => (
           // TODO: make images square and if bio exists make it appear on hover
