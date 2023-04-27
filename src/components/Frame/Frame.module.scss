@@ -47,8 +47,8 @@
       -webkit-mask-composite: xor;
       mask-composite: exclude;
     }
-    &::before { padding-bottom: 0; }
-    &::after { padding-top: 0; }
+    &::before { padding-bottom: 0; clip-path: inset(0px 0px 1px 0); }
+    &::after { padding-top: 0; clip-path: inset(1px 0px 0px 0px); }
   }
 
   .backdrop {
