@@ -2,6 +2,8 @@ import React from 'react';
 
 import Footer from 'components/Footer';
 import Nav from 'components/Nav';
+import Frame from 'components/Frame';
+
 import 'styles/global/base.scss';
 
 export default function RootLayout({
@@ -32,8 +34,10 @@ export default function RootLayout({
 
       <body>
         <Nav />
-        {children}
+        <div style={{ isolation: 'isolate' }}>{children}</div>
         <Footer />
+
+        <Frame />
       </body>
     </html>
   );

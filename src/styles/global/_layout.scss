@@ -9,6 +9,13 @@ body {
   justify-content: stretch;
 }
 
-#__next {
-  display: contents;
+:root {
+  --nav-height: 3.5rem;
+  --page-frame-margin: 10px;
+  --page-frame-width: 6px;
+  --page-frame-radius: clamp(0.75rem, 2.5vmin, 1.5rem);
+}
+
+body {
+  padding-top: var(--nav-height);
 }
