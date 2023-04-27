@@ -7,159 +7,60 @@
   --radius: var(--page-frame-radius);
   pointer-events: none;
 
-  .trbl {
+  .frame,
+  .backdrop {
     display: contents;
-  }
 
-  .corner,
-  .border {
-    --size: calc(4 * var(--radius));
-    --margin: calc(-0.5 * var(--size));
-    --pos: calc(var(--position) + var(--stroke) / 2);
-    position: fixed;
-    z-index: 9900;
-
-    svg {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-
-      path {
-        vector-effect: non-scaling-stroke;
-        stroke-width: var(--page-frame-width);
-        stroke: var(--accent);
-        fill: none;
-      }
+    &::before,
+    &::after {
+      content: '';
+      position: fixed;
+      left: var(--position);
+      right: var(--position);
+      --full-height: 100vh;
+      @supports (height: 100svh) { --full-height: 100svh; }
+      height: calc(0.8 * (var(--full-height) - var(--position) - var(--nav-height)));
+      border-radius: var(--radius);
+    }
+    &::before {
+      top: var(--nav-height);
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+    &::after {
+      bottom: var(--position);
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
     }
   }
 
-  .corner {
-    width: var(--size);
-    height: var(--size);
-
-    svg.corner-line {
-      z-index: 2;
+  .frame {
+    &::before,
+    &::after {
+      z-index: 9999;
+      // fake a border using a background to get richer color
+      // https://bugs.chromium.org/p/chromium/issues/detail?id=1439859
+      background-color: var(--accent);
+      padding: var(--stroke);
+      mask: linear-gradient(black, black) content-box,
+            linear-gradient(black, black);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
     }
-
-    svg.corner-cover path {
-      stroke: none;
-      fill: var(--background);
-      z-index: 1;
-    }
-
-
-    &:nth-child(1), &:nth-child(2) { top: var(--nav-height); top: #{round}(down, var(--nav-height), 1px); margin-top: var(--margin); }
-    &:nth-child(3), &:nth-child(4) { bottom: var(--pos); margin-bottom: var(--margin); }
-    &:nth-child(1), &:nth-child(4) { left: var(--pos); margin-left: var(--margin); }
-    &:nth-child(2), &:nth-child(3) { right: var(--pos); margin-right: var(--margin); }
-
-    &:nth-child(1) { transform: scaleY(-1); }
-    &:nth-child(2) { transform: scaleX(-1) scaleY(-1); }
-    &:nth-child(3) { transform: scaleX(-1); }
-    &:nth-child(4) { transform: none; }
+    &::before { padding-bottom: 0; }
+    &::after { padding-top: 0; }
   }
 
-  .border {
-    --pos-inset: calc(var(--pos) + var(--size) * 0.33);
-
-    &:nth-child(1),
-    &:nth-child(3) {
-      left: var(--pos-inset);
-      right: var(--pos-inset);
-      height: var(--size);
+  .backdrop {
+    &::before {
+      z-index: 9998;
+      --spread: calc(max(var(--nav-height), var(--position)) * 2);
+      box-shadow: 0 calc(-1 * (var(--spread) + 1px)) 0 var(--spread) var(--background);
     }
-    &:nth-child(2),
-    &:nth-child(4) {
-      top: calc(var(--nav-height) + var(--size) / 2);
-      bottom: var(--pos-inset);
-      width: var(--size);
-    }
-    &:nth-child(1) { top: var(--nav-height); top: #{round}(down, var(--nav-height), 1px); margin-top: var(--margin); }
-    &:nth-child(2) { right: var(--pos); margin-right: var(--margin); }
-    &:nth-child(3) { bottom: var(--pos); margin-bottom: var(--margin); }
-    &:nth-child(4) { left: var(--pos); margin-left: var(--margin); }
-
-    &:nth-child(2) { transform: scaleX(-1); }
-    &:nth-child(3) { transform: scaleY(-1); }
-
-    rect {
-      stroke: none;
-      fill: var(--background);
-    }
-  }
-
-  .color-wash {
-    display: none;
-  }
-}
-
-
-// chrome only *not* safari
-@supports (-webkit-mask-repeat-y: inherit) {
-  .base {
-    .corner,
-    .border {
-      svg path {
-        stroke: #fff;
-      }
-    }
-
-    .color-wash {
-      display: block;
-      mix-blend-mode: multiply;
-      position: relative;
-      z-index: 9901;
-
-      .green {
-        &::before,
-        &::after {
-          content: '';
-          position: fixed;
-          left: calc(var(--position));
-          right: calc(var(--position));
-          height: 80vh;
-          z-index: 9901;
-          background-color: rgb(0 0 255 / 0.25);
-          background-color: var(--accent);
-          border-radius: calc(var(--radius) + var(--stroke) / 2);
-        }
-        &::before {
-          top: calc(var(--nav-height) - var(--stroke) / 2);
-          border-bottom-left-radius: 0;
-          border-bottom-right-radius: 0;
-        }
-        &::after {
-          bottom: var(--position);
-          border-top-left-radius: 0;
-          border-top-right-radius: 0;
-        }
-      }
-
-      .white {
-        &::before,
-        &::after {
-          content: '';
-          position: fixed;
-          left: calc(var(--position) + var(--stroke));
-          right: calc(var(--position) + var(--stroke));
-          z-index: 9902;
-          height: calc((100vh - var(--nav-height) - var(--stroke) - var(--radius)) * 0.8);
-          background-color: #fff;
-          border-radius: calc(var(--radius) - var(--stroke) / 2);
-        }
-        &::before {
-          top: calc(var(--nav-height) + var(--stroke) / 2);
-          border-bottom-left-radius: 0;
-          border-bottom-right-radius: 0;
-        }
-        &::after {
-          bottom: calc(var(--position) + var(--stroke));
-          border-top-left-radius: 0;
-          border-top-right-radius: 0;
-        }
-      }
+    &::after {
+      z-index: 9998;
+      --spread: calc(max(var(--nav-height), var(--position)) * 2);
+      box-shadow: 0 calc(var(--spread) + 1px) 0 var(--spread) var(--background);
     }
   }
 }

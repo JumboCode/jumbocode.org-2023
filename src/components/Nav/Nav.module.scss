@@ -7,7 +7,7 @@
   background: var(--background);
 
   @include utils.layout-container;
-  height: calc(var(--nav-height) - var(--page-frame-width));
+  height: var(--nav-height);
 
   position: fixed;
   z-index: 9999;
