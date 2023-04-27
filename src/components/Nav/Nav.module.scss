@@ -41,6 +41,13 @@
 
     span > span {
       color: var(--color-green);
+      // workaround pending https://bugs.chromium.org/p/chromium/issues/detail?id=1439859
+      @supports (-webkit-background-clip: text) {
+        background-color: var(--color-green);
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+      }
     }
   }
 

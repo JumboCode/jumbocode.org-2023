@@ -24,7 +24,7 @@ export default function RootLayout({
         <link rel="manifest" href="/site.webmanifest" />
         <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#000000" />
         <meta name="msapplication-TileColor" content="#000000" />
-        <meta name="theme-color" content="#000000" />
+        <meta name="theme-color" content="color(display-p3 0.118 0.966 0.702)" />
 
         <meta property="og:locale" content="en_US" />
 
