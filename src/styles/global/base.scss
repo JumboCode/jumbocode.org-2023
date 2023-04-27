@@ -14,6 +14,7 @@ body {
 ::selection {
   background-color: color(display-p3 #{colors.$green-p3-coordinates} / 0.999);
   color: #000;
+  -webkit-text-fill-color: #000;
 }
 svg text ::selection { fill: #000; }
 
