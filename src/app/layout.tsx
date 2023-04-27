@@ -34,7 +34,7 @@ export default function RootLayout({
 
       <body>
         <Nav />
-        <div style={{ isolation: 'isolate' }}>{children}</div>
+        {children}
         <Footer />
 
         <Frame />

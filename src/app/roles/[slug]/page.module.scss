@@ -3,9 +3,11 @@
 @use 'sass:color';
 
 .base {
-  display: flex;
-  margin: 0 auto;
   padding: 6rem 0;
+  --max-content-width: 50ch;
+  @include utils.layout-container;
+  display: flex;
+  flex-direction: column;
 
   .back {
     color: var(--color-green);
@@ -48,14 +50,6 @@
     border-radius: 100vmax;
     margin-left: -0.25rem;
     margin-right: -0.25rem;
-  }
-
-  .content {
-    @include utils.layout-container;
-    max-width: calc(70ch + var(--horizontal-padding) * 2);
-    flex: 0 auto;
-    display: flex;
-    flex-direction: column;
   }
 
   .description {

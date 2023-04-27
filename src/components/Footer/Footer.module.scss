@@ -8,7 +8,7 @@
   flex-direction: row;
   gap: 1rem;
   padding-top: 4rem;
-  padding-bottom: 2rem;
+  padding-bottom: calc(4rem + var(--page-frame-width) + var(--page-frame-margin));
 
   a {
     color: rgb(var(--white-rgb) / 0.8);

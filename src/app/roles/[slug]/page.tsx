@@ -37,23 +37,21 @@ export default async function Role({ params }: IRolePageParams) {
 
   return (
     <div className={cx('base')}>
-      <div className={cx('content')}>
-        <Link href="/roles" className={cx('back')}>
-          View all roles
-        </Link>
-        <div className={cx('heading-box')}>
-          <h1>{parse(role.fields.name)}</h1>
-          <ApplyButton />
-        </div>
-
-        <hr />
-
-        <div className={cx('description')}>{parse(fields.description)}</div>
-
-        <hr />
-
+      <Link href="/roles" className={cx('back')}>
+        View all roles
+      </Link>
+      <div className={cx('heading-box')}>
+        <h1>{parse(role.fields.name)}</h1>
         <ApplyButton />
       </div>
+
+      <hr />
+
+      <div className={cx('description')}>{parse(fields.description)}</div>
+
+      <hr />
+
+      <ApplyButton />
     </div>
   );
 }

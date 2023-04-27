@@ -2,10 +2,9 @@
 @use 'sass:color';
 
 .base {
-  @include utils.layout-container;
-  max-width: calc(40ch + var(--horizontal-padding) * 2);
-  margin: 0 auto;
   padding: 3rem 0;
+  --max-content-width: 50ch;
+  @include utils.layout-container;
 
   .preview-container {
     display: grid;
