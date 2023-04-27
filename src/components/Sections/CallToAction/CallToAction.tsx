@@ -141,7 +141,7 @@ export default function CallToAction({ fields }: ICallToActionSection) {
           <Student />
           <h5>Students</h5>
           <p>{fields.studentDescription}</p>
-          <Link href="/apply">
+          <Link href="/roles">
             Apply
             <span />
           </Link>
