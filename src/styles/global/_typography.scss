@@ -23,7 +23,7 @@
   // letter-spacing (px as a function of px): -0.0223x + 0.185 * x * e^{-0.1745 * x}
   // This is a piecewise linear approximation (see https://www.desmos.com/calculator/7zugljj3rd)
 
-  --inter-spacing: Max(
+  --inter-spacing: max(
     min(
       0.1627em,
       calc(0.133077px + 0.10596400 * (1em - 1px)),

@@ -1,3 +1,5 @@
+@use 'styles/utils/layout';
+
 html {
   height: 100%;
 }
@@ -10,6 +12,12 @@ body {
 }
 
 :root {
+  --max-content-width: 60rem;
+
+  --horizontal-padding-for-max-width: calc((100vw - var(--max-content-width)) / 2);
+  --horizontal-normal-padding: calc(#{layout.capped-vw(1)} + 1rem + var(--page-frame-width) + var(--page-frame-margin));
+  --horizontal-padding: max(var(--horizontal-normal-padding), var(--horizontal-padding-for-max-width));
+
   --nav-height: 3.5rem;
 
   --page-frame-margin: 8px;

@@ -5,9 +5,6 @@
 
 // Add padding to a full-width (100vw) container to keep its contents within comfortable bounds
 @mixin container {
-  --horizontal-padding-for-max-width: calc((100vw - var(--max-content-width)) / 2);
-  --horizontal-normal-padding: calc(#{capped-vw(1)} + 1rem + var(--page-frame-width) + var(--page-frame-margin));
-  --horizontal-padding: max(var(--horizontal-normal-padding), var(--horizontal-padding-for-max-width));
   padding-left: var(--horizontal-padding);
   padding-right: var(--horizontal-padding);
 }
