@@ -29,7 +29,7 @@ export default function RootLayout({
         <meta property="og:locale" content="en_US" />
 
         {/* Preload fonts */}
-        <link rel="preload" href="/fonts/inter/Inter-roman.var.woff2?v=3.19" as="font" type="font/woff2" crossOrigin="anonymous" />
+        <link rel="preload" href="/fonts/inter/Inter.var.woff2?v=4.00" as="font" type="font/woff2" crossOrigin="anonymous" />
       </head>
 
       <body>

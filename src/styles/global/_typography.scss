@@ -17,7 +17,7 @@
   text-underline-position: from-font;
 }
 
-* {
+:where(*) {
   // Inter dynamic metrics (from https://rsms.me/inter/dynmetrics/)
   // letter-spacing (em as a function of px): -0.0223 + 0.185 * e^{-0.1745 * x}
   // letter-spacing (px as a function of px): -0.0223x + 0.185 * x * e^{-0.1745 * x}

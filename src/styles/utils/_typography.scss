@@ -10,21 +10,25 @@ $relative-base: 18px; // Assume 1rem is approximately equal to 18px
   @include fonts.inter;
   font-weight: 800;
   font-size: rem(48px);
+  font-variation-settings: 'opsz' 32;
 }
 @mixin h2 {
   @include fonts.inter;
   font-weight: 700;
   font-size: rem(36px);
+  font-variation-settings: 'opsz' 32;
 }
 @mixin h3 {
   @include fonts.inter;
   font-weight: 600;
   font-size: rem(22px);
+  font-variation-settings: 'opsz' 22;
 }
 @mixin h4 {
   @include fonts.inter;
   font-weight: 400;
   font-size: rem(20px);
+  font-variation-settings: 'opsz' 20;
 }
 @mixin h5 {
   @include fonts.inter;
