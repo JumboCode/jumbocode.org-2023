@@ -22,9 +22,9 @@ export default function RootLayout({
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
         <link rel="manifest" href="/site.webmanifest" />
-        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#000000" />
-        <meta name="msapplication-TileColor" content="#000000" />
-        <meta name="theme-color" content="color(display-p3 0.118 0.966 0.702)" />
+        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#0a0a0c" />
+        <meta name="msapplication-TileColor" content="#0a0a0c" />
+        <meta name="theme-color" content="#0a0a0c" />
 
         <meta property="og:locale" content="en_US" />
 

@@ -4,7 +4,7 @@ $green-p3-coordinates: 0.118 0.966 0.702;
   color-scheme: dark;
 
   // Neutral palette
-  --deep-black-rgb: 10 10 12; --color-deep-black: rgb(var(--deep-black-rgb));
+  --deep-black-rgb: 10 10 12; --color-deep-black: rgb(var(--deep-black-rgb)); // note: update colors in root layout meta tags if you change this
   --black-rgb: 33 33 36; --color-black: rgb(var(--black-rgb));
   --neutral-rgb: 132 126 143; --color-neutral: rgb(var(--neutral-rgb));
   --white-rgb: 255 255 255; --color-white: rgb(var(--white-rgb));
