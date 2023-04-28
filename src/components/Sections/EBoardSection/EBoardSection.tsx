@@ -2,11 +2,11 @@ import React from 'react';
 import { IEBoardSection } from 'generated/types/contentful';
 
 import classNames from 'classnames/bind';
-import styles from './EBoard.module.scss';
+import styles from './EBoardSection.module.scss';
 import ContentfulImage from 'components/ContentfulImage';
 const cx = classNames.bind(styles);
 
-export default function CaseStudySection({
+export default function EBoardSection({
   fields: { boardMembers, heading },
 }: IEBoardSection) {
   return (
