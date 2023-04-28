@@ -2,7 +2,6 @@
 @use 'sass:color';
 
 .base {
-  @include utils.layout-full-bleed;
   margin-top: 2rem;
   padding-top: 3rem;
   padding-bottom: 4rem;
