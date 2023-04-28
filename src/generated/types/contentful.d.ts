@@ -287,6 +287,9 @@ export interface IHomepageFields {
   /** Heading */
   heading: string;
 
+  /** Subheading */
+  subheading: Document;
+
   /** Sections */
   sections: ISections;
 }

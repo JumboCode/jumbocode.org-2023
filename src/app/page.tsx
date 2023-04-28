@@ -3,11 +3,15 @@ import { notFound } from 'next/navigation';
 
 import client from 'content';
 import { IHomepageFields } from 'generated/types/contentful';
+import { flattenRichText } from 'content/rich-text';
+
+import Hero from 'components/Hero';
 import Sections from 'components/Sections/Sections';
 
 import classNames from 'classnames/bind';
 import styles from './page.module.scss';
 const cx = classNames.bind(styles);
+
 
 export default async function Homepage() {
   const entries = await client.getEntries<IHomepageFields>({
@@ -17,14 +21,13 @@ export default async function Homepage() {
     include: 10,
   });
 
-  const homepage = entries.items[0] ?? notFound();
-  const {
-    fields: { sections },
-  } = homepage;
+  const rawContent = entries.items[0]?.fields ?? notFound();
+  const content = flattenRichText(rawContent, ['subheading']);
 
   return (
     <div className={cx('base')}>
-      <Sections sections={sections} />
+      <Hero {...content} />
+      <Sections sections={content.sections} />
     </div>
   );
 }

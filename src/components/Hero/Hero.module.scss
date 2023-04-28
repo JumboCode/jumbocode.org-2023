@@ -1,0 +1,47 @@
+@use 'styles/utils';
+
+.base {
+  @include utils.layout-container;
+  --frame-size: calc(var(--page-frame-margin) + var(--page-frame-width));
+  height: calc(var(--full-height) - var(--nav-height) - var(--frame-size));
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    align-self: flex-start;
+
+    h1 {
+      font-weight: 680;
+      line-height: 1;
+      --trim-margin-bottom: -0.135em;
+      font-size: var(--font-size, 5rem);
+      margin-bottom: calc(1rem + var(--trim-margin-bottom));
+
+      // make the intrinsic width very narrow so the p sets the width
+      &::after { content: '\00a0'; }
+      span { position: absolute; }
+    }
+
+    p {
+      font-weight: 500;
+      font-size: 1.75rem;
+      margin: 0;
+      margin-right: -0.25ch;
+    }
+  }
+
+  &::before {
+    content: '';
+    height: 50%;
+    flex-shrink: 1;
+  }
+  &::after {
+    content: '';
+    height: min(6rem, var(--horizontal-padding) - var(--frame-size));
+    flex-shrink: 1;
+  }
+}
