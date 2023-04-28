@@ -1,5 +1,5 @@
 import React from 'react';
-import { assertNever } from 'type-utils';
+import { assertNever } from 'utils/type-utils';
 
 import {
   ICallToActionSection,
