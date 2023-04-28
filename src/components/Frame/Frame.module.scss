@@ -17,8 +17,6 @@
       position: fixed;
       left: var(--position);
       right: var(--position);
-      --full-height: 100vh;
-      @supports (height: 100svh) { --full-height: 100svh; }
       height: calc(0.8 * (var(--full-height) - var(--position) - var(--nav-height)));
       border-radius: var(--radius);
     }

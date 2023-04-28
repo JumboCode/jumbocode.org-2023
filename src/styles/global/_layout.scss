@@ -12,14 +12,20 @@ body {
 }
 
 :root {
-  --max-content-width: 60rem;
-
+  // “Container” calculations
+  --max-content-width: 60rem; // default value that some “container” elements will override
   --horizontal-padding-for-max-width: calc((100vw - var(--max-content-width)) / 2);
   --horizontal-normal-padding: calc(#{layout.capped-vw(1)} + 1rem + var(--page-frame-width) + var(--page-frame-margin));
   --horizontal-padding: max(var(--horizontal-normal-padding), var(--horizontal-padding-for-max-width));
 
+  // The full height of the page
+  --full-height: 100vh;
+  @supports (height: 100svh) { --full-height: 100svh; }
+
+  // The size of the nav
   --nav-height: 3.5rem;
 
+  // The parameters of the “frame” around the page
   --page-frame-margin: 8px;
   --page-frame-width: 4px;
   --page-frame-radius: 1rem;
