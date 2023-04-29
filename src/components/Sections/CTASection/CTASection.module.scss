@@ -3,108 +3,102 @@
 
 .base {
   margin-top: 2rem;
-  padding-top: 3rem;
-  padding-bottom: 4rem;
-  background-color: rgb(var(--neutral-rgb) / 0.2);
+  padding: 5rem 0;
+  background-image: radial-gradient(
+    farthest-side ellipse at 90% 110%,
+    color(display-p3 var(--green-p3) / 0.17), color(display-p3 var(--green-p3) / 0.02)
+  );
 
-  .content {
-    @include utils.layout-container;
-    --max-content-width: 85ch;
+  @include utils.layout-container;
+  --max-content-width: 85ch;
+
+  display: flex;
+  flex-direction: row;
+  gap: 4rem;
+  align-items: center;
+
+  @include utils.media-mobile {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+
+  .primary {
+    flex-basis: 40%;
+    flex-grow: 1;
 
     display: flex;
-    flex-direction: row;
-    gap: 4rem;
+    flex-direction: column;
+    gap: 1rem;
 
-    @include utils.media-mobile {
-      flex-direction: column;
+    h2 {
+      margin-top: -0.25em;
     }
 
-    & > * {
-      flex-basis: 25%;
+    p {
+      @include utils.type-h4;
+      width: 90%;
+    }
 
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
+    .button {
+      background: var(--color-green);
+      color: var(--color-black);
+      padding: 0.5em 1em calc(0.5em + 1px);
+      font-weight: 600;
+      border-radius: 0.25rem;
+      display: inline-block;
+      box-sizing: border-box;
+      text-decoration: none;
+      align-self: flex-start;
+      margin-top: 0.5rem;
+    }
 
-      & > p {
-        @include utils.type-body-2;
-      }
-
-      & > a {
-        @include utils.type-body-2;
-        text-decoration: none;
-        color: var(--color-green);
-        width: fit-content;
-
-        & > span {
-          &::after {
-            content: "\2192";
-            margin-left: 0.25rem;
-          }
-        }
-      }
-
-      &:first-child {
-        flex-basis: 40%;
-        flex-grow: 1;
-
-        gap: 1rem;
-
-        & > p {
-          @include utils.type-h4;
-          width: 90%;
-        }
-
-        .button {
-          background: var(--color-green);
-          color: var(--color-black);
-          padding: 0.5em 1em calc(0.5em + 1px);
-          font-weight: 600;
-          border-radius: 0.25rem;
-          display: inline-block;
-          box-sizing: border-box;
-        }
-
-        @include utils.media-mobile {
-          align-items: center;
-        }
-      }
+    @include utils.media-mobile {
+      align-items: center;
     }
   }
 
-  label {
-    text-align: left;
+  .item {
+    flex-basis: 25%;
+
     display: flex;
     flex-direction: column;
-    align-items: stretch;
-    margin-top: 2rem;
-    margin-bottom: 0.25rem;
-    font-weight: bold;
+    gap: 0.5rem;
 
-    input {
-      font: inherit;
-      font-weight: 400;
-      background-color: var(--color-white);
-      color: var(--color-black);
+    svg {
+      width: 3.5rem;
+      height: 3.5rem;
+      opacity: 0.35;
+      mix-blend-mode: plus-lighter;
 
-      padding: 0.5em 0 0.5em 0.75em;
-      margin-block: 0.25rem 1rem;
-      border-radius: 2px;
+      [stroke-width] {
+        stroke-width: 12;
+        stroke: currentColor;
+      }
+    }
 
-      &::placeholder {
-        color: rgb(var(--black-rgb) / 0.4);
+    p {
+      @include utils.type-body-2;
+    }
+
+    & > a {
+      @include utils.type-body-2;
+      color: var(--color-green);
+      width: fit-content;
+      font-weight: 500;
+      display: flex;
+      text-decoration: none;
+      margin-top: 0.25rem;
+
+      &::after {
+        content: "\2192";
+        margin-left: 0.25rem;
+        display: block;
+        transition: transform 0.1s ease;
       }
 
-      &[type="submit"] {
-        background-color: var(--color-green);
-        color: var(--background);
-        border: 0;
-        &:not(:focus-visible) { outline: 0; }
-        border-radius: 4px;
-        font-size: inherit;
-        font-weight: 700;
-        padding: 0.75em 1.25em;
-        align-self: center;
+      &:hover::after {
+        transform: translate(0.15rem);;
       }
     }
   }

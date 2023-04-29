@@ -13,6 +13,8 @@
 
   font-synthesis: none;
 
+  font-optical-sizing: none; // we'll apply opsz ourselves where we want it
+
   text-decoration-thickness: from-font;
   text-underline-position: from-font;
 }

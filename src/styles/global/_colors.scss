@@ -11,9 +11,11 @@ $green-p3-coordinates: 0.118 0.966 0.702;
   --off-white-rgb: 249 248 252; --color-off-white: rgb(var(--off-white-rgb));
 
   // Color palette
-  --color-green: rgb(20 235 185);
+  --green-srgb: 20 235 185;
+  --color-green: rgb(var(--green-srgb));
+  --green-p3: #{$green-p3-coordinates};
   @supports (color: color(display-p3 1 1 1 / 1)) {
-    --color-green: color(display-p3 #{$green-p3-coordinates});
+    --color-green: color(display-p3 var(--green-p3));
   }
 
   // Semantic color palette
