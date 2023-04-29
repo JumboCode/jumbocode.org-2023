@@ -1,8 +1,14 @@
 /* eslint-disable quotes, quote-props, no-multi-spaces, max-len */
 
 module.exports = {
-  "extends": ["airbnb", "airbnb/hooks"],
-  "plugins": ["react-hooks", "jsx-a11y", "react", "import", "@typescript-eslint/eslint-plugin"],
+  "extends": ["airbnb", "airbnb/hooks", "next"],
+  "plugins": [
+    "react-hooks",
+    "jsx-a11y",
+    "react",
+    "import",
+    "@typescript-eslint/eslint-plugin",
+  ],
   "env": { "browser": true },
   // include typescript files
   "parser": "@typescript-eslint/parser",
@@ -37,6 +43,8 @@ module.exports = {
     "react/jsx-filename-extension": ["error", { "extensions": [".jsx", ".tsx"] }], // Allow JSX in .tsx files
     "react/require-default-props": ["error", { "forbidDefaultForRequired": true, "classes": "defaultProps", "functions": "defaultArguments" }],
     "react/jsx-key": ["error", { "checkFragmentShorthand": true, "checkKeyMustBeforeSpread": true, "warnOnDuplicates": true }],
+    "import/no-anonymous-default-export": "off",
+
     // problematic rules for typescript
     "no-undef": "off",
     "import/named": "off",
