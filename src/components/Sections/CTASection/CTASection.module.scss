@@ -4,16 +4,34 @@
 .base {
   margin-top: 2rem;
   padding: 5rem 0;
-  background-image: radial-gradient(
-    farthest-side ellipse at 90% 110%,
-    color(display-p3 var(--green-p3) / 0.17) 0%,
-    color(display-p3 var(--green-p3) / 0.02) 100%
-  );
 
   @include utils.layout-container;
   @include utils.layout-twelve-columns;
   align-items: center;
   gap: 2rem;
+
+  background-image: radial-gradient(
+    farthest-corner ellipse at 90% 110%,
+    rgb(var(--green-srgb) / 0.12) 10%,
+    rgb(var(--green-srgb) / 0.025) 65%,
+    rgb(var(--green-srgb) / 0.01) 100%
+  ), linear-gradient(
+    120deg,
+    rgb(var(--green-srgb) / 0.03) 10%,
+    rgb(var(--green-srgb) / 0.01) 50%
+  );
+  @supports (color: color(display-p3 1 1 1 / 1)) {
+    background-image: radial-gradient(
+      farthest-corner ellipse at 90% 110%,
+      color(display-p3 var(--green-p3) / 0.12) 10%,
+      color(display-p3 var(--green-p3) / 0.025) 65%,
+      color(display-p3 var(--green-p3) / 0.01) 100%
+    ), linear-gradient(
+      120deg,
+      color(display-p3 var(--green-p3) / 0.03) 10%,
+      color(display-p3 var(--green-p3) / 0.01) 50%
+    );
+  }
 
 
   .primary {
