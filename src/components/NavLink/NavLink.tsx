@@ -3,6 +3,7 @@
 import React from 'react';
 
 import Link from 'next/link';
+import type { Route } from 'next';
 import { usePathname } from 'next/navigation';
 
 import classNames from 'classnames';
@@ -16,7 +17,7 @@ export default function NavLink({
   activeClassName = undefined,
   ...props
 }: {
-  href: string;
+  href: Route;
   as?: string;
   exact?: boolean;
   children: React.ReactNode | ((props: { isActive: boolean }) => React.ReactNode);

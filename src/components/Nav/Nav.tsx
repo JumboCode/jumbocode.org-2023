@@ -2,6 +2,8 @@ import React from 'react';
 import Link from 'next/link';
 import NavLink from 'components/NavLink';
 
+import type { Route } from 'next';
+
 import Logo from 'assets/jc-logo.svg';
 
 import unboundClassNames from 'classnames';
@@ -9,13 +11,14 @@ import classNames from 'classnames/bind';
 import styles from './Nav.module.scss';
 const cx = classNames.bind(styles);
 
+
 const links = [
   {
     path: '/about',
     name: 'About',
   },
   {
-    path: '/case-studies',
+    path: '/work',
     name: 'Work',
   },
   {
@@ -26,7 +29,8 @@ const links = [
     path: '/contact',
     name: 'Contact',
   },
-];
+] satisfies ({ path: Route, name: string })[];
+
 
 export default function Nav({
   className = null,

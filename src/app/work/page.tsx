@@ -52,7 +52,7 @@ export default async function CaseStudiesPage() {
             {(caseStudies[i - 1] ?? { fields: { projectYear: '' } }).fields.projectYear !== projectYear && (
             <h3>{projectYear}</h3>
             )}
-            <Link href={`/case-studies/${slug}`}>
+            <Link href={`/work/${slug}`}>
               {projectName}
             </Link>
           </ul>

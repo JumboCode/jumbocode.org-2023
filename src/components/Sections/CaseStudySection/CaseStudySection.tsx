@@ -24,7 +24,7 @@ export default function CaseStudySection({
                 <div className={cx('image')}>
                   <ContentfulImage fill asset={thumbnail} />
                 </div>
-                <Link href={`/case-studies/${slug}`}>
+                <Link href={`/work/${slug}`}>
                   <h4>{projectName}</h4>
                 </Link>
                 <p>{previewDescription}</p>
