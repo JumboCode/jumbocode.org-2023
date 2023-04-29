@@ -51,6 +51,7 @@
     grid-column-start: 7;
     & + .item { grid-column-start: auto; }
     font-size: max(15px, 0.85rem);
+    text-decoration: none;
 
     .content {
       display: flex;
@@ -65,6 +66,7 @@
       mix-blend-mode: plus-lighter;
       margin-bottom: 0.5rem;
       flex: 0 0 auto;
+      transition: opacity 0.2s ease;
 
       [stroke-width] {
         stroke-width: 12;
@@ -84,17 +86,22 @@
       width: fit-content;
       font-weight: 500;
       display: flex;
-      text-decoration: none;
       margin-top: 0.25rem;
 
       &::after {
         content: "\2192";
         margin-left: 0.25rem;
         display: block;
-        transition: transform 0.1s ease;
+        transition: transform 0.15s ease;
       }
+    }
 
-      &:hover::after {
+    &:hover,
+    &:focus {
+      svg {
+        opacity: 0.45;
+      }
+      .link::after {
         transform: translate(0.15rem);;
       }
     }

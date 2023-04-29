@@ -21,27 +21,27 @@ export default function CTASection({ fields }: ICallToActionSection) {
         </Link>
       </div>
 
-      <div className={cx('item')}>
+      <Link className={cx('item')} href="/contact">
         <OrganizationIcon />
         <div className={cx('content')}>
           <h3>Organizations</h3>
           <p>{fields.organizationDescription}</p>
-          <Link href="/contact" className={cx('link')}>
+          <span className={cx('link')}>
             Get in touch
-          </Link>
+          </span>
         </div>
-      </div>
+      </Link>
 
-      <div className={cx('item')}>
+      <Link className={cx('item')} href="/roles">
         <StudentIcon />
         <div className={cx('content')}>
           <h3>Students</h3>
           <p>{fields.studentDescription}</p>
-          <Link href="/roles" className={cx('link')}>
+          <span className={cx('link')}>
             Apply
-          </Link>
+          </span>
         </div>
-      </div>
+      </Link>
     </div>
   );
 }
