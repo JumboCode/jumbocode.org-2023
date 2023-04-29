@@ -52,7 +52,7 @@ export default async function RolesListPage() {
 
       <h2 className={cx('roles-header')}>Our Roles</h2>
       {fields.roles.map(({ sys: { id }, fields: { name, slug } }) => (
-        <Link href={`/roles/${slug}/`} key={id} className={cx('role-item')}>
+        <Link href={`/roles/${slug}`} key={id} className={cx('role-item')}>
           <h3>{name}</h3>
         </Link>
       ))}
