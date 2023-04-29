@@ -17,3 +17,10 @@
   padding-left: var(--horizontal-padding);
   padding-right: var(--horizontal-padding);
 }
+
+@mixin twelve-columns {
+  display: grid;
+  grid-template-columns: [content-left-edge] repeat(12, 1fr) [content-right-edge];
+  column-gap: 1rem;
+  row-gap: 1rem;
+}

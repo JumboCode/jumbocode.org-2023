@@ -6,26 +6,18 @@
   padding: 5rem 0;
   background-image: radial-gradient(
     farthest-side ellipse at 90% 110%,
-    color(display-p3 var(--green-p3) / 0.17), color(display-p3 var(--green-p3) / 0.02)
+    color(display-p3 var(--green-p3) / 0.17) 0%,
+    color(display-p3 var(--green-p3) / 0.02) 100%
   );
 
   @include utils.layout-container;
-  --max-content-width: 85ch;
-
-  display: flex;
-  flex-direction: row;
-  gap: 4rem;
+  @include utils.layout-twelve-columns;
   align-items: center;
-
-  @include utils.media-mobile {
-    flex-direction: column;
-    align-items: stretch;
-  }
+  gap: 2rem;
 
 
   .primary {
-    flex-basis: 40%;
-    flex-grow: 1;
+    grid-column: content-left-edge / span 5;
 
     display: flex;
     flex-direction: column;
@@ -52,24 +44,27 @@
       align-self: flex-start;
       margin-top: 0.5rem;
     }
-
-    @include utils.media-mobile {
-      align-items: center;
-    }
   }
 
   .item {
-    flex-basis: 25%;
+    grid-column-end: span 3;
+    grid-column-start: 7;
+    & + .item { grid-column-start: auto; }
+    font-size: max(15px, 0.85rem);
 
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+    .content {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
 
     svg {
       width: 3.5rem;
       height: 3.5rem;
       opacity: 0.35;
       mix-blend-mode: plus-lighter;
+      margin-bottom: 0.5rem;
+      flex: 0 0 auto;
 
       [stroke-width] {
         stroke-width: 12;
@@ -77,11 +72,13 @@
       }
     }
 
-    p {
-      @include utils.type-body-2;
+    h3 {
+      font-size: inherit;
+      font-weight: 600;
+      font-size: 1.15em;
     }
 
-    & > a {
+    .link {
       @include utils.type-body-2;
       color: var(--color-green);
       width: fit-content;
@@ -99,6 +96,27 @@
 
       &:hover::after {
         transform: translate(0.15rem);;
+      }
+    }
+  }
+}
+
+
+@include utils.media-mobile {
+  .base {
+    --max-content-width: 40ch;
+
+    display: flex;
+    flex-direction: column;
+    gap: 3.5rem;
+    align-items: stretch;
+
+    .item {
+      display: flex;
+      gap: 2rem;
+
+      svg {
+        order: 2;
       }
     }
   }

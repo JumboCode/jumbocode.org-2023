@@ -23,20 +23,24 @@ export default function CTASection({ fields }: ICallToActionSection) {
 
       <div className={cx('item')}>
         <OrganizationIcon />
-        <h5>Organizations</h5>
-        <p>{fields.organizationDescription}</p>
-        <Link href="/contact">
-          Get in touch
-        </Link>
+        <div className={cx('content')}>
+          <h3>Organizations</h3>
+          <p>{fields.organizationDescription}</p>
+          <Link href="/contact" className={cx('link')}>
+            Get in touch
+          </Link>
+        </div>
       </div>
 
       <div className={cx('item')}>
         <StudentIcon />
-        <h5>Students</h5>
-        <p>{fields.studentDescription}</p>
-        <Link href="/roles">
-          Apply
-        </Link>
+        <div className={cx('content')}>
+          <h3>Students</h3>
+          <p>{fields.studentDescription}</p>
+          <Link href="/roles" className={cx('link')}>
+            Apply
+          </Link>
+        </div>
       </div>
     </div>
   );

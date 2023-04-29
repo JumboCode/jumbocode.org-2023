@@ -15,7 +15,7 @@ body {
   // “Container” calculations
   --max-content-width: 60rem; // default value that some “container” elements will override
   --horizontal-padding-for-max-width: calc((100vw - var(--max-content-width)) / 2);
-  --horizontal-normal-padding: calc(#{layout.capped-vw(1)} + 1rem + var(--page-frame-width) + var(--page-frame-margin));
+  --horizontal-normal-padding: calc(#{layout.capped-vw(2)} + 1rem + var(--page-frame-width) + var(--page-frame-margin));
   --horizontal-padding: max(var(--horizontal-normal-padding), var(--horizontal-padding-for-max-width));
 
   // The full height of the page
