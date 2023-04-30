@@ -2,13 +2,11 @@
 @use 'sass:color';
 
 .base {
-  margin-top: 2rem;
-  padding: 5rem 0;
+  padding-top: 4.75rem;
+  padding-bottom: 5rem;
 
   @include utils.layout-container;
   @include utils.layout-twelve-columns;
-  align-items: center;
-  gap: 2rem;
 
   background-image: radial-gradient(
     farthest-corner ellipse at 90% 110%,
@@ -42,7 +40,8 @@
     gap: 1rem;
 
     h2 {
-      margin-top: -0.25em;
+      margin-top: -0.1em;
+      line-height: 1;
     }
 
     p {
@@ -60,14 +59,18 @@
       box-sizing: border-box;
       text-decoration: none;
       align-self: flex-start;
-      margin-top: 0.5rem;
+      margin-top: auto;
+    }
+    p:last-of-type {
+      margin-bottom: 0.5rem;
     }
   }
 
   .item {
     grid-column-end: span 3;
     grid-column-start: 7;
-    & + .item { grid-column-start: auto; }
+    &:where(.item + .item) { grid-column-start: auto; padding-left: 0.5rem; }
+    &:where(:not(:last-child)) { padding-right: 0.5rem; }
     font-size: max(15px, 0.85rem);
     text-decoration: none;
 
@@ -82,9 +85,9 @@
       height: 3.5rem;
       opacity: 0.35;
       mix-blend-mode: plus-lighter;
-      margin-bottom: 0.5rem;
+      margin: -0.25rem 0 0.5rem;
       flex: 0 0 auto;
-      transition: opacity 0.2s ease;
+      transition: opacity 0.15s ease;
 
       [stroke-width] {
         stroke-width: 12;
@@ -117,10 +120,10 @@
     &:hover,
     &:focus {
       svg {
-        opacity: 0.45;
+        opacity: 0.55;
       }
       .link::after {
-        transform: translate(0.15rem);;
+        transform: translate(0.15rem);
       }
     }
   }
@@ -129,19 +132,47 @@
 
 @include utils.media-mobile {
   .base {
-    --max-content-width: 40ch;
+    row-gap: 1.5rem;
 
+    .primary {
+      grid-column: content-left-edge / span 6;
+      grid-row: 1 / span 2;
+
+      h2 {
+        margin-top: 0;
+      }
+
+      .button {
+        margin-top: auto;
+      }
+    }
+
+    .item {
+      grid-column: span 5 / content-right-edge;
+      display: flex;
+      gap: 2rem;
+      padding: 0;
+
+      svg { display: none; }
+    }
+  }
+}
+
+@include utils.media-smallest {
+  .base {
     display: flex;
     flex-direction: column;
     gap: 3.5rem;
     align-items: stretch;
+    padding-top: 4rem;
 
     .item {
-      display: flex;
-      gap: 2rem;
-
       svg {
+        display: block;
         order: 2;
+        margin-left: auto;
+        width: 3.75rem;
+        height: 3.75rem;
       }
     }
   }
