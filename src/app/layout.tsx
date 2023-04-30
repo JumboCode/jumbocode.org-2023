@@ -34,10 +34,13 @@ export default function RootLayout({
 
       <body>
         <Nav />
-        {children}
-        <Footer />
 
-        <Frame />
+        <main>
+          {children}
+          <Frame />
+        </main>
+
+        <Footer />
       </body>
     </html>
   );

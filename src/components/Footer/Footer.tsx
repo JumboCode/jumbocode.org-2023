@@ -5,9 +5,10 @@ import classNames from 'classnames/bind';
 import styles from './Footer.module.scss';
 const cx = classNames.bind(styles);
 
+
 export default function Footer() {
   return (
-    <div className={cx('base')}>
+    <footer className={cx('base')}>
       <div>
         <p>JumboCode</p>
         <a href="https://www.facebook.com/JumboCode/">Facebook</a>
@@ -31,6 +32,6 @@ export default function Footer() {
         <Link href="/contact">Work with us</Link>
         <Link href="/contact">Contact</Link>
       </div>
-    </div>
+    </footer>
   );
 }

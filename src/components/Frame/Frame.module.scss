@@ -14,19 +14,25 @@
     &::before,
     &::after {
       content: '';
-      position: fixed;
+      display: block;
       left: var(--position);
       right: var(--position);
-      height: calc(0.8 * (var(--full-height) - var(--position) - var(--nav-height)));
+      --height: calc(0.8 * (var(--full-height) - var(--position) - var(--nav-height)));
+      height: var(--height);
       border-radius: var(--radius);
     }
     &::before {
+      position: fixed;
       top: var(--nav-height);
       border-bottom-left-radius: 0;
       border-bottom-right-radius: 0;
     }
     &::after {
+      position: sticky;
+      margin-left: var(--position);
+      margin-right: var(--position);
       bottom: var(--position);
+      margin-top: calc(-1 * var(--height));
       border-top-left-radius: 0;
       border-top-right-radius: 0;
     }
@@ -35,7 +41,7 @@
   .frame {
     &::before,
     &::after {
-      z-index: 9999;
+      z-index: 9000;
       // fake a border using a background to get richer color
       // https://bugs.chromium.org/p/chromium/issues/detail?id=1439859
       background-color: var(--accent);
@@ -50,14 +56,15 @@
   }
 
   .backdrop {
-    &::before {
-      z-index: 9998;
+    &::before,
+    &::after {
+      z-index: 9001;
       --spread: calc(max(var(--nav-height), var(--position)) * 2);
+    }
+    &::before {
       box-shadow: 0 calc(-1 * (var(--spread) + 1px)) 0 var(--spread) var(--background);
     }
     &::after {
-      z-index: 9998;
-      --spread: calc(max(var(--nav-height), var(--position)) * 2);
       box-shadow: 0 calc(var(--spread) + 1px) 0 var(--spread) var(--background);
     }
   }
