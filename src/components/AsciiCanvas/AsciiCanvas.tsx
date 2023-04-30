@@ -34,7 +34,8 @@ class AsciiCanvasRenderer {
       .parse(
         getComputedStyle(this.canvas)
           .getPropertyValue(this.wideGamut ? '--green-srgb' : '--green-p3')
-          .split(' ')
+          .trim()
+          .split(/\s+/)
           .map((s) => parseFloat(s) / 255),
       );
   }
