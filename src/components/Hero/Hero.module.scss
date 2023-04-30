@@ -13,6 +13,8 @@
     display: flex;
     flex-direction: column;
     align-self: flex-start;
+    position: relative;
+    z-index: 2;
 
     h1 {
       font-weight: 680;
@@ -44,4 +46,17 @@
     height: min(6rem, var(--horizontal-padding) - var(--frame-size));
     flex-shrink: 1;
   }
+}
+
+.canvas {
+  position: absolute;
+  top: calc(var(--page-frame-width) - 1px);
+  left: calc(var(--page-frame-margin) + var(--page-frame-width));
+  right: calc(var(--page-frame-margin) + var(--page-frame-width));
+  height: calc(100% - var(--page-frame-width) + 2px);
+  margin-bottom: -1px;
+  z-index: 1;
+
+  border-radius: calc(var(--page-frame-radius) - var(--page-frame-width));
+  overflow: hidden;
 }

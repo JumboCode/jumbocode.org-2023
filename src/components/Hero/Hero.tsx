@@ -1,4 +1,6 @@
 import React from 'react';
+
+import AsciiCanvas from './AsciiCanvas';
 import FullWidthHeading from 'components/FullWidthHeading';
 import Balancer from 'react-wrap-balancer';
 
@@ -31,6 +33,7 @@ export default function Hero({
         <FullWidthHeading level={1}>{parse(heading)}</FullWidthHeading>
         {parse(subheading, { replace: balanceParagraphReplacer })}
       </div>
+      <AsciiCanvas className={cx('canvas')} />
     </div>
   );
 }
