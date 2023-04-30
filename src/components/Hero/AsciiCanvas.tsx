@@ -3,6 +3,7 @@
 import React, { useRef, useEffect } from 'react';
 import useElementSize from 'hooks/element-size';
 import useIsMounted from 'hooks/is-mounted';
+import z from 'zod';
 
 import styles from './AsciiCanvas.module.scss';
 import classNames from 'classnames';
@@ -12,6 +13,7 @@ class AsciiCanvasRenderer {
   private rafId: ReturnType<typeof requestAnimationFrame> | null = null;
   private gl: WebGL2RenderingContext;
   private wideGamut: boolean;
+  private green: [number, number, number];
 
   constructor(
     private readonly canvas: HTMLCanvasElement,
@@ -27,10 +29,18 @@ class AsciiCanvasRenderer {
     } else {
       this.wideGamut = false;
     }
+
+    this.green = z.tuple([z.number(), z.number(), z.number()])
+      .parse(
+        getComputedStyle(this.canvas)
+          .getPropertyValue(this.wideGamut ? '--green-srgb' : '--green-p3')
+          .split(' ')
+          .map((s) => parseFloat(s) / 255),
+      );
   }
 
   frame() {
-    this.gl.clearColor(1, 0, 0, 1);
+    this.gl.clearColor(...this.green, 1);
     this.gl.clear(this.gl.COLOR_BUFFER_BIT);
   }
 
