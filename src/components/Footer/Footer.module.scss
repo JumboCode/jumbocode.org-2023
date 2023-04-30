@@ -2,13 +2,14 @@
 
 .base {
   @include utils.layout-container;
-  --max-content-width: 85ch;
+  font-size: min(0.9rem, 16px);
 
-  display: flex;
-  flex-direction: row;
-  gap: 1rem;
+  @include utils.layout-twelve-columns;
   padding-top: 4rem;
-  padding-bottom: 6rem;
+  padding-bottom: 4rem;
+
+  line-height: 1;
+  --row-gap: 0.65rem;
 
   position: relative;
   z-index: 9998;
@@ -17,19 +18,105 @@
 
 
   a {
-    color: rgb(var(--white-rgb) / 0.8);
+    color: var(--color-text-subtle);
     text-decoration: none;
+    &:hover { color: var(--color-text-primary); }
   }
 
-  & > * {
-    @include utils.type-h6;
-
+  .column {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    grid-column: span 2;
+    white-space: nowrap;
+    @include utils.media-mobile { grid-column: span 3; }
 
-    &:first-child {
-      flex-grow: 1;
+    h2 {
+      font: inherit;
+      font-weight: 550;
+      color: var(--color-text-primary);
+      margin-bottom: calc(var(--row-gap) / 2);
+
+      &:not(:first-child) {
+        margin-top: calc(1em + var(--row-gap) * 1.5);
+        margin-top: calc(var(--row-gap) * 0.5);
+      }
     }
+
+    a {
+      padding: calc(var(--row-gap) / 2) 0;
+    }
+  }
+
+  .social-links {
+    grid-column: span 3 / content-right-edge;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+    gap: 0.25rem;
+
+    a {
+      display: block;
+      --padding: 0.5rem;
+      --size: 1rem;
+      padding: var(--padding);
+      margin-top: calc(-1 * var(--padding));
+      &:last-child { margin-right: calc(-1 * var(--padding)); }
+
+      svg {
+        height: var(--size);
+        width: var(--size);
+      }
+
+      // optical corrections
+      &[href*='linkedin'] svg { transform: scale(1.07); }
+      &[href*='instagram'] svg { transform: scale(0.94); }
+    }
+  }
+
+  .copyright {
+    grid-column: content-left-edge / span 6;
+    color: var(--color-text-subtlest);
+    margin-top: 3rem;
+  }
+}
+
+
+@include utils.media-mobile {
+  .base {
+    .column {
+      grid-column: span 3;
+    }
+
+    @include utils.media-not-smallest {
+      .social-links {
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 0;
+
+        a {
+          margin-top: 0;
+          margin-right: calc(-1 * var(--padding));
+        }
+      }
+    }
+  }
+}
+
+@include utils.media-smallest {
+  .base .column {
+    grid-column: span 4;
+  }
+
+  .base .social-links {
+    grid-column: span 6 / content-right-edge;
+    grid-row: 2;
+    align-items: flex-end;
+
+    a {
+      margin-bottom: calc(-1 * var(--padding));
+    }
+  }
+  .base .copyright {
+    grid-row: 2;
   }
 }

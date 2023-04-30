@@ -20,6 +20,11 @@ $green-p3-coordinates: 0.118 0.966 0.702;
 
   // Semantic color palette
   --background: var(--color-deep-black);
-  --foreground: var(--color-white);
   --accent: var(--color-green);
+
+  --text-primary-rgb: 247 247 248;
+  --color-text-primary: rgb(var(--text-primary-rgb));
+  --color-text-secondary: rgb(var(--text-primary-rgb) / 0.82); // #cbcace
+  --color-text-subtle: rgb(var(--text-primary-rgb) / 0.6); // #959499
+  --color-text-subtlest: rgb(var(--text-primary-rgb) / 0.33); // # 504f54
 }
