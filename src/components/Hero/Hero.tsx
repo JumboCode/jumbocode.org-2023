@@ -1,6 +1,6 @@
 import React from 'react';
 
-import AsciiCanvas from './AsciiCanvas';
+import AsciiCanvas from 'components/AsciiCanvas';
 import FullWidthHeading from 'components/FullWidthHeading';
 import Balancer from 'react-wrap-balancer';
 
