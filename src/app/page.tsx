@@ -6,11 +6,7 @@ import { IHomepageFields } from 'generated/types/contentful';
 import { flattenRichText } from 'content/rich-text';
 
 import Hero from 'components/Hero';
-import Sections from 'components/Sections/Sections';
-
-import classNames from 'classnames/bind';
-import styles from './page.module.scss';
-const cx = classNames.bind(styles);
+import Sections from 'components/sections/Sections';
 
 
 export default async function Homepage() {
@@ -25,9 +21,9 @@ export default async function Homepage() {
   const content = flattenRichText(rawContent, ['subheading']);
 
   return (
-    <div className={cx('base')}>
+    <>
       <Hero {...content} />
       <Sections sections={content.sections} />
-    </div>
+    </>
   );
 }

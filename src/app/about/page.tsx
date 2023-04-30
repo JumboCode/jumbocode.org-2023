@@ -3,7 +3,7 @@ import React from 'react';
 import client from 'content';
 import { IAboutPageFields } from 'generated/types/contentful';
 import { notFound } from 'next/navigation';
-import Sections from 'components/Sections/Sections';
+import Sections from 'components/sections/Sections';
 
 import classNames from 'classnames/bind';
 import styles from './page.module.scss';
