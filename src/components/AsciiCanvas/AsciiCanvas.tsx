@@ -7,6 +7,11 @@ import z from 'zod';
 import styles from './AsciiCanvas.module.scss';
 import classNames from 'classnames';
 
+const headingFamilyName = 'JC Inter Heading';
+const headingFamilyWeight = '700';
+const subheadingFamilyName = 'JC Inter Subheading';
+const subheadingFamilyWeight = '500';
+
 
 class AsciiCanvasRenderer {
   private rafId: ReturnType<typeof requestAnimationFrame> | null = null;
@@ -104,14 +109,28 @@ export default function AsciiCanvas({
 
 
   useEffect(() => {
-    if (!canvasRef.current || !dpr || !remSize) return undefined;
+    let canceled = false;
+    let renderer: AsciiCanvasRenderer | null = null;
 
-    const renderer = new AsciiCanvasRenderer(canvasRef.current, heading, subheading, dpr, remSize);
-    rendererRef.current = renderer;
-    renderer.start();
+    (async () => {
+      // Load the fonts we need
+      const fonts = [];
+      const hasFont = (name: string) => [...document.fonts.values()].some((f) => f.family === name);
+      if (!hasFont(headingFamilyName)) fonts.push(new FontFace(headingFamilyName, 'url(/fonts/inter/Inter-DisplayBold.woff2)', { style: 'normal', weight: headingFamilyWeight }));
+      if (!hasFont(subheadingFamilyName)) fonts.push(new FontFace(subheadingFamilyName, 'url(/fonts/inter/Inter-Medium.woff2)', { style: 'normal', weight: subheadingFamilyWeight }));
+      await Promise.all(fonts.map((font) => font.load()));
+      if (canceled) return;
+      fonts.forEach((font) => document.fonts.add(font));
+      // Initialize the canvas only once the fonts are ready
+      if (!canvasRef.current || !dpr || !remSize) return;
+      renderer = new AsciiCanvasRenderer(canvasRef.current, heading, subheading, dpr, remSize);
+      rendererRef.current = renderer;
+      renderer.start();
+    })();
 
     return () => {
-      renderer.stop();
+      canceled = true;
+      if (renderer) renderer.stop();
       rendererRef.current = null;
     };
   });

@@ -30,6 +30,8 @@ export default function RootLayout({
 
         {/* Preload fonts */}
         <link rel="preload" href="/fonts/inter/Inter.var.woff2?v=4.00" as="font" type="font/woff2" crossOrigin="anonymous" />
+        <link rel="preload" href="/fonts/inter/Inter-DisplayBold.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+        <link rel="preload" href="/fonts/inter/Inter-Medium.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
       </head>
 
       <body>
