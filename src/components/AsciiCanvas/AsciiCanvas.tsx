@@ -4,6 +4,8 @@ import React, { useState, useRef, useEffect } from 'react';
 import useElementSize from 'hooks/element-size';
 import z from 'zod';
 
+import generateSDF from './sdf';
+
 import styles from './AsciiCanvas.module.scss';
 import classNames from 'classnames';
 
@@ -18,6 +20,8 @@ class AsciiCanvasRenderer {
   private gl: WebGL2RenderingContext;
   private wideGamut: boolean;
   private green: [number, number, number];
+  headingSdf: ReturnType<typeof generateSDF>;
+  subheadingSdf: ReturnType<typeof generateSDF>;
 
   constructor(
     private readonly canvas: HTMLCanvasElement,
@@ -48,6 +52,49 @@ class AsciiCanvasRenderer {
           .split(/\s+/)
           .map((s) => parseFloat(s) / 255),
       );
+
+    const { headingSdf, subheadingSdf } = this.generateSDFs();
+    this.headingSdf = headingSdf;
+    this.subheadingSdf = subheadingSdf;
+  }
+
+  /** Generate SDFs for heading and subheading text */
+  generateSDFs() {
+    // Solve for font sizes
+    console.time('size');
+    const canvas2d = document.createElement('canvas');
+    const ctx = canvas2d.getContext('2d');
+    if (!ctx) throw new Error('Could not initialize 2D canvas');
+    ctx.fontKerning = 'normal';
+    // measure subheading
+    const subheadingFontSize = Math.ceil(1.75 * this.remSize * this.dpr);
+    ctx.font = `${subheadingFamilyWeight} ${subheadingFontSize}px ${subheadingFamilyName}`;
+    const subheadingWidth = ctx.measureText(this.subheadingString).width;
+    // trial heading size
+    const headingTestFontSize = 4 * this.remSize * this.dpr;
+    ctx.font = `${headingFamilyWeight} ${headingTestFontSize}px ${headingFamilyName}`;
+    const headingWidthTest = ctx.measureText(this.headingString).width;
+    // final heading size is scaled to match width of subheading
+    const headingFontSize = Math.ceil(headingTestFontSize * (subheadingWidth / headingWidthTest));
+    console.timeEnd('size');
+
+    // Draw SDFs
+    console.time('sdf');
+    const headingSdf = generateSDF(this.headingString, {
+      fontFamily: headingFamilyName,
+      fontWeight: headingFamilyWeight,
+      fontSize: headingFontSize,
+      letterSpacing: -0.02241,
+    });
+    const subheadingSdf = generateSDF(this.subheadingString, {
+      fontFamily: subheadingFamilyName,
+      fontWeight: subheadingFamilyWeight,
+      fontSize: subheadingFontSize,
+      letterSpacing: -0.02155,
+    });
+    console.timeEnd('sdf');
+
+    return { headingSdf, subheadingSdf };
   }
 
   frame() {

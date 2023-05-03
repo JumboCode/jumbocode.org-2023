@@ -21,6 +21,7 @@
   "dependencies": {
     "@contentful/rich-text-html-renderer": "^16.0.3",
     "@mailchimp/mailchimp_marketing": "^3.0.80",
+    "@mapbox/tiny-sdf": "^2.0.6",
     "classnames": "^2.3.2",
     "contentful": "^9.3.5",
     "dom-serializer": "^2.0.0",
