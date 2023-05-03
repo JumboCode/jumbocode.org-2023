@@ -1,8 +1,7 @@
 'use client';
 
-import React, { useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import useElementSize from 'hooks/element-size';
-import useIsMounted from 'hooks/is-mounted';
 import z from 'zod';
 
 import styles from './AsciiCanvas.module.scss';
@@ -17,12 +16,16 @@ class AsciiCanvasRenderer {
 
   constructor(
     private readonly canvas: HTMLCanvasElement,
+    private headingString: string,
+    private subheadingString: string,
     public dpr: number,
   ) {
+    // Create WebGL2 context
     const gl = canvas.getContext('webgl2');
     if (!gl) throw new Error('WebGL2 not supported');
     this.gl = gl;
 
+    // Enable wide-gamut colors if they’re supported
     if ('drawingBufferColorSpace' in this.gl) {
       this.gl.drawingBufferColorSpace = 'display-p3';
       this.wideGamut = true;
@@ -30,6 +33,7 @@ class AsciiCanvasRenderer {
       this.wideGamut = false;
     }
 
+    // Measure brand green color
     this.green = z.tuple([z.number(), z.number(), z.number()])
       .parse(
         getComputedStyle(this.canvas)
@@ -65,25 +69,30 @@ class AsciiCanvasRenderer {
 
 export default function AsciiCanvas({
   className,
+  heading,
+  subheading,
   ...props
-}: React.HTMLAttributes<HTMLDivElement>) {
+}: {
+  heading: string;
+  subheading: string;
+} & React.HTMLAttributes<HTMLDivElement>) {
   const [baseRef, [width, height]] = useElementSize();
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const rendererRef = useRef<AsciiCanvasRenderer | null>(null);
 
   const dpr = useIsMounted() ? window.devicePixelRatio : 2;
 
-  // const rendererRef = useRef<AsciiCanvasRenderer | null>(null);
 
   useEffect(() => {
     if (!canvasRef.current) return undefined;
 
-    const renderer = new AsciiCanvasRenderer(canvasRef.current, dpr);
-    // rendererRef.current = renderer;
+    const renderer = new AsciiCanvasRenderer(canvasRef.current, heading, subheading, dpr);
+    rendererRef.current = renderer;
     renderer.start();
 
     return () => {
       renderer.stop();
-      // rendererRef.current = null;
+      rendererRef.current = null;
     };
   });
 
