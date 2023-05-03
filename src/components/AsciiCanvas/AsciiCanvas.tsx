@@ -19,6 +19,7 @@ class AsciiCanvasRenderer {
     private headingString: string,
     private subheadingString: string,
     public dpr: number,
+    public remSize: number,
   ) {
     // Create WebGL2 context
     const gl = canvas.getContext('webgl2');
@@ -80,13 +81,32 @@ export default function AsciiCanvas({
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const rendererRef = useRef<AsciiCanvasRenderer | null>(null);
 
-  const dpr = useIsMounted() ? window.devicePixelRatio : 2;
+  const [dpr, setDpr] = useState<number | null>(null);
+  useEffect(() => {
+    setDpr(window.devicePixelRatio);
+    if (rendererRef.current) rendererRef.current.dpr = window.devicePixelRatio;
+    const media = window.matchMedia(`(resolution: ${window.devicePixelRatio}dppx)`);
+    const listener = () => setDpr(window.devicePixelRatio);
+    media.addEventListener('change', listener);
+    return () => media.removeEventListener('change', listener);
+  }, [dpr]);
+
+  const [remSize, setRemSize] = useState<number | null>(null);
+  useEffect(() => {
+    const get = () => parseFloat(getComputedStyle(document.documentElement).fontSize);
+    const rem = get();
+    setRemSize(rem);
+    if (rendererRef.current) rendererRef.current.remSize = rem;
+    const listener = () => setRemSize(get());
+    window.addEventListener('resize', listener);
+    return () => window.removeEventListener('resize', listener);
+  }, []);
 
 
   useEffect(() => {
-    if (!canvasRef.current) return undefined;
+    if (!canvasRef.current || !dpr || !remSize) return undefined;
 
-    const renderer = new AsciiCanvasRenderer(canvasRef.current, heading, subheading, dpr);
+    const renderer = new AsciiCanvasRenderer(canvasRef.current, heading, subheading, dpr, remSize);
     rendererRef.current = renderer;
     renderer.start();
 
@@ -96,9 +116,10 @@ export default function AsciiCanvas({
     };
   });
 
+
   return (
     <div {...props} ref={baseRef} className={classNames(styles.base, className)}>
-      {width != null && height != null && width > 0 && height > 0 && (
+      {width != null && height != null && width > 0 && height > 0 && dpr && (
         <canvas
           width={width * dpr}
           height={height * dpr}
