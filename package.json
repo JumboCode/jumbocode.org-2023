@@ -51,8 +51,10 @@
     "eslint-plugin-jsx-a11y": "^6.7.1",
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
+    "glslify-loader": "^2.0.0",
     "husky": "^8.0.3",
     "patch-package": "^7.0.0",
+    "raw-loader": "^4.0.2",
     "sass": "^1.62.1",
     "typescript": "5.0.4",
     "webpack-bundle-analyzer": "^4.8.0"
