@@ -6,6 +6,10 @@ import z from 'zod';
 
 import generateSDF from './sdf';
 
+import passthroughVert from './shaders/passthrough-vert.glsl';
+import lightFrag from './shaders/light.glsl';
+import { makeProgram } from './shader-utils';
+
 import styles from './AsciiCanvas.module.scss';
 import classNames from 'classnames';
 
@@ -23,12 +27,15 @@ class AsciiCanvasRenderer {
   headingSdf: ReturnType<typeof generateSDF>;
   subheadingSdf: ReturnType<typeof generateSDF>;
 
+  lightProgram: WebGLProgram;
+  lightUniforms: { resolution: WebGLUniformLocation | null };
+  vao: WebGLVertexArrayObject;
+
   constructor(
     private readonly canvas: HTMLCanvasElement,
     private headingString: string,
     private subheadingString: string,
-    public dpr: number,
-    public remSize: number,
+    public scale: { dpr: number, remSize: number },
   ) {
     // Create WebGL2 context
     const gl = canvas.getContext('webgl2');
@@ -36,8 +43,8 @@ class AsciiCanvasRenderer {
     this.gl = gl;
 
     // Enable wide-gamut colors if they’re supported
-    if ('drawingBufferColorSpace' in this.gl) {
-      this.gl.drawingBufferColorSpace = 'display-p3';
+    if ('drawingBufferColorSpace' in gl) {
+      gl.drawingBufferColorSpace = 'display-p3';
       this.wideGamut = true;
     } else {
       this.wideGamut = false;
@@ -53,9 +60,32 @@ class AsciiCanvasRenderer {
           .map((s) => parseFloat(s) / 255),
       );
 
+    // Generate SDFs of text
     const { headingSdf, subheadingSdf } = this.generateSDFs();
     this.headingSdf = headingSdf;
     this.subheadingSdf = subheadingSdf;
+
+    // Set up WebGL
+    const lightProgram = makeProgram(gl, passthroughVert, lightFrag);
+    if (!lightProgram) throw new Error('Could not initialize WebGL program');
+    this.lightProgram = lightProgram;
+    this.lightUniforms = {
+      resolution: gl.getUniformLocation(lightProgram, 'u_resolution'), // vec2
+    };
+
+    const vao = gl.createVertexArray();
+    if (!vao) throw new Error('couldn’t create VAO');
+    this.vao = vao;
+
+    const vertexBuffer = gl.createBuffer();
+    if (!vertexBuffer) throw new Error('couldn’t create vertex buffer');
+    gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, 3, -1, -1, 3, -1]), gl.STATIC_DRAW);
+
+    gl.bindVertexArray(this.vao);
+    const aPosition = gl.getAttribLocation(this.lightProgram, 'a_position');
+    gl.enableVertexAttribArray(aPosition);
+    gl.vertexAttribPointer(aPosition, 2, gl.FLOAT, false, 0, 0);
   }
 
   /** Generate SDFs for heading and subheading text */
@@ -67,11 +97,11 @@ class AsciiCanvasRenderer {
     if (!ctx) throw new Error('Could not initialize 2D canvas');
     ctx.fontKerning = 'normal';
     // measure subheading
-    const subheadingFontSize = Math.ceil(1.75 * this.remSize * this.dpr);
+    const subheadingFontSize = Math.ceil(1.75 * this.scale.remSize * this.scale.dpr);
     ctx.font = `${subheadingFamilyWeight} ${subheadingFontSize}px ${subheadingFamilyName}`;
     const subheadingWidth = ctx.measureText(this.subheadingString).width;
     // trial heading size
-    const headingTestFontSize = 4 * this.remSize * this.dpr;
+    const headingTestFontSize = 4 * this.scale.remSize * this.scale.dpr;
     ctx.font = `${headingFamilyWeight} ${headingTestFontSize}px ${headingFamilyName}`;
     const headingWidthTest = ctx.measureText(this.headingString).width;
     // final heading size is scaled to match width of subheading
@@ -98,8 +128,17 @@ class AsciiCanvasRenderer {
   }
 
   frame() {
-    this.gl.clearColor(...this.green, 1);
-    this.gl.clear(this.gl.COLOR_BUFFER_BIT);
+    const { gl } = this;
+
+    gl.viewport(0, 0, this.width, this.height);
+
+    gl.clearColor(0, 0, 0, 0);
+    gl.clear(gl.COLOR_BUFFER_BIT);
+
+    gl.useProgram(this.lightProgram);
+    gl.uniform2f(this.lightUniforms.resolution, this.width, this.height);
+    gl.bindVertexArray(this.vao);
+    gl.drawArrays(gl.TRIANGLES, 0, 3);
   }
 
   start() {
@@ -117,6 +156,8 @@ class AsciiCanvasRenderer {
   }
 
   get running() { return this.rafId != null; }
+  get width() { return this.canvas.width; }
+  get height() { return this.canvas.height; }
 }
 
 
