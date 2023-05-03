@@ -19,6 +19,7 @@ export default {
       rules: [
         ...config.module.rules,
         { test: /\.svg$/, use: ['@svgr/webpack'] },
+        { test: /\.glsl$/, use: ['raw-loader', 'glslify-loader'] },
       ],
     },
     plugins: [
