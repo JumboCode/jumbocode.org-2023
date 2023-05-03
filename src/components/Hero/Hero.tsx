@@ -1,11 +1,10 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import FullWidthHeading from 'components/FullWidthHeading/FullWidthHeading';
+import AsciiCanvas from 'components/AsciiCanvas/AsciiCanvas';
 
 import classNames from 'classnames/bind';
 import styles from './Hero.module.scss';
 const cx = classNames.bind(styles);
-
-const AsciiCanvas = React.lazy(() => import('components/AsciiCanvas'));
 
 
 export default function Hero({
@@ -22,13 +21,11 @@ export default function Hero({
         <p>{subheading}</p>
       </div>
 
-      <Suspense fallback={null}>
-        <AsciiCanvas
-          heading={heading}
-          subheading={subheading}
-          className={cx('canvas')}
-        />
-      </Suspense>
+      <AsciiCanvas
+        heading={heading}
+        subheading={subheading}
+        className={cx('canvas')}
+      />
     </div>
   );
 }

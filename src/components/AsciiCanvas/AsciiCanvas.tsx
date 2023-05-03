@@ -131,29 +131,29 @@ export default function AsciiCanvas({
 } & React.HTMLAttributes<HTMLDivElement>) {
   const [baseRef, [width, height]] = useElementSize();
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const rendererRef = useRef<AsciiCanvasRenderer | null>(null);
 
   const [dpr, setDpr] = useState<number | null>(null);
   useEffect(() => {
-    setDpr(window.devicePixelRatio);
-    if (rendererRef.current) rendererRef.current.dpr = window.devicePixelRatio;
+    const update = () => setDpr(window.devicePixelRatio);
+    update();
     const media = window.matchMedia(`(resolution: ${window.devicePixelRatio}dppx)`);
-    const listener = () => setDpr(window.devicePixelRatio);
-    media.addEventListener('change', listener);
-    return () => media.removeEventListener('change', listener);
+    media.addEventListener('change', update);
+    return () => media.removeEventListener('change', update);
   }, [dpr]);
 
   const [remSize, setRemSize] = useState<number | null>(null);
   useEffect(() => {
-    const get = () => parseFloat(getComputedStyle(document.documentElement).fontSize);
-    const rem = get();
-    setRemSize(rem);
-    if (rendererRef.current) rendererRef.current.remSize = rem;
-    const listener = () => setRemSize(get());
-    window.addEventListener('resize', listener);
-    return () => window.removeEventListener('resize', listener);
+    const upd = () => setRemSize(parseFloat(getComputedStyle(document.documentElement).fontSize));
+    upd();
+    window.addEventListener('resize', upd);
+    return () => window.removeEventListener('resize', upd);
   }, []);
 
+  const scaleRef = useRef<AsciiCanvasRenderer['scale'] | null>(null);
+  if (dpr != null && remSize != null) {
+    scaleRef.current = { dpr, remSize };
+  }
+  const ready = scaleRef.current != null;
 
   useEffect(() => {
     let canceled = false;
@@ -168,19 +168,18 @@ export default function AsciiCanvas({
       await Promise.all(fonts.map((font) => font.load()));
       if (canceled) return;
       fonts.forEach((font) => document.fonts.add(font));
+    })().then(() => {
       // Initialize the canvas only once the fonts are ready
-      if (!canvasRef.current || !dpr || !remSize) return;
-      renderer = new AsciiCanvasRenderer(canvasRef.current, heading, subheading, dpr, remSize);
-      rendererRef.current = renderer;
+      if (!canvasRef.current || !scaleRef.current) return;
+      renderer = new AsciiCanvasRenderer(canvasRef.current, heading, subheading, scaleRef.current);
       renderer.start();
-    })();
+    });
 
     return () => {
       canceled = true;
       if (renderer) renderer.stop();
-      rendererRef.current = null;
     };
-  });
+  }, [heading, subheading, ready]);
 
 
   return (
