@@ -50,11 +50,22 @@ export default function generateSDF(
   );
   const out = new Uint8ClampedArray(finalWidth * finalHeight);
 
+  // The maximum value observed at the “border” of any SDF is the step that’s safe to use out of
+  // bounds of the component glyphs.
+  let borderMax = 0;
+
   let x = 0;
   for (let i = 0; i < glyphs.length; i += 1) {
     const glyph = glyphs[i]!;
     for (let glyphRow = 0; glyphRow < glyph.height; glyphRow += 1) {
       for (let glyphCol = 0; glyphCol < glyph.width; glyphCol += 1) {
+        // Update borderMax
+        const yBorder = glyphRow === 0 || glyphRow === glyph.height - 1;
+        const xBorder = glyphCol === 0 || glyphCol === glyph.width - 1;
+        if (xBorder || yBorder) {
+          borderMax = Math.max(borderMax, glyph.data[glyphRow * glyph.width + glyphCol]!);
+        }
+        // Copy data
         const glyphDataIdx = glyphRow * glyph.width + glyphCol;
         const outRow = (tinySdf.size - glyph.glyphTop - tinySdf.buffer * 4) + glyphRow;
         const outCol = Math.round(x) + glyphCol;
@@ -63,6 +74,11 @@ export default function generateSDF(
       }
     }
     x += glyph.glyphAdvance + (kernings[i] ?? 0);
+  }
+
+  // The default 0 might be too big a jump; use borderMax instead
+  for (let i = 0; i < out.length; i += 1) {
+    out[i] = Math.max(out[i]!, borderMax);
   }
 
   return { width: finalWidth, height: finalHeight, data: out };
