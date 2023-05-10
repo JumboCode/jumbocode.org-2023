@@ -25,10 +25,16 @@ class AsciiCanvasRenderer {
   private wideGamut: boolean;
   private green: [number, number, number];
   headingSdf: ReturnType<typeof generateSDF>;
+  headingSdfTexture: WebGLTexture;
   subheadingSdf: ReturnType<typeof generateSDF>;
+  subheadingSdfTexture: WebGLTexture;
 
   lightProgram: WebGLProgram;
-  lightUniforms: { resolution: WebGLUniformLocation | null };
+  lightUniforms: {
+    resolution: WebGLUniformLocation | null,
+    headingSdf: WebGLUniformLocation | null,
+    subheadingSdf: WebGLUniformLocation | null,
+  };
   vao: WebGLVertexArrayObject;
 
   constructor(
@@ -71,6 +77,8 @@ class AsciiCanvasRenderer {
     this.lightProgram = lightProgram;
     this.lightUniforms = {
       resolution: gl.getUniformLocation(lightProgram, 'u_resolution'), // vec2
+      headingSdf: gl.getUniformLocation(lightProgram, 'u_headingSdf'), // sampler2D
+      subheadingSdf: gl.getUniformLocation(lightProgram, 'u_subheadingSdf'), // sampler2D
     };
 
     const vao = gl.createVertexArray();
@@ -86,7 +94,30 @@ class AsciiCanvasRenderer {
     const aPosition = gl.getAttribLocation(this.lightProgram, 'a_position');
     gl.enableVertexAttribArray(aPosition);
     gl.vertexAttribPointer(aPosition, 2, gl.FLOAT, false, 0, 0);
+
+    // Generate textures for SDFs
+    const headingSdfTexture = gl.createTexture();
+    if (!headingSdfTexture) throw new Error('couldn’t create heading texture');
+    gl.bindTexture(gl.TEXTURE_2D, headingSdfTexture);
+    gl.pixelStorei(gl.UNPACK_ALIGNMENT, 1);
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.R8, this.headingSdf.width, this.headingSdf.height, 0, gl.RED, gl.UNSIGNED_BYTE, this.headingSdf.data); // eslint-disable-line max-len
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+    this.headingSdfTexture = headingSdfTexture;
+
+    const subheadingSdfTexture = gl.createTexture();
+    if (!subheadingSdfTexture) throw new Error('couldn’t create subheading texture');
+    gl.bindTexture(gl.TEXTURE_2D, subheadingSdfTexture);
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.R8, this.subheadingSdf.width, this.subheadingSdf.height, 0, gl.RED, gl.UNSIGNED_BYTE, this.subheadingSdf.data); // eslint-disable-line max-len
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+    this.subheadingSdfTexture = subheadingSdfTexture;
   }
+
 
   /** Generate SDFs for heading and subheading text */
   generateSDFs() {
@@ -127,6 +158,7 @@ class AsciiCanvasRenderer {
     return { headingSdf, subheadingSdf };
   }
 
+
   frame() {
     const { gl } = this;
 
@@ -136,7 +168,16 @@ class AsciiCanvasRenderer {
     gl.clear(gl.COLOR_BUFFER_BIT);
 
     gl.useProgram(this.lightProgram);
+    // Bind textures
+    gl.activeTexture(gl.TEXTURE0);
+    gl.bindTexture(gl.TEXTURE_2D, this.headingSdfTexture);
+    gl.activeTexture(gl.TEXTURE1);
+    gl.bindTexture(gl.TEXTURE_2D, this.subheadingSdfTexture);
+    // Bind uniforms
     gl.uniform2f(this.lightUniforms.resolution, this.width, this.height);
+    gl.uniform1i(this.lightUniforms.headingSdf, 0);
+    gl.uniform1i(this.lightUniforms.subheadingSdf, 1);
+    // Draw
     gl.bindVertexArray(this.vao);
     gl.drawArrays(gl.TRIANGLES, 0, 3);
   }
