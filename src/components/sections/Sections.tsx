@@ -4,23 +4,29 @@ import { assertNever } from 'utils/type-utils';
 import {
   ICallToActionSection,
   ICaseStudySection,
-  IEBoardSection,
-  ISections,
+  IMembersSection,
   IStatsSection,
   IValuesSection,
 } from 'generated/types/contentful';
 import CTASection from './CTASection';
 import CaseStudySection from './CaseStudySection';
 import StatsSection from './StatsSection';
-import EBoardSection from './EBoardSection';
+import MembersSection from './MembersSection';
 import ValuesSection from './ValuesSection';
 
+
+export type Section =
+  | ICallToActionSection
+  | ICaseStudySection
+  | IMembersSection
+  | IStatsSection
+  | IValuesSection;
+
 export interface ISectionsProps {
-  sections: ISections;
+  sections: Section[];
 }
 
-export default function Sections({ sections: { fields } }: ISectionsProps) {
-  const { sections } = fields;
+export default function Sections({ sections }: { sections: Section[] }) {
   return sections ? (
     <>
       {sections.map((section, i) => {
@@ -32,8 +38,8 @@ export default function Sections({ sections: { fields } }: ISectionsProps) {
             return <CaseStudySection key={i} {...(section as ICaseStudySection)} />;
           case 'statsSection':
             return <StatsSection key={i} {...(section as IStatsSection)} />;
-          case 'eBoardSection':
-            return <EBoardSection key={i} {...(section as IEBoardSection)} />;
+          case 'membersSection':
+            return <MembersSection key={i} {...(section as IMembersSection)} />;
           case 'valuesSection':
             return <ValuesSection key={i} {...(section as IValuesSection)} />;
           default:

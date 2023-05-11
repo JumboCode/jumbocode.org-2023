@@ -20,6 +20,7 @@
   "homepage": "https://jumbocode.org/",
   "dependencies": {
     "@contentful/rich-text-html-renderer": "^16.0.4",
+    "@contentful/rich-text-plain-text-renderer": "^16.0.4",
     "@mailchimp/mailchimp_marketing": "^3.0.80",
     "classnames": "^2.3.2",
     "contentful": "^9.3.5",

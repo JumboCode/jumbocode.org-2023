@@ -5,11 +5,11 @@ import styles from './StatsSection.module.scss';
 const cx = classNames.bind(styles);
 
 export default function StatsSection({
-  fields: { catchphrase, statistics },
+  fields: { heading, statistics },
 }: IStatsSection) {
   return (
     <div className={cx('base')}>
-      <h3>{catchphrase}</h3>
+      <h3>{heading}</h3>
       <div className={cx('statistics')}>
         {statistics.map(({ fields: { statistic, description } }) => (
           <div key={statistic} className={cx('statistic')}>

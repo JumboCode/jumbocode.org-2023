@@ -1,20 +1,20 @@
 import React from 'react';
-import { IEBoardSection } from 'generated/types/contentful';
+import { IMembersSection } from 'generated/types/contentful';
 
 import classNames from 'classnames/bind';
-import styles from './EBoardSection.module.scss';
+import styles from './MembersSection.module.scss';
 import ContentfulImage from 'components/ContentfulImage';
 const cx = classNames.bind(styles);
 
-export default function EBoardSection({
-  fields: { boardMembers, heading },
-}: IEBoardSection) {
+export default function MembersSection({
+  fields: { members, heading },
+}: IMembersSection) {
   return (
     <div className={cx('base')}>
       <h3>{heading}</h3>
       <div className={cx('preview-container')}>
-        {boardMembers.map((
-          { sys: { id }, fields: { clubMember: { fields: { name, picture/* , bio */ } }, role } },
+        {members.map((
+          { sys: { id }, fields: { name, picture } },
           i,
         ) => (
           // TODO: make images square and if bio exists make it appear on hover
@@ -24,7 +24,7 @@ export default function EBoardSection({
               <ContentfulImage fill asset={picture} />
             </div>
             <div className={cx('name')}>
-              {role && <p className={cx('role')}>{role}:</p>}
+              {/* {role && <p className={cx('role')}>{role}:</p>} */}
               <p>
                 {name}
               </p>
