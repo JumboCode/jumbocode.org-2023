@@ -5,6 +5,8 @@ import TinySDF from '@mapbox/tiny-sdf';
 export default function generateSDF(
   str: string,
   font: { fontSize: number; fontFamily: string; fontWeight: string; letterSpacing: number; },
+  buffer = Math.ceil(font.fontSize / 8),
+  radius = Math.ceil(font.fontSize / 3),
 ) {
   // Setup
 
@@ -13,8 +15,8 @@ export default function generateSDF(
     fontSize,
     fontFamily,
     fontWeight,
-    buffer: Math.ceil(fontSize / 8),
-    radius: Math.ceil(fontSize / 3),
+    buffer,
+    radius,
     cutoff: 0.25,
   });
 
@@ -81,5 +83,5 @@ export default function generateSDF(
     out[i] = Math.max(out[i]!, borderMax);
   }
 
-  return { width: finalWidth, height: finalHeight, data: out };
+  return { width: finalWidth, height: finalHeight, data: out, buffer, radius };
 }

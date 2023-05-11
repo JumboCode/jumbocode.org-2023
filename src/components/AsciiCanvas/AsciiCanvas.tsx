@@ -28,12 +28,16 @@ class AsciiCanvasRenderer {
   headingSdfTexture: WebGLTexture;
   subheadingSdf: ReturnType<typeof generateSDF>;
   subheadingSdfTexture: WebGLTexture;
+  mousePos: [number, number] = [0, 0];
 
   lightProgram: WebGLProgram;
   lightUniforms: {
     resolution: WebGLUniformLocation | null,
+    mouse: WebGLUniformLocation | null,
     headingSdf: WebGLUniformLocation | null,
+    headingSdfRadius: WebGLUniformLocation | null,
     subheadingSdf: WebGLUniformLocation | null,
+    subheadingSdfRadius: WebGLUniformLocation | null,
   };
   vao: WebGLVertexArrayObject;
 
@@ -77,8 +81,11 @@ class AsciiCanvasRenderer {
     this.lightProgram = lightProgram;
     this.lightUniforms = {
       resolution: gl.getUniformLocation(lightProgram, 'u_resolution'), // vec2
+      mouse: gl.getUniformLocation(lightProgram, 'u_mouse'), // vec2
       headingSdf: gl.getUniformLocation(lightProgram, 'u_headingSdf'), // sampler2D
+      headingSdfRadius: gl.getUniformLocation(lightProgram, 'u_headingSdfRadius'), // float
       subheadingSdf: gl.getUniformLocation(lightProgram, 'u_subheadingSdf'), // sampler2D
+      subheadingSdfRadius: gl.getUniformLocation(lightProgram, 'u_subheadingSdfRadius'), // float
     };
 
     const vao = gl.createVertexArray();
@@ -174,9 +181,13 @@ class AsciiCanvasRenderer {
     gl.activeTexture(gl.TEXTURE1);
     gl.bindTexture(gl.TEXTURE_2D, this.subheadingSdfTexture);
     // Bind uniforms
+    const { dpr } = this.scale;
     gl.uniform2f(this.lightUniforms.resolution, this.width, this.height);
+    gl.uniform2f(this.lightUniforms.mouse, this.mousePos[0] * dpr, this.mousePos[1] * dpr);
     gl.uniform1i(this.lightUniforms.headingSdf, 0);
+    gl.uniform1f(this.lightUniforms.headingSdfRadius, this.headingSdf.radius);
     gl.uniform1i(this.lightUniforms.subheadingSdf, 1);
+    gl.uniform1f(this.lightUniforms.subheadingSdfRadius, this.subheadingSdf.radius);
     // Draw
     gl.bindVertexArray(this.vao);
     gl.drawArrays(gl.TRIANGLES, 0, 3);
@@ -187,6 +198,7 @@ class AsciiCanvasRenderer {
       this.frame();
       this.start();
     });
+    window.addEventListener('mousemove', this.mousemoveListener);
   }
 
   stop() {
@@ -194,11 +206,17 @@ class AsciiCanvasRenderer {
       cancelAnimationFrame(this.rafId);
       this.rafId = null;
     }
+    window.removeEventListener('mousemove', this.mousemoveListener);
   }
 
   get running() { return this.rafId != null; }
   get width() { return this.canvas.width; }
   get height() { return this.canvas.height; }
+
+  mousemoveListener = (e: MouseEvent) => {
+    const rect = this.canvas.getBoundingClientRect();
+    this.mousePos = [e.clientX - rect.left, e.clientY - rect.top];
+  };
 }
 
 
@@ -261,7 +279,7 @@ export default function AsciiCanvas({
       canceled = true;
       if (renderer) renderer.stop();
     };
-  }, [heading, subheading, ready]);
+  }, [heading, subheading, ready, AsciiCanvasRenderer]);
 
 
   return (
