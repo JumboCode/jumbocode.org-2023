@@ -292,6 +292,9 @@ export interface IHomepageFields {
 
   /** Sections */
   sections: ISections;
+
+  /** Page meta */
+  meta: IMeta;
 }
 
 export interface IHomepage extends Entry<IHomepageFields> {
@@ -304,6 +307,36 @@ export interface IHomepage extends Entry<IHomepageFields> {
     contentType: {
       sys: {
         id: 'homepage';
+        linkType: 'ContentType';
+        type: 'Link';
+      };
+    };
+  };
+}
+
+export interface IMetaFields {
+  /** Page title */
+  title: string;
+
+  /** Include title suffix */
+  includeTitleSuffix: boolean;
+
+  /** Page description */
+  description?: string | undefined;
+}
+
+/** Page meta (title, description, etc.) */
+
+export interface IMeta extends Entry<IMetaFields> {
+  sys: {
+    id: string;
+    type: string;
+    createdAt: string;
+    updatedAt: string;
+    locale: string;
+    contentType: {
+      sys: {
+        id: 'meta';
         linkType: 'ContentType';
         type: 'Link';
       };
@@ -545,6 +578,7 @@ export type CONTENT_TYPE =
   | 'eBoardMember'
   | 'eBoardSection'
   | 'homepage'
+  | 'meta'
   | 'pastProjectsPage'
   | 'role'
   | 'sections'
@@ -565,6 +599,7 @@ export type IEntry =
   | IEBoardMember
   | IEBoardSection
   | IHomepage
+  | IMeta
   | IPastProjectsPage
   | IRole
   | ISections

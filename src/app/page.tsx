@@ -2,6 +2,7 @@ import React from 'react';
 import { notFound } from 'next/navigation';
 
 import client from 'content';
+import makeGenerateMetadata from 'content/metadata';
 import { IHomepageFields } from 'generated/types/contentful';
 import { flattenRichText } from 'content/rich-text';
 
@@ -9,7 +10,7 @@ import Hero from 'components/Hero';
 import Sections from 'components/sections/Sections';
 
 
-export default async function Homepage() {
+async function getContent() {
   const entries = await client.getEntries<IHomepageFields>({
     limit: 1,
     order: 'sys.createdAt',
@@ -18,7 +19,15 @@ export default async function Homepage() {
   });
 
   const rawContent = entries.items[0]?.fields ?? notFound();
-  const content = flattenRichText(rawContent, ['subheading']);
+  return flattenRichText(rawContent, ['subheading']);
+}
+
+
+export const generateMetadata = makeGenerateMetadata(getContent);
+
+
+export default async function Homepage() {
+  const content = await getContent();
 
   return (
     <>
