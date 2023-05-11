@@ -38,6 +38,7 @@ class AsciiCanvasRenderer {
     headingSdfRadius: WebGLUniformLocation | null,
     subheadingSdf: WebGLUniformLocation | null,
     subheadingSdfRadius: WebGLUniformLocation | null,
+    green: WebGLUniformLocation | null,
   };
   vao: WebGLVertexArrayObject;
 
@@ -86,6 +87,7 @@ class AsciiCanvasRenderer {
       headingSdfRadius: gl.getUniformLocation(lightProgram, 'u_headingSdfRadius'), // float
       subheadingSdf: gl.getUniformLocation(lightProgram, 'u_subheadingSdf'), // sampler2D
       subheadingSdfRadius: gl.getUniformLocation(lightProgram, 'u_subheadingSdfRadius'), // float
+      green: gl.getUniformLocation(lightProgram, 'u_green'), // vec3
     };
 
     const vao = gl.createVertexArray();
@@ -188,6 +190,7 @@ class AsciiCanvasRenderer {
     gl.uniform1f(this.lightUniforms.headingSdfRadius, this.headingSdf.radius);
     gl.uniform1i(this.lightUniforms.subheadingSdf, 1);
     gl.uniform1f(this.lightUniforms.subheadingSdfRadius, this.subheadingSdf.radius);
+    gl.uniform3f(this.lightUniforms.green, ...this.green);
     // Draw
     gl.bindVertexArray(this.vao);
     gl.drawArrays(gl.TRIANGLES, 0, 3);

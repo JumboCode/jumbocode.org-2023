@@ -11,6 +11,8 @@ uniform float u_headingSdfRadius;
 uniform sampler2D u_subheadingSdf;
 uniform float u_subheadingSdfRadius;
 
+uniform vec3 u_green;
+
 out vec4 fragColor;
 
 const int MAX_STEPS = 500;
@@ -78,6 +80,7 @@ void main() {
   vec2 subheadingTopLeft = center + vec2(-0.49 * subheadingSize.x, 0.5 * allTextSize.y - subheadingSize.y);
 
   float sdfValue = sdf(coord, headingTopLeft, headingSize, subheadingTopLeft, subheadingSize);
+  float text = smoothstep(1., -1., sdfValue);
 
 
   // Draw light
@@ -92,9 +95,9 @@ void main() {
   int steps = 0;
   for (int i = 0; i < MAX_STEPS; i++) {
     steps++;
-    float marchDist = sdf(marchPos, headingTopLeft, headingSize, subheadingTopLeft, subheadingSize);
-    marchPos += toLight * marchDist;
-    if (marchDist < 1.) {
+    float value = sdf(marchPos, headingTopLeft, headingSize, subheadingTopLeft, subheadingSize);
+    marchPos += toLight * max(value, 1.);
+    if (value < 0.) {
       hitText = 1.;
       break;
     }
@@ -107,6 +110,9 @@ void main() {
   }
 
 
+  float light = 1. - distance(lightPos, coord) / max(u_resolution.x, u_resolution.y);
+  light *= hitLight;
+  light = clamp(light, 0.05, 1.);
 
-  fragColor = vec4(vec3(hitLight), 1.);
+  fragColor = vec4(u_green * light + vec3(text, text, text), 1.);
 }
