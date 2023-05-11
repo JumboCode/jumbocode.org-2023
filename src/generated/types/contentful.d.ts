@@ -3,28 +3,6 @@
 import { Asset, Entry } from 'contentful';
 import { Document } from '@contentful/rich-text-types';
 
-export interface IAboutPageFields {
-  /** sections */
-  sections: ISections;
-}
-
-export interface IAboutPage extends Entry<IAboutPageFields> {
-  sys: {
-    id: string;
-    type: string;
-    createdAt: string;
-    updatedAt: string;
-    locale: string;
-    contentType: {
-      sys: {
-        id: 'aboutPage';
-        linkType: 'ContentType';
-        type: 'Link';
-      };
-    };
-  };
-}
-
 export interface IApplyPageFields {
   /** Heading */
   heading: string;
@@ -43,6 +21,9 @@ export interface IApplyPageFields {
 
   /** FAQ */
   faq?: Document | undefined;
+
+  /** Meta */
+  meta: IMeta;
 }
 
 /** Copy that appears on the “apply” page */
@@ -158,7 +139,7 @@ export interface ICaseStudySectionFields {
   caseStudies: ICaseStudy[];
 }
 
-/** Homepage building block for a collection of case study previews */
+/** Section building block that holds a collection of case studies and displays links to each in a grid. */
 
 export interface ICaseStudySection extends Entry<ICaseStudySectionFields> {
   sys: {
@@ -188,6 +169,8 @@ export interface IClubMemberFields {
   bio?: string | undefined;
 }
 
+/** Any single member of JumboCode—a developer, a board member, etc. */
+
 export interface IClubMember extends Entry<IClubMemberFields> {
   sys: {
     id: string;
@@ -213,7 +196,7 @@ export interface ICommunityPartnerContactFields {
   description?: Document | undefined;
 }
 
-/** Content for introducing the community partner signup form */
+/** Content for the page with the community partner sign-up form */
 
 export interface ICommunityPartnerContact
   extends Entry<ICommunityPartnerContactFields> {
@@ -233,15 +216,20 @@ export interface ICommunityPartnerContact
   };
 }
 
-export interface IEBoardMemberFields {
-  /** clubMember */
-  clubMember: IClubMember;
+export interface IMemberInRoleFields {
+  /** Entry title */
+  entryTitle: string;
 
-  /** Role */
-  role: string;
+  /** Member */
+  member: IClubMember;
+
+  /** Role text */
+  roleText: string;
 }
 
-export interface IEBoardMember extends Entry<IEBoardMemberFields> {
+/** A JumboCode Member acting in a specific role. The same JumboCode member might act in two roles in different parts of the site (e.g. a developer on one past project, and the project manager on another). */
+
+export interface IMemberInRole extends Entry<IMemberInRoleFields> {
   sys: {
     id: string;
     type: string;
@@ -250,7 +238,7 @@ export interface IEBoardMember extends Entry<IEBoardMemberFields> {
     locale: string;
     contentType: {
       sys: {
-        id: 'eBoardMember';
+        id: 'memberInRole';
         linkType: 'ContentType';
         type: 'Link';
       };
@@ -258,15 +246,17 @@ export interface IEBoardMember extends Entry<IEBoardMemberFields> {
   };
 }
 
-export interface IEBoardSectionFields {
+export interface IMembersSectionFields {
   /** Heading */
   heading: string;
 
-  /** boardMembers */
-  boardMembers: IEBoardMember[];
+  /** Members */
+  members: IClubMember[];
 }
 
-export interface IEBoardSection extends Entry<IEBoardSectionFields> {
+/** A modular section to show a grid of club members */
+
+export interface IMembersSection extends Entry<IMembersSectionFields> {
   sys: {
     id: string;
     type: string;
@@ -275,38 +265,7 @@ export interface IEBoardSection extends Entry<IEBoardSectionFields> {
     locale: string;
     contentType: {
       sys: {
-        id: 'eBoardSection';
-        linkType: 'ContentType';
-        type: 'Link';
-      };
-    };
-  };
-}
-
-export interface IHomepageFields {
-  /** Heading */
-  heading: string;
-
-  /** Subheading */
-  subheading: string;
-
-  /** Sections */
-  sections: ISections;
-
-  /** Page meta */
-  meta: IMeta;
-}
-
-export interface IHomepage extends Entry<IHomepageFields> {
-  sys: {
-    id: string;
-    type: string;
-    createdAt: string;
-    updatedAt: string;
-    locale: string;
-    contentType: {
-      sys: {
-        id: 'homepage';
+        id: 'membersSection';
         linkType: 'ContentType';
         type: 'Link';
       };
@@ -344,17 +303,32 @@ export interface IMeta extends Entry<IMetaFields> {
   };
 }
 
-export interface IPastProjectsPageFields {
+export interface IPageFields {
+  /** Path */
+  path: string;
+
   /** Heading */
   heading: string;
 
   /** Subheading */
-  subheading: string;
+  subheading: Document;
+
+  /** Meta */
+  meta: IMeta;
+
+  /** Sections */
+  sections: (
+    | ICallToActionSection
+    | ICaseStudySection
+    | IMembersSection
+    | IStatsSection
+    | IValuesSection
+  )[];
 }
 
-/** Heading and subheading text for the page which lists the past projects */
+/** A generic page made up of modular sections (e.g. Home, About, Work) */
 
-export interface IPastProjectsPage extends Entry<IPastProjectsPageFields> {
+export interface IPage extends Entry<IPageFields> {
   sys: {
     id: string;
     type: string;
@@ -363,7 +337,7 @@ export interface IPastProjectsPage extends Entry<IPastProjectsPageFields> {
     locale: string;
     contentType: {
       sys: {
-        id: 'pastProjectsPage';
+        id: 'page';
         linkType: 'ContentType';
         type: 'Link';
       };
@@ -404,38 +378,6 @@ export interface IRole extends Entry<IRoleFields> {
   };
 }
 
-export interface ISectionsFields {
-  /** Sections */
-  sections?:
-    | (
-        | ICallToActionSection
-        | ICaseStudySection
-        | IStatsSection
-        | IEBoardSection
-        | IValuesSection
-      )[]
-    | undefined;
-}
-
-/** Content sections for modular pages (initially homepage and about) */
-
-export interface ISections extends Entry<ISectionsFields> {
-  sys: {
-    id: string;
-    type: string;
-    createdAt: string;
-    updatedAt: string;
-    locale: string;
-    contentType: {
-      sys: {
-        id: 'sections';
-        linkType: 'ContentType';
-        type: 'Link';
-      };
-    };
-  };
-}
-
 export interface IStatisticFields {
   /** Statistic */
   statistic: string;
@@ -443,8 +385,6 @@ export interface IStatisticFields {
   /** Description */
   description: string;
 }
-
-/** Eye-catching statistics for the hero section */
 
 export interface IStatistic extends Entry<IStatisticFields> {
   sys: {
@@ -464,14 +404,14 @@ export interface IStatistic extends Entry<IStatisticFields> {
 }
 
 export interface IStatsSectionFields {
-  /** Attention Grab */
-  catchphrase: string;
+  /** Heading */
+  heading: string;
 
   /** Statistics */
   statistics: IStatistic[];
 }
 
-/** Stats section for the about page */
+/** Section that shows a few eye-catching statistics */
 
 export interface IStatsSection extends Entry<IStatsSectionFields> {
   sys: {
@@ -483,31 +423,6 @@ export interface IStatsSection extends Entry<IStatsSectionFields> {
     contentType: {
       sys: {
         id: 'statsSection';
-        linkType: 'ContentType';
-        type: 'Link';
-      };
-    };
-  };
-}
-
-export interface ITeamMemberFields {
-  /** Club Member */
-  clubMember: IClubMember;
-
-  /** Role */
-  role?: string | undefined;
-}
-
-export interface ITeamMember extends Entry<ITeamMemberFields> {
-  sys: {
-    id: string;
-    type: string;
-    createdAt: string;
-    updatedAt: string;
-    locale: string;
-    contentType: {
-      sys: {
-        id: 'teamMember';
         linkType: 'ContentType';
         type: 'Link';
       };
@@ -568,44 +483,36 @@ export interface IValuesSection extends Entry<IValuesSectionFields> {
 }
 
 export type CONTENT_TYPE =
-  | 'aboutPage'
   | 'applyPage'
   | 'callToActionSection'
   | 'caseStudy'
   | 'caseStudySection'
   | 'clubMember'
   | 'communityPartnerContact'
-  | 'eBoardMember'
-  | 'eBoardSection'
-  | 'homepage'
+  | 'memberInRole'
+  | 'membersSection'
   | 'meta'
-  | 'pastProjectsPage'
+  | 'page'
   | 'role'
-  | 'sections'
   | 'statistic'
   | 'statsSection'
-  | 'teamMember'
   | 'value'
   | 'valuesSection';
 
 export type IEntry =
-  | IAboutPage
   | IApplyPage
   | ICallToActionSection
   | ICaseStudy
   | ICaseStudySection
   | IClubMember
   | ICommunityPartnerContact
-  | IEBoardMember
-  | IEBoardSection
-  | IHomepage
+  | IMemberInRole
+  | IMembersSection
   | IMeta
-  | IPastProjectsPage
+  | IPage
   | IRole
-  | ISections
   | IStatistic
   | IStatsSection
-  | ITeamMember
   | IValue
   | IValuesSection;
 
