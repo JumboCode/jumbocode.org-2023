@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 
 import client from 'content';
 import makeGenerateMetadata from 'content/metadata';
-import { IPageFields } from 'generated/types/contentful';
+import { PageSkeleton } from 'generated/types/contentful';
 import { documentToPlainTextString } from '@contentful/rich-text-plain-text-renderer';
 
 import Hero from 'components/Hero';
@@ -11,9 +11,9 @@ import Sections from 'components/sections/Sections';
 
 
 const getContent = cache(async () => {
-  const entries = await client.getEntries<IPageFields>({
+  const entries = await client.withoutUnresolvableLinks.getEntries<PageSkeleton>({
     limit: 1,
-    order: 'sys.createdAt',
+    order: ['sys.createdAt'],
     content_type: 'page',
     include: 10,
     'fields.path': '/',

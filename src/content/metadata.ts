@@ -1,4 +1,4 @@
-import { IMeta } from 'generated/types/contentful';
+import { Meta } from 'generated/types/contentful';
 import type { ResolvingMetadata, Metadata } from 'next';
 
 type GenericParams = { [key: string]: string | string[] };
@@ -13,10 +13,12 @@ type Props<ParamsT extends GenericParams> = [
 ];
 
 export default function makeGenerateMetadata<ParamsT extends GenericParams>(
-  getEntry: (...props: Props<ParamsT>) => Promise<{ meta: IMeta }>,
+  getEntry: (...props: Props<ParamsT>) => Promise<{ meta: Meta<undefined, string> | undefined }>,
 ) {
   return async function generateMetadata(...props: Props<ParamsT>): Promise<Metadata> {
-    const meta = (await getEntry(...props)).meta.fields;
+    const entry = await getEntry(...props);
+    if (!entry.meta) return {};
+    const meta = entry.meta.fields;
     return {
       title: meta.includeTitleSuffix ? meta.title : { absolute: meta.title },
       description: meta.description,

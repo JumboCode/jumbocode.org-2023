@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { IValuesSection } from 'generated/types/contentful';
+import { ValuesSection as ValuesSectionType } from 'generated/types/contentful';
 import ContentfulImage from 'components/ContentfulImage';
 
 import classNames from 'classnames/bind';
@@ -9,27 +9,22 @@ const cx = classNames.bind(styles);
 
 export default function ValuesSection({
   fields: { values },
-}: IValuesSection) {
+}: ValuesSectionType<'WITHOUT_UNRESOLVABLE_LINKS', string>) {
   return (
     <div className={cx('base')}>
       <h3>Our Values</h3>
       <div className={cx('preview-container')}>
-        {values.map(
-          (
-            { fields: { image, heading, body } },
-            i,
-          ) => (
-            <div className={cx('preview')} key={i}>
-              <div className={cx('image')}>
-                {/* TODO: these images are rendering weird :( */}
-                {/* They are in contentful as SVGs */}
-                <ContentfulImage fill asset={image} />
-              </div>
-              <h4>{heading}</h4>
-              <p>{body}</p>
+        {values.map((v) => (v ? (
+          <div className={cx('preview')} key={v.sys.id}>
+            <div className={cx('image')}>
+              {/* TODO: these images are rendering weird :( */}
+              {/* They are in contentful as SVGs */}
+              <ContentfulImage fill asset={v.fields.image} />
             </div>
-          ),
-        )}
+            <h4>{v.fields.heading}</h4>
+            <p>{v.fields.body}</p>
+          </div>
+        ) : null))}
       </div>
     </div>
   );

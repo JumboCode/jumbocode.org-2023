@@ -3,16 +3,16 @@ import { notFound } from 'next/navigation';
 
 import client from 'content';
 import makeGenerateMetadata from 'content/metadata';
-import { IPageFields } from 'generated/types/contentful';
+import { PageSkeleton } from 'generated/types/contentful';
 
 import Sections from 'components/sections/Sections';
 
 
 // “inner” function is cached and has stable key and cached
 const getContentInner = cache(async (path: `/${string}`) => {
-  const entries = await client.getEntries<IPageFields>({
+  const entries = await client.withoutUnresolvableLinks.getEntries<PageSkeleton>({
     limit: 1,
-    order: 'sys.createdAt',
+    order: ['sys.createdAt'],
     content_type: 'page',
     include: 10,
     'fields.path': path,
@@ -44,8 +44,8 @@ export default async function Page({ params }: { params: { path: string[] } }) {
 
 
 export async function generateStaticParams() {
-  const pages = await client.getEntries<IPageFields>({
-    order: 'sys.createdAt',
+  const pages = await client.withoutUnresolvableLinks.getEntries<PageSkeleton>({
+    order: ['sys.createdAt'],
     content_type: 'page',
     limit: 1000,
     'fields.path[ne]': '/', // not equals

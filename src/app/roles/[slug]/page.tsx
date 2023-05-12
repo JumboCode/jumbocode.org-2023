@@ -5,7 +5,7 @@ import Link from 'next/link';
 import client from 'content';
 import parse from 'html-react-parser';
 import { flattenRichText } from 'content/rich-text';
-import type { IRoleFields } from 'generated/types/contentful';
+import type { RoleSkeleton } from 'generated/types/contentful';
 
 import classNames from 'classnames/bind';
 import styles from './page.module.scss';
@@ -18,7 +18,7 @@ interface IRolePageParams {
 }
 
 export default async function Role({ params }: IRolePageParams) {
-  const rolesFound = await client.getEntries<IRoleFields>({
+  const rolesFound = await client.getEntries<RoleSkeleton>({
     limit: 1,
     content_type: 'role',
     include: 10,
@@ -57,7 +57,7 @@ export default async function Role({ params }: IRolePageParams) {
 }
 
 export async function generateStaticParams() {
-  const roles = await client.getEntries<IRoleFields>({
+  const roles = await client.getEntries<RoleSkeleton>({
     limit: 1000,
     content_type: 'role',
     include: 10,
