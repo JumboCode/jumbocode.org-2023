@@ -2,7 +2,7 @@ import React from 'react';
 import { notFound } from 'next/navigation';
 
 import client from 'content';
-import type { ICaseStudyFields } from 'generated/types/contentful';
+import type { CaseStudySkeleton } from 'generated/types/contentful';
 import ContentfulImage from 'components/ContentfulImage';
 
 import classNames from 'classnames/bind';
@@ -16,7 +16,7 @@ interface ICaseStudyPageParams {
 }
 
 export default async function CaseStudy({ params }: ICaseStudyPageParams) {
-  const rolesFound = await client.getEntries<ICaseStudyFields>({
+  const rolesFound = await client.withoutUnresolvableLinks.getEntries<CaseStudySkeleton>({
     limit: 1,
     content_type: 'caseStudy',
     include: 10,
@@ -46,18 +46,22 @@ export default async function CaseStudy({ params }: ICaseStudyPageParams) {
           <div className={cx('team-members')}>
             <h2>Created by</h2>
             <div className={cx('list')}>
-              {fields.teamMembers.map(({ fields: { clubMember, role } }) => (
-                <div key={clubMember.fields.name} className={cx('member')}>
-                  <div className={cx('image')}>
-                    {clubMember.fields.picture && (
-                      <ContentfulImage fill asset={clubMember.fields.picture} />
-                    )}
-                  </div>
-                  <div className={cx('info')}>
-                    <p>{clubMember.fields.name}</p>
-                    <p>{role}</p>
-                  </div>
-                </div>
+              {fields.teamMembers.map((memberInRole) => (
+                (memberInRole && memberInRole.fields.member)
+                  ? (
+                    <div key={memberInRole.sys.id} className={cx('member')}>
+                      <div className={cx('image')}>
+                        {memberInRole.fields.member.fields.picture && (
+                          <ContentfulImage fill asset={memberInRole.fields.member.fields.picture} />
+                        )}
+                      </div>
+                      <div className={cx('info')}>
+                        <p>{memberInRole.fields.member.fields.name}</p>
+                        <p>{memberInRole.fields.roleText}</p>
+                      </div>
+                    </div>
+                  )
+                  : null
               ))}
             </div>
           </div>
@@ -68,14 +72,15 @@ export default async function CaseStudy({ params }: ICaseStudyPageParams) {
 }
 
 export async function generateStaticParams() {
-  const caseStudies = await client.getEntries<ICaseStudyFields>({
+  const caseStudies = await client.getEntries<CaseStudySkeleton>({
     limit: 1000,
     content_type: 'caseStudy',
     include: 10,
   });
-  if (!caseStudies.items.length) throw new Error('No case studies found');
 
   return caseStudies.items.map((caseStudy) => ({
     slug: caseStudy.fields.slug,
   }));
 }
+
+export const revalidate = 60;

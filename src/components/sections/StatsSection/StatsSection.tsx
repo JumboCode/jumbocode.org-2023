@@ -1,22 +1,22 @@
 import React from 'react';
 import classNames from 'classnames/bind';
-import { IStatsSection } from 'generated/types/contentful';
+import { StatsSection as StatsSectionType } from 'generated/types/contentful';
 import styles from './StatsSection.module.scss';
 const cx = classNames.bind(styles);
 
 export default function StatsSection({
-  fields: { catchphrase, statistics },
-}: IStatsSection) {
+  fields: { heading, statistics },
+}: StatsSectionType<'WITHOUT_UNRESOLVABLE_LINKS', string>) {
   return (
     <div className={cx('base')}>
-      <h3>{catchphrase}</h3>
+      <h2>{heading}</h2>
       <div className={cx('statistics')}>
-        {statistics.map(({ fields: { statistic, description } }) => (
-          <div key={statistic} className={cx('statistic')}>
-            <span>{statistic}</span>
-            <div className={cx('description')}>{description}</div>
+        {statistics.map((s) => (s ? (
+          <div key={s.sys.id} className={cx('statistic')}>
+            <span>{s.fields.statistic}</span>
+            <div className={cx('description')}>{s.fields.description}</div>
           </div>
-        ))}
+        ) : null))}
       </div>
     </div>
   );

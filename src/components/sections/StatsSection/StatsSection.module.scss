@@ -12,7 +12,8 @@
   align-items: center;
   text-align: center;
 
-  h3 {
+  h2 {
+    @include utils.type-h3;
     margin-bottom: 3rem;
   }
 }
@@ -26,10 +27,12 @@
   margin-right: -5rem;
   flex-wrap: wrap;
 
-  background-image: linear-gradient(155deg, var(--color-green) 18%, rgba(94,59,255,1) 100%);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  @media not (prefers-contrast: more) {
+    background-image: linear-gradient(155deg, var(--color-green) 18%, rgba(94,59,255,1) 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
 
   .statistic {
     flex: 0 0 auto;

@@ -4,7 +4,10 @@ import Footer from 'components/Footer';
 import Nav from 'components/Nav';
 import Frame from 'components/Frame';
 
+import { Analytics } from '@vercel/analytics/react';
+
 import 'styles/global/base.scss';
+
 
 export default function RootLayout({
   children,
@@ -43,9 +46,18 @@ export default function RootLayout({
         </main>
 
         <Footer />
+
+        <Analytics />
       </body>
     </html>
   );
 }
+
+export const metadata = {
+  title: {
+    template: '%s | JumboCode',
+    default: 'JumboCode',
+  },
+};
 
 export const revalidate = 60;

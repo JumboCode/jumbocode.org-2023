@@ -1,5 +1,5 @@
 import React from 'react';
-import { ICallToActionSection } from 'generated/types/contentful';
+import { CallToActionSection } from 'generated/types/contentful';
 
 import Link from 'next/link';
 import OrganizationIcon from './icons/building.svg';
@@ -10,7 +10,7 @@ import styles from './CTASection.module.scss';
 const cx = classNames.bind(styles);
 
 
-export default function CTASection({ fields }: ICallToActionSection) {
+export default function CTASection({ fields }: CallToActionSection<undefined, string>) {
   return (
     <div className={cx('base')}>
       <div className={cx('primary')}>

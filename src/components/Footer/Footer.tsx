@@ -34,16 +34,16 @@ export default function Footer() {
 
 
       <div className={cx('social-links')}>
-        <a href="https://www.facebook.com/JumboCode/" target="_blank" rel="noopener noreferrer">
+        <a aria-label="Facebook" href="https://www.facebook.com/JumboCode/" target="_blank" rel="noopener noreferrer">
           <FacebookLogo />
         </a>
-        <a href="https://www.instagram.com/JumboCode/" target="_blank" rel="noopener noreferrer">
+        <a aria-label="Instagram" href="https://www.instagram.com/JumboCode/" target="_blank" rel="noopener noreferrer">
           <InstagramLogo />
         </a>
-        <a href="https://www.linkedin.com/company/tuftsjumbocode" target="_blank" rel="noopener noreferrer">
+        <a aria-label="LinkedIn" href="https://www.linkedin.com/company/tuftsjumbocode" target="_blank" rel="noopener noreferrer">
           <LinkedinLogo />
         </a>
-        <a href="https://github.com/jumbocode" target="_blank" rel="noopener noreferrer">
+        <a aria-label="GitHub" href="https://github.com/jumbocode" target="_blank" rel="noopener noreferrer">
           <GithubLogo />
         </a>
       </div>

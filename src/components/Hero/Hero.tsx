@@ -1,6 +1,6 @@
 import React from 'react';
-import FullWidthHeading from 'components/FullWidthHeading/FullWidthHeading';
 import AsciiCanvas from 'components/AsciiCanvas/AsciiCanvas';
+import FullWidthHeading from 'components/FullWidthHeading';
 
 import classNames from 'classnames/bind';
 import styles from './Hero.module.scss';

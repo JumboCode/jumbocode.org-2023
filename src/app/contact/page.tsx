@@ -3,7 +3,7 @@ import PartnerSignup from 'components/PartnerSignup';
 import { notFound } from 'next/navigation';
 
 import client from 'content';
-import { ICommunityPartnerContactFields } from 'generated/types/contentful';
+import { CommunityPartnerContactSkeleton } from 'generated/types/contentful';
 import { flattenRichText } from 'content/rich-text';
 import parse from 'html-react-parser';
 
@@ -12,9 +12,9 @@ import styles from './page.module.scss';
 const cx = classNames.bind(styles);
 
 export default async function ContactPage() {
-  const entries = await client.getEntries<ICommunityPartnerContactFields>({
+  const entries = await client.getEntries<CommunityPartnerContactSkeleton>({
     limit: 1,
-    order: 'sys.createdAt',
+    order: ['sys.createdAt'],
     content_type: 'communityPartnerContact',
     include: 10,
   });
@@ -23,7 +23,7 @@ export default async function ContactPage() {
   const { fields: rawFields } = contactPage;
   const fields = flattenRichText(rawFields, [
     'description',
-  ]) as ICommunityPartnerContactFields & { description: string };
+  ]);
 
   return (
     <div className={cx('base')}>
@@ -33,3 +33,5 @@ export default async function ContactPage() {
     </div>
   );
 }
+
+export const revalidate = 60;

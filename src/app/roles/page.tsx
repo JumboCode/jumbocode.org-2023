@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 
 import client from 'content';
-import type { IApplyPageFields } from 'generated/types/contentful';
+import type { ApplyPageSkeleton } from 'generated/types/contentful';
 import parse from 'html-react-parser';
 
 import { notFound } from 'next/navigation';
@@ -15,9 +15,9 @@ import styles from './page.module.scss';
 const cx = classNames.bind(styles);
 
 export default async function RolesListPage() {
-  const entries = await client.getEntries<IApplyPageFields>({
+  const entries = await client.withoutUnresolvableLinks.getEntries<ApplyPageSkeleton>({
     limit: 1,
-    order: 'sys.createdAt',
+    order: ['sys.createdAt'],
     content_type: 'applyPage',
     include: 10,
   });
@@ -28,11 +28,7 @@ export default async function RolesListPage() {
     'subheading',
     'learnMore',
     'faq',
-  ]) as IApplyPageFields & {
-    subheading: string;
-    learnMore: string | undefined;
-    faq: string | undefined;
-  };
+  ]);
 
   return (
     <div className={cx('base')}>
@@ -43,19 +39,19 @@ export default async function RolesListPage() {
       <div className={cx('carousel')}>
         {!fields.pictures
           ? null
-          : fields.pictures.map((picture) => (
+          : fields.pictures.map((picture) => (picture ? (
             <div className={cx('image')} key={picture.sys.id}>
               <ContentfulImage fill asset={picture} />
             </div>
-          ))}
+          ) : null))}
       </div>
 
       <h2 className={cx('roles-header')}>Our Roles</h2>
-      {fields.roles.map(({ sys: { id }, fields: { name, slug } }) => (
-        <Link href={`/roles/${slug}`} key={id} className={cx('role-item')}>
-          <h3>{name}</h3>
+      {fields.roles.map((role) => (role ? (
+        <Link href={`/roles/${role.fields.slug}`} key={role.sys.id} className={cx('role-item')}>
+          <h3>{role.fields.name}</h3>
         </Link>
-      ))}
+      ) : null))}
 
       {fields.learnMore && (
         <div className={cx('learn-more')}>{parse(fields.learnMore)}</div>
@@ -72,3 +68,5 @@ export default async function RolesListPage() {
     </div>
   );
 }
+
+export const revalidate = 60;
