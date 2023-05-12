@@ -2,8 +2,6 @@ import React from 'react';
 import Link from 'next/link';
 import NavLink from 'components/NavLink';
 
-import type { Route } from 'next';
-
 import Logo from 'assets/jc-logo.svg';
 
 import unboundClassNames from 'classnames';
