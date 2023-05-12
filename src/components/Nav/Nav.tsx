@@ -29,7 +29,7 @@ const links = [
     path: '/contact',
     name: 'Contact',
   },
-] satisfies ({ path: Route, name: string })[];
+] as const;
 
 
 export default function Nav({
