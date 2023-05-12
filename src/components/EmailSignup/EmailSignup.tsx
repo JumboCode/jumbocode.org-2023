@@ -22,7 +22,7 @@ export default function EmailSignup({
       onSubmit={(e) => {
         e.preventDefault();
         if (onSubmit) onSubmit(email);
-        fetch('/email-signup', {
+        fetch('/api/email-signup', {
           method: 'post',
           body: JSON.stringify({ email }),
           headers: { 'Content-Type': 'application/json' },

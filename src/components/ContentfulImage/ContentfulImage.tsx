@@ -26,7 +26,7 @@ export default function ContentfulImage({
           width: loaderWidth.toString(),
           quality: quality.toString(),
         });
-        return `/image?${query.toString()}`;
+        return `/api/image?${query.toString()}`;
       }}
 
       {...props}

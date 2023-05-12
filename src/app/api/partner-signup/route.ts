@@ -1,29 +1,20 @@
 import z from 'zod';
 
+if (!process.env.AIRTABLE_PAT) throw new Error('Airtable API key not defined');
 const apiKey = process.env.AIRTABLE_PAT;
-if (!apiKey) {
-  throw new Error('Airtable API key not defined');
-}
 
+if (!process.env.AIRTABLE_BASE_ID) throw new Error('Airtable base ID not defined');
 const baseId = process.env.AIRTABLE_BASE_ID;
-if (!baseId) {
-  throw new Error('Airtable base ID not defined');
-}
 
+if (!process.env.AIRTABLE_TABLE_ID) throw new Error('Airtable table ID not defined');
 const tableId = process.env.AIRTABLE_TABLE_ID;
-if (!tableId) {
-  throw new Error('Airtable table ID not defined');
-}
 
+if (!process.env.AIRTABLE_VIEW_ID) throw new Error('Airtable view ID not defined');
 const viewId = process.env.AIRTABLE_VIEW_ID;
-if (!viewId) {
-  throw new Error('Airtable view ID not defined');
-}
 
+if (!process.env.AIRTABLE_VIEW_ID) throw new Error('Slack webhook url undefined');
 const webhookUrl = process.env.SLACK_WEBHOOK_URL;
-if (!webhookUrl) {
-  throw new Error('Slack webhook url undefined');
-}
+
 
 export async function POST(req: Request) {
   const body = await req.json();

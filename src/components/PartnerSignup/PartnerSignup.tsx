@@ -31,7 +31,7 @@ export default function PartnerSignup({
           onSubmit={(e) => {
             e.preventDefault();
             if (onSubmit) onSubmit(email);
-            fetch('/partner-signup', {
+            fetch('/api/partner-signup', {
               method: 'post',
               body: JSON.stringify(website.length > 0 ? {
                 organizationName,
