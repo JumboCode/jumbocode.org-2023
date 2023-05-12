@@ -9,7 +9,7 @@ export default function StatsSection({
 }: IStatsSection) {
   return (
     <div className={cx('base')}>
-      <h3>{heading}</h3>
+      <h2>{heading}</h2>
       <div className={cx('statistics')}>
         {statistics.map(({ fields: { statistic, description } }) => (
           <div key={statistic} className={cx('statistic')}>

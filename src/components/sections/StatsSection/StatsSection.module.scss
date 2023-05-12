@@ -12,7 +12,8 @@
   align-items: center;
   text-align: center;
 
-  h3 {
+  h2 {
+    @include utils.type-h3;
     margin-bottom: 3rem;
   }
 }
