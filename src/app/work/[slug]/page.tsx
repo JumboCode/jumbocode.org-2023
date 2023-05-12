@@ -82,3 +82,5 @@ export async function generateStaticParams() {
     slug: caseStudy.fields.slug,
   }));
 }
+
+export const revalidate = 60;

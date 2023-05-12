@@ -68,3 +68,5 @@ export default async function RolesListPage() {
     </div>
   );
 }
+
+export const revalidate = 60;

@@ -68,3 +68,5 @@ export async function generateStaticParams() {
     slug: role.fields.slug,
   }));
 }
+
+export const revalidate = 60;

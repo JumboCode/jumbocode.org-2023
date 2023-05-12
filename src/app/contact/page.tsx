@@ -33,3 +33,5 @@ export default async function ContactPage() {
     </div>
   );
 }
+
+export const revalidate = 60;

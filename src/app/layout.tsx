@@ -46,11 +46,11 @@ export default function RootLayout({
   );
 }
 
-export const revalidate = 60;
-
 export const metadata = {
   title: {
     template: '%s | JumboCode',
     default: 'JumboCode',
   },
 };
+
+export const revalidate = 60;
