@@ -2,6 +2,8 @@ import React from 'react';
 import FullWidthHeading from 'components/FullWidthHeading';
 import Balancer from 'react-wrap-balancer';
 
+import GolCanvas from 'components/GolCanvas';
+
 import classNames from 'classnames/bind';
 import styles from './Hero.module.scss';
 const cx = classNames.bind(styles);
@@ -20,6 +22,7 @@ export default function Hero({
         <FullWidthHeading level={1}>{heading}</FullWidthHeading>
         <p><Balancer>{subheading}</Balancer></p>
       </div>
+      <GolCanvas className={cx('canvas')} />
     </div>
   );
 }
