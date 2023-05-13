@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import useElementSize from 'hooks/element-size';
 import z from 'zod';
 
@@ -12,6 +12,11 @@ import styles from './GolCanvas.module.scss';
 import classNames from 'classnames';
 
 
+function getRemSize() {
+  return parseFloat(getComputedStyle(document.documentElement).fontSize);
+}
+
+
 class GOLCanvasRenderer {
   private rafId: ReturnType<typeof requestAnimationFrame> | null = null;
   private gl: WebGL2RenderingContext;
@@ -21,9 +26,13 @@ class GOLCanvasRenderer {
   private mainProgram: WebGLProgram & {
     uniforms: {
       resolution: WebGLUniformLocation | null;
+      gridSize: WebGLUniformLocation | null;
     };
   };
   private vao: WebGLVertexArrayObject;
+
+  public dpr = window.devicePixelRatio;
+  public remSize: number;
 
 
   constructor(private readonly canvas: HTMLCanvasElement) {
@@ -55,6 +64,7 @@ class GOLCanvasRenderer {
     this.mainProgram = Object.assign(mainProgram, {
       uniforms: {
         resolution: gl.getUniformLocation(mainProgram, 'u_resolution'),
+        gridSize: gl.getUniformLocation(mainProgram, 'u_gridSize'),
       },
     });
 
@@ -71,7 +81,10 @@ class GOLCanvasRenderer {
     const aPosition = gl.getAttribLocation(this.mainProgram, 'a_position');
     gl.enableVertexAttribArray(aPosition);
     gl.vertexAttribPointer(aPosition, 2, gl.FLOAT, false, 0, 0);
+
+    this.remSize = getRemSize();
   }
+
 
   frame() {
     const { gl } = this;
@@ -83,16 +96,19 @@ class GOLCanvasRenderer {
 
     gl.useProgram(this.mainProgram);
     gl.uniform2f(this.mainProgram.uniforms.resolution, this.width, this.height);
+    gl.uniform2i(this.mainProgram.uniforms.gridSize, this.gridWidth, this.gridHeight);
 
     gl.bindVertexArray(this.vao);
     gl.drawArrays(gl.TRIANGLES, 0, 3);
   }
+
 
   start() {
     this.rafId = requestAnimationFrame(() => {
       this.frame();
       this.start();
     });
+    window.addEventListener('resize', this.updateRemSize);
   }
 
   stop() {
@@ -100,11 +116,21 @@ class GOLCanvasRenderer {
       cancelAnimationFrame(this.rafId);
       this.rafId = null;
     }
+    window.removeEventListener('resize', this.updateRemSize);
   }
+
 
   get running() { return this.rafId != null; }
   get width() { return this.canvas.width; }
   get height() { return this.canvas.height; }
+
+
+  get approxGridCellHeight() { return this.remSize * 1.1; }
+  get approxGridCellWidth() { return this.approxGridCellHeight * 0.85; }
+  get gridHeight() { return Math.round(this.height / this.dpr / this.approxGridCellHeight); }
+  get gridWidth() { return Math.round(this.width / this.dpr / this.approxGridCellWidth); }
+
+  updateRemSize = () => { this.remSize = getRemSize(); };
 }
 
 
@@ -112,31 +138,50 @@ export default function GolCanvas({
   className,
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) {
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const rendererRef = useRef<GOLCanvasRenderer | null>(null);
+
+  // Measurements
+
   const [baseRef, [width, height]] = useElementSize();
-  type DimensionsUnion = { ready: true, width: number, height: number } | { ready: false };
-  const dimensions: DimensionsUnion = (width != null && height != null && width > 0 && height > 0)
-    ? { ready: true, width, height }
+
+  const [dpr, setDpr] = useState<number | null>(null);
+  if (rendererRef.current && dpr) rendererRef.current.dpr = dpr;
+  useEffect(() => {
+    const update = () => setDpr(window.devicePixelRatio);
+    update();
+    const media = window.matchMedia(`(resolution: ${window.devicePixelRatio}dppx)`);
+    media.addEventListener('change', update);
+    return () => media.removeEventListener('change', update);
+  }, [dpr]);
+
+  type DimensionsUnion =
+    | { ready: true, width: number, height: number, dpr: number }
+    | { ready: false };
+  const dimensions: DimensionsUnion = (width && height && dpr)
+    ? { ready: true, width, height, dpr }
     : { ready: false };
 
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  // Renderer initialization
 
   useEffect(() => {
     if (!canvasRef.current) return undefined;
-    const renderer = new GOLCanvasRenderer(canvasRef.current);
-    renderer.start();
-
+    rendererRef.current = new GOLCanvasRenderer(canvasRef.current);
+    rendererRef.current.start();
     return () => {
-      renderer.stop();
+      if (rendererRef.current) rendererRef.current.stop();
+      rendererRef.current = null;
     };
   }, [dimensions.ready, GOLCanvasRenderer]);
 
+  // Markup
 
   return (
     <div {...props} ref={baseRef} className={classNames(styles.base, className)}>
       {dimensions.ready && (
         <canvas
-          width={dimensions.width * window.devicePixelRatio}
-          height={dimensions.height * window.devicePixelRatio}
+          width={dimensions.width * dimensions.dpr}
+          height={dimensions.height * dimensions.dpr}
           ref={canvasRef}
         />
       )}
