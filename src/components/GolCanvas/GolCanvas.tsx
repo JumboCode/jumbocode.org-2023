@@ -4,6 +4,10 @@ import React, { useRef, useEffect } from 'react';
 import useElementSize from 'hooks/element-size';
 import z from 'zod';
 
+import { makeProgram } from 'utils/shader-utils';
+import passthroughVertexShader from './shaders/passthrough-vert.glsl';
+import mainFragmentShader from './shaders/main-frag.glsl';
+
 import styles from './GolCanvas.module.scss';
 import classNames from 'classnames';
 
@@ -13,7 +17,14 @@ class GOLCanvasRenderer {
   private gl: WebGL2RenderingContext;
   private wideGamut: boolean;
   private green: [number, number, number];
-  mousePos: [number, number] = [0, 0];
+
+  private mainProgram: WebGLProgram & {
+    uniforms: {
+      resolution: WebGLUniformLocation | null;
+    };
+  };
+  private vao: WebGLVertexArrayObject;
+
 
   constructor(private readonly canvas: HTMLCanvasElement) {
     // Create WebGL2 context
@@ -38,6 +49,28 @@ class GOLCanvasRenderer {
           .split(/\s+/)
           .map((s) => parseFloat(s) / (this.wideGamut ? 1 : 255)),
       );
+
+    const mainProgram = makeProgram(gl, passthroughVertexShader, mainFragmentShader);
+    if (!mainProgram) throw new Error('Failed to create GOL program');
+    this.mainProgram = Object.assign(mainProgram, {
+      uniforms: {
+        resolution: gl.getUniformLocation(mainProgram, 'u_resolution'),
+      },
+    });
+
+    const vao = gl.createVertexArray();
+    if (!vao) throw new Error('couldn’t create VAO');
+    this.vao = vao;
+
+    const vertexBuffer = gl.createBuffer();
+    if (!vertexBuffer) throw new Error('couldn’t create vertex buffer');
+    gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, 3, -1, -1, 3, -1]), gl.STATIC_DRAW);
+
+    gl.bindVertexArray(this.vao);
+    const aPosition = gl.getAttribLocation(this.mainProgram, 'a_position');
+    gl.enableVertexAttribArray(aPosition);
+    gl.vertexAttribPointer(aPosition, 2, gl.FLOAT, false, 0, 0);
   }
 
   frame() {
@@ -47,6 +80,12 @@ class GOLCanvasRenderer {
 
     gl.clearColor(0, 0, 0, 0);
     gl.clear(gl.COLOR_BUFFER_BIT);
+
+    gl.useProgram(this.mainProgram);
+    gl.uniform2f(this.mainProgram.uniforms.resolution, this.width, this.height);
+
+    gl.bindVertexArray(this.vao);
+    gl.drawArrays(gl.TRIANGLES, 0, 3);
   }
 
   start() {
