@@ -18,7 +18,10 @@ function getRemSize() {
 
 
 class GOLCanvasRenderer {
+  static FPS = 20;
+
   private rafId: ReturnType<typeof requestAnimationFrame> | null = null;
+  private lastFrameTime: number | null = null;
   private gl: WebGL2RenderingContext;
   private wideGamut: boolean;
   private green: [number, number, number];
@@ -104,8 +107,17 @@ class GOLCanvasRenderer {
 
 
   start() {
-    this.rafId = requestAnimationFrame(() => {
+    if (!this.lastFrameTime) {
       this.frame();
+      this.lastFrameTime = performance.now();
+    }
+
+    this.rafId = requestAnimationFrame(() => {
+      const frameTimeThreshold = 1000 / GOLCanvasRenderer.FPS;
+      if (!this.lastFrameTime || performance.now() - this.lastFrameTime > frameTimeThreshold) {
+        this.lastFrameTime = performance.now();
+        this.frame();
+      }
       this.start();
     });
     window.addEventListener('resize', this.updateRemSize);
