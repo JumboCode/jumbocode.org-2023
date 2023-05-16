@@ -7,6 +7,7 @@ import z from 'zod';
 import { makeProgram } from 'utils/shader-utils';
 import passthroughVertexShader from './shaders/passthrough-vert.glsl';
 import mainFragmentShader from './shaders/main-frag.glsl';
+import golFragmentShader from './shaders/gol-frag.glsl';
 
 import styles from './GolCanvas.module.scss';
 import classNames from 'classnames';
@@ -29,10 +30,20 @@ class GOLCanvasRenderer {
   private mainProgram: WebGLProgram & {
     uniforms: {
       resolution: WebGLUniformLocation | null;
-      gridSize: WebGLUniformLocation | null;
+      gameState: WebGLUniformLocation | null;
     };
   };
+  private golProgram: WebGLProgram & {
+    uniforms: {
+      previousState: WebGLUniformLocation | null;
+    };
+  };
+
   private vao: WebGLVertexArrayObject;
+
+  private readTexture: WebGLTexture;
+  private writeTexture: WebGLTexture;
+  private framebuffer: WebGLFramebuffer;
 
   public dpr = window.devicePixelRatio;
   public remSize: number;
@@ -62,14 +73,52 @@ class GOLCanvasRenderer {
           .map((s) => parseFloat(s) / (this.wideGamut ? 1 : 255)),
       );
 
+    // Measure rem size
+    this.remSize = getRemSize();
+
     const mainProgram = makeProgram(gl, passthroughVertexShader, mainFragmentShader);
     if (!mainProgram) throw new Error('Failed to create GOL program');
     this.mainProgram = Object.assign(mainProgram, {
       uniforms: {
         resolution: gl.getUniformLocation(mainProgram, 'u_resolution'),
-        gridSize: gl.getUniformLocation(mainProgram, 'u_gridSize'),
+        gameState: gl.getUniformLocation(mainProgram, 'u_gameState'),
       },
     });
+    const golProgram = makeProgram(gl, passthroughVertexShader, golFragmentShader);
+    if (!golProgram) throw new Error('Failed to create game of life program');
+    this.golProgram = Object.assign(golProgram, {
+      uniforms: {
+        previousState: gl.getUniformLocation(golProgram, 'u_previousState'),
+      },
+    });
+
+    const readTexture = gl.createTexture();
+    if (!readTexture) throw new Error('couldn’t create read texture');
+    this.readTexture = readTexture;
+    gl.bindTexture(gl.TEXTURE_2D, readTexture);
+    const unpackAlignment: number = gl.getParameter(gl.UNPACK_ALIGNMENT) ?? 4;
+    const paddedRowSize = Math.floor((this.gridWidth + unpackAlignment - 1) / unpackAlignment) * unpackAlignment; // eslint-disable-line max-len
+    const sizeNeeded = paddedRowSize * (this.gridHeight - 1) + this.gridWidth;
+    const rand = new Uint8Array(sizeNeeded);
+    for (let i = 0; i < rand.length; i += 1) rand[i] = Math.random() < 0.5 ? 0 : 255;
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.R8, this.gridWidth, this.gridHeight, 0, gl.RED, gl.UNSIGNED_BYTE, rand); // eslint-disable-line max-len
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+
+    const writeTexture = gl.createTexture();
+    if (!writeTexture) throw new Error('couldn’t create write texture');
+    this.writeTexture = writeTexture;
+    gl.bindTexture(gl.TEXTURE_2D, writeTexture);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+
+    const framebuffer = gl.createFramebuffer();
+    if (!framebuffer) throw new Error('couldn’t create framebuffer');
+    this.framebuffer = framebuffer;
 
     const vao = gl.createVertexArray();
     if (!vao) throw new Error('couldn’t create VAO');
@@ -84,22 +133,46 @@ class GOLCanvasRenderer {
     const aPosition = gl.getAttribLocation(this.mainProgram, 'a_position');
     gl.enableVertexAttribArray(aPosition);
     gl.vertexAttribPointer(aPosition, 2, gl.FLOAT, false, 0, 0);
-
-    this.remSize = getRemSize();
   }
 
 
   frame() {
     const { gl } = this;
 
+    // Run game of life simulation
+    gl.useProgram(this.golProgram);
+    gl.viewport(0, 0, this.gridWidth, this.gridHeight);
+    gl.bindVertexArray(this.vao);
+
+    gl.activeTexture(gl.TEXTURE0);
+    gl.bindTexture(gl.TEXTURE_2D, this.readTexture);
+    gl.uniform1i(this.golProgram.uniforms.previousState, 0);
+
+    gl.bindFramebuffer(gl.FRAMEBUFFER, this.framebuffer);
+    gl.activeTexture(gl.TEXTURE1);
+    gl.bindTexture(gl.TEXTURE_2D, this.writeTexture);
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.R8, this.gridWidth, this.gridHeight, 0, gl.RED, gl.UNSIGNED_BYTE, null); // eslint-disable-line max-len
+    gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, this.writeTexture, 0); // eslint-disable-line max-len
+    gl.drawArrays(gl.TRIANGLES, 0, 3);
+
+    // Swap read and write textures (we want to read from the texture we just wrote to; next frame
+    // we’ll write over the previous read texture).
+    [this.readTexture, this.writeTexture] = [this.writeTexture, this.readTexture];
+
+    // Render to canvas
+    gl.useProgram(this.mainProgram);
+
+    gl.bindFramebuffer(gl.FRAMEBUFFER, null);
     gl.viewport(0, 0, this.width, this.height);
 
     gl.clearColor(0, 0, 0, 0);
     gl.clear(gl.COLOR_BUFFER_BIT);
 
-    gl.useProgram(this.mainProgram);
     gl.uniform2f(this.mainProgram.uniforms.resolution, this.width, this.height);
-    gl.uniform2i(this.mainProgram.uniforms.gridSize, this.gridWidth, this.gridHeight);
+    // Pass game state texture to render
+    gl.activeTexture(gl.TEXTURE0);
+    gl.bindTexture(gl.TEXTURE_2D, this.readTexture);
+    gl.uniform1i(this.mainProgram.uniforms.gameState, 0);
 
     gl.bindVertexArray(this.vao);
     gl.drawArrays(gl.TRIANGLES, 0, 3);
