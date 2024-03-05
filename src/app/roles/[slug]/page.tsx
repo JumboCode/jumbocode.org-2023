@@ -28,12 +28,14 @@ export default async function Role({ params }: IRolePageParams) {
   const fields = flattenRichText(role.fields, ['description']);
 
   function ApplyButton() {
-    return (
-      <a href={role.fields.applicationLink} className={cx('button')}>
-        Apply
-      </a>
-    );
-  } // TODO: usecallback
+    return role.fields.applicationLink
+      ? (
+        <a href={role.fields.applicationLink} className={cx('button')} target="_blank">
+          Apply
+        </a>
+      )
+      : null;
+  }
 
   return (
     <div className={cx('base')}>
