@@ -4,6 +4,26 @@ import React from 'react';
 import { Asset } from 'contentful';
 import Image from 'next/image';
 
+const shimmer = (w: number, h: number) => `
+<svg width="${w}" height="${h}" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <linearGradient id="g">
+      <stop stop-color="#111" offset="20%" />
+      <stop stop-color="#222" offset="50%" />
+      <stop stop-color="#111" offset="70%" />
+    </linearGradient>
+  </defs>
+  <rect width="${w}" height="${h}" fill="#111" />
+  <rect id="r" width="${w}" height="${h}" fill="url(#g)" />
+  <animate xlink:href="#r" attributeName="x" from="-${w}" to="${w}" dur="1s" repeatCount="indefinite"  />
+</svg>`;
+
+const toBase64 = (str: string) => (typeof window === 'undefined'
+  ? Buffer.from(str).toString('base64')
+  : window.btoa(str));
+
+const shimmerData = `svg+xml;base64,${toBase64(shimmer(700, 475))}`;
+
 export default function ContentfulImage({
   asset,
   fill,
@@ -31,6 +51,7 @@ export default function ContentfulImage({
       src={url}
       alt={alt}
       {...fill ? { fill: true } : { width: image.width, height: image.height }}
+      placeholder={`data:image/${shimmerData}`}
 
       loader={({ src: loaderSrc, width: loaderWidth, quality = 75 }) => {
         const query: URLSearchParams = new URLSearchParams({
