@@ -1,5 +1,4 @@
 import React from 'react';
-// import PartnerSignup from 'components/PartnerSignup';
 import { notFound } from 'next/navigation';
 
 import client from 'content';
@@ -29,7 +28,6 @@ export default async function ContactPage() {
     <div className={cx('base')}>
       <h1>{fields.heading}</h1>
       {parse(fields.description)}
-{/*       <PartnerSignup /> */}
     </div>
   );
 }
