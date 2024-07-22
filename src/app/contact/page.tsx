@@ -28,6 +28,8 @@ export default async function ContactPage() {
     <div className={cx('base')}>
       <h1>{fields.heading}</h1>
       {parse(fields.description)}
+      {/* Temporary spacer to make things look alright */}
+      <div style={{ height: 500 }} />
     </div>
   );
 }
