@@ -1,5 +1,5 @@
 import React from 'react';
-import PartnerSignup from 'components/PartnerSignup';
+// import PartnerSignup from 'components/PartnerSignup';
 import { notFound } from 'next/navigation';
 
 import client from 'content';
