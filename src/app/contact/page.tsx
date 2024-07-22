@@ -29,7 +29,7 @@ export default async function ContactPage() {
     <div className={cx('base')}>
       <h1>{fields.heading}</h1>
       {parse(fields.description)}
-      <PartnerSignup />
+{/*       <PartnerSignup /> */}
     </div>
   );
 }
